@@ -345,13 +345,13 @@ Games;44;;;;;;
 
         const card = document.createElement('div');
         card.className = 'champ-card';
-       card.innerHTML = `
-        <img src="${imgPath}" alt="${c["Champion"]}" class="champ-img">
-        <div class="champ-name">${c["Champion"]}</div>
-        <div class="champ-info highlight">Pick: ${c["Pick"]}%</div>
-        <div class="champ-info">Winrate: ${c["Winrate"]}%</div>
-        <div class="champ-info">Banrate: ${c["Banrate"]}%</div>
-      `;
+        card.innerHTML = `
+          <img src="${imageUrl}" alt="${champName}" class="champ-img">
+          <strong>${champName}</strong>
+          <small class="highlight">Pick: ${champ['Picks']}%</small>
+          <small>Winrate: ${champ['Winrate']}</small>
+          <small>Banrate: ${champ['Banrate']}</small>
+        `;
         grid.appendChild(card);
       }
     }
