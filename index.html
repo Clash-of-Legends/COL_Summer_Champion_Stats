@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Statistiky šampionů</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1e1e2f;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ffd700;
+    }
+
+    #games {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #cccccc;
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .champ-card {
+      background-color: #2c2c3c;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .champ-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+    }
+
+    .champ-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .champ-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #ffffff;
+    }
+
+    .champ-card small {
+      display: block;
+      font-size: 12px;
+      color: #aaaaaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>Statistiky šampionů</h1>
+
+  <div id="games">Načítám počet her...</div>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <label for="sortSelect">Řadit podle:</label>
+    <select id="sortSelect">
+      <option value="Picks">Picks</option>
+      <option value="Winrate">Winrate</option>
+      <option value="Banrate">Banrate</option>
+    </select>
+  </div>
+
+  <div id="grid"></div>
+  <script>
+    const csvData = `
+Games;44;;;;;;
+;Champ;Wins;Loses;Picks;Bans;Winrate;Banrate
+;Sejuani;7;6;13;2;54%;5%
+;Xin Zhao;7;5;12;20;58%;45%
+;Smolder;6;6;12;16;50%;36%
+;Ornn;5;6;11;7;45%;16%
+;Syndra;8;3;11;17;73%;39%
+;Orianna;2;9;11;8;18%;18%
+;Kai'Sa;5;5;10;7;50%;16%
+;Gwen;7;2;9;11;78%;25%
+;Wukong;6;3;9;8;67%;18%
+;Varus;6;2;8;1;75%;2%
+;Nami;5;3;8;0;63%;0%
+;Rell;5;3;8;8;63%;18%
+;Jarvan IV;2;6;8;6;25%;14%
+;Maokai;6;2;8;5;75%;11%
+;Shen;5;3;8;4;63%;9%
+;Braum;3;4;7;7;43%;16%
+;Karma;2;5;7;2;29%;5%
+;Tristana;2;5;7;0;29%;0%
+;Azir;4;3;7;8;57%;18%
+;Amumu;3;4;7;5;43%;11%
+;Milio;3;4;7;7;43%;16%
+;Ezreal;3;4;7;1;43%;2%
+;Nautilus;6;1;7;9;86%;20%
+;Sylas;5;2;7;7;71%;16%
+;Jinx;3;3;6;9;50%;20%
+;Lulu;3;3;6;7;50%;16%
+;Yorick;3;3;6;8;50%;18%
+;Olaf;4;2;6;7;67%;16%
+;Jax;2;4;6;5;33%;11%
+;Sivir;3;3;6;2;50%;5%
+;Vladimir;2;3;5;13;40%;30%
+;Yone;3;2;5;11;60%;25%
+;Mel;2;3;5;7;40%;16%
+;Ahri;4;1;5;6;80%;14%
+;Taliyah;2;3;5;6;40%;14%
+;Rakan;1;4;5;3;20%;7%
+;Xayah;5;0;5;2;100%;5%
+;Viktor;2;3;5;5;40%;11%
+;Senna;2;3;5;2;40%;5%
+;Vi;1;3;4;7;25%;16%
+;Lillia;1;3;4;9;25%;20%
+;Thresh;3;1;4;5;75%;11%
+;Lucian;3;1;4;7;75%;16%
+;Mordekaiser;0;4;4;4;0%;9%
+;Tahm Kench;3;1;4;4;75%;9%
+;Ashe;3;1;4;0;75%;0%
+;K'Sante;2;2;4;0;50%;0%
+;Pantheon;3;1;4;3;75%;7%
+;Twitch;2;2;4;2;50%;5%
+;Naafiri;2;2;4;3;50%;7%
+;Neeko;2;2;4;0;50%;0%
+;Darius;3;0;3;7;100%;16%
+;Zyra;2;1;3;5;67%;11%
+;Zac;1;2;3;3;33%;7%
+;Nocturne;1;2;3;2;33%;5%
+;Jhin;2;1;3;2;67%;5%
+;Yuumi;0;3;3;2;0%;5%
+;Trundle;1;2;3;1;33%;2%
+;Zeri;0;3;3;1;0%;2%
+;Gnar;1;2;3;0;33%;0%
+;Volibear;1;2;3;1;33%;2%
+;Renekton;1;2;3;2;33%;5%
+;Udyr;2;1;3;0;67%;0%
+;Soraka;1;2;3;2;33%;5%
+;Poppy;0;2;2;6;0%;14%
+;Malphite;2;0;2;3;100%;7%
+;Sett;0;2;2;3;0%;7%
+;Vex;1;1;2;2;50%;5%
+;Pyke;0;2;2;2;0%;5%
+;Kassadin;1;1;2;1;50%;2%
+;Fiora;0;2;2;2;0%;5%
+;Cho'Gath;1;1;2;1;50%;2%
+;Leona;1;1;2;1;50%;2%
+;Jayce;1;1;2;1;50%;2%
+;Ryze;0;2;2;1;0%;2%
+;Hwei;0;2;2;1;0%;2%
+;Miss Fortune;1;1;2;0;50%;0%
+;Annie;1;1;2;0;50%;0%
+;Corki;1;1;2;0;50%;0%
+;Alistar;1;1;2;0;50%;0%
+;Ivern;1;1;2;8;50%;18%
+;Urgot;1;1;2;0;50%;0%
+;Zoe;0;1;1;7;0%;16%
+;Viego;1;0;1;6;100%;14%
+;Yasuo;1;0;1;5;100%;11%
+;Kindred;1;0;1;4;100%;9%
+;Elise;0;1;1;3;0%;7%
+;Caitlyn;0;1;1;3;0%;7%
+;Master Yi;1;0;1;3;100%;7%
+;Kalista;0;1;1;2;0%;5%
+;Bel'Veth;0;1;1;2;0%;5%
+;Aurora;0;1;1;1;0%;2%
+;Galio;0;1;1;1;0%;2%
+;Sona;0;1;1;1;0%;2%
+;Akali;1;0;1;2;100%;5%
+;Aatrox;0;1;1;1;0%;2%
+;Kayn;1;0;1;1;100%;2%
+;Vel'Koz;1;0;1;1;100%;2%
+;Kennen;1;0;1;0;100%;0%
+;Taric;0;1;1;0;0%;0%
+;Nidalee;1;0;1;0;100%;0%
+;Lissandra;0;1;1;0;0%;0%
+;Sion;1;0;1;0;100%;0%
+;Irelia;0;1;1;0;0%;0%
+;Swain;1;0;1;0;100%;0%
+;Dr. Mundo;0;1;1;1;0%;2%
+;Ekko;0;1;1;0;0%;0%
+;Cassiopeia;1;0;1;0;100%;0%
+;Vayne;0;1;1;0;0%;0%
+;Skarner;;;0;6;#DĚLENÍ_NULOU!;14%
+;Blitzcrank;;;0;5;#DĚLENÍ_NULOU!;11%
+;Draven;;;0;5;#DĚLENÍ_NULOU!;11%
+;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;7%
+;Hecarim;;;0;2;#DĚLENÍ_NULOU!;5%
+;LeBlanc;;;0;2;#DĚLENÍ_NULOU!;5%
+;Aphelios;;;0;2;#DĚLENÍ_NULOU!;5%
+;Seraphine;;;0;1;#DĚLENÍ_NULOU!;2%
+;Aurelion Sol;;;0;1;#DĚLENÍ_NULOU!;2%
+;Camille;;;0;2;#DĚLENÍ_NULOU!;5%
+;Garen;;;0;1;#DĚLENÍ_NULOU!;2%
+;Xerath;;;0;1;#DĚLENÍ_NULOU!;2%
+;Twisted Fate;;;0;1;#DĚLENÍ_NULOU!;2%
+;Akshan;;;0;0;#DĚLENÍ_NULOU!;0%
+;Ambessa;;;0;0;#DĚLENÍ_NULOU!;0%
+;Anivia;;;0;0;#DĚLENÍ_NULOU!;0%
+;Bard;;;0;0;#DĚLENÍ_NULOU!;0%
+;Brand;;;0;0;#DĚLENÍ_NULOU!;0%
+;Briar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Diana;;;0;1;#DĚLENÍ_NULOU!;2%
+;Evelynn;;;0;0;#DĚLENÍ_NULOU!;0%
+;Fiddlesticks;;;0;0;#DĚLENÍ_NULOU!;0%
+;Fizz;;;0;0;#DĚLENÍ_NULOU!;0%
+;Gangplank;;;0;0;#DĚLENÍ_NULOU!;0%
+;Gragas;;;0;0;#DĚLENÍ_NULOU!;0%
+;Graves;;;0;0;#DĚLENÍ_NULOU!;0%
+;Heimerdinger;;;0;0;#DĚLENÍ_NULOU!;0%
+;Illaoi;;;0;0;#DĚLENÍ_NULOU!;0%
+;Janna;;;0;0;#DĚLENÍ_NULOU!;0%
+;Karthus;;;0;0;#DĚLENÍ_NULOU!;0%
+;Katarina;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kayle;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kha'Zix;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kled;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kog'Maw;;;0;0;#DĚLENÍ_NULOU!;0%
+;Lee Sin;;;0;0;#DĚLENÍ_NULOU!;0%
+;Lux;;;0;0;#DĚLENÍ_NULOU!;0%
+;Malzahar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Morgana;;;0;0;#DĚLENÍ_NULOU!;0%
+;Nasus;;;0;0;#DĚLENÍ_NULOU!;0%
+;Nilah;;;0;0;#DĚLENÍ_NULOU!;0%
+;Nunu and Willump;;;0;0;#DĚLENÍ_NULOU!;0%
+;Qiyana;;;0;0;#DĚLENÍ_NULOU!;0%
+;Quinn;;;0;0;#DĚLENÍ_NULOU!;0%
+;Rammus;;;0;0;#DĚLENÍ_NULOU!;0%
+;Rek'Sai;;;0;0;#DĚLENÍ_NULOU!;0%
+;Rengar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Riven;;;0;0;#DĚLENÍ_NULOU!;0%
+;Rumble;;;0;0;#DĚLENÍ_NULOU!;0%
+;Samira;;;0;0;#DĚLENÍ_NULOU!;0%
+;Shaco;;;0;0;#DĚLENÍ_NULOU!;0%
+;Shyvana;;;0;0;#DĚLENÍ_NULOU!;0%
+;Singed;;;0;0;#DĚLENÍ_NULOU!;0%
+;Talon;;;0;0;#DĚLENÍ_NULOU!;0%
+;Teemo;;;0;0;#DĚLENÍ_NULOU!;0%
+;Tryndamere;;;0;0;#DĚLENÍ_NULOU!;0%
+;Veigar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Warwick;;;0;0;#DĚLENÍ_NULOU!;0%
+;Zed;;;0;0;#DĚLENÍ_NULOU!;0%
+;Ziggs;;;0;0;#DĚLENÍ_NULOU!;0%
+;Zilean;;;0;0;#DĚLENÍ_NULOU!;0%
+`.trim();
+
+    const customImagePaths = {
+      "Mel": "images/Mel.jpg",
+      "Aurora": "images/Aurora.jpg",
+      "Ambessa": "images/Ambessa.jpg"
+    };
+
+    const champNameFixes = {
+      "Jarvan IV": "JarvanIV",
+      "Kai'Sa": "Kaisa",
+      "Cho'Gath": "Chogath",
+      "Vel'Koz": "Velkoz",
+      "Bel'Veth": "Belveth",
+      "Kha'Zix": "Khazix",
+      "Renata Glasc": "Renata",
+      "LeBlanc": "Leblanc",
+      "Wukong": "MonkeyKing",
+      "Nunu and Willump": "Nunu",
+      "Dr. Mundo": "DrMundo"
+    };
+
+     let champs = [];
+
+    window.onload = function () {
+      parseCsvAndRender(csvData);
+      document.getElementById('sortSelect').addEventListener('change', () =>
+        renderGrid(document.getElementById('sortSelect').value)
+      );
+    };
+
+    function parseCsvAndRender(text) {
+      const rows = text.trim().split('\n').map(r => r.trim());
+      const headerIndex = rows.findIndex(row => row.startsWith(';Champ'));
+      if (headerIndex === -1) {
+        document.getElementById('games').textContent = 'Chyba: hlavička CSV nenalezena';
+        return;
+      }
+
+      const gamesLine = rows[0].split(';');
+      const totalGames = gamesLine[1] || '?';
+      document.getElementById('games').textContent = `Počet her: ${totalGames}`;
+
+      const headers = rows[headerIndex].split(';').slice(1);
+      const dataRows = rows.slice(headerIndex + 1);
+      champs = [];
+
+      for (const row of dataRows) {
+        const cols = row.split(';').slice(1);
+        if (cols.length < 2 || !cols[0]) continue;
+
+        const champ = Object.fromEntries(headers.map((h, idx) => {
+          let val = cols[idx] || '';
+          if (val.includes('DĚLENÍ_NULOU')) val = '0%';
+          return [h, val];
+        }));
+
+        if (!champ['Champ']) continue;
+        champs.push(champ);
+      }
+
+      renderGrid('Picks');
+    }
+
+    function renderGrid(sortBy) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+
+      champs.sort((a, b) => {
+        const getNumber = val => parseFloat((val || '0').replace('%', '')) || 0;
+        return getNumber(b[sortBy]) - getNumber(a[sortBy]);
+      });
+
+      for (const champ of champs) {
+        const champName = champ['Champ'];
+        let imageUrl = customImagePaths[champName]
+          || `https://ddragon.leagueoflegends.com/cdn/14.10.1/img/champion/${
+              (champNameFixes[champName] || champName.replace(/[^a-zA-Z0-9]/g, ''))
+            }.png`;
+
+        const card = document.createElement('div');
+        card.className = 'champ-card';
+        card.innerHTML = `
+          <img src="${imageUrl}" alt="${champName}" onerror="this.src='https://via.placeholder.com/100?text=No+Img'">
+          <strong>${champName}</strong>
+          <small>Picks: ${champ['Picks'] || 0}</small>
+          <small>Winrate: ${champ['Winrate'] || '0%'}</small>
+          <small>Banrate: ${champ['Banrate'] || '0%'}</small>
+        `;
+        grid.appendChild(card);
+      }
+    }
+  </script>
+</body>
