@@ -67,6 +67,11 @@
       font-size: 12px;
       color: #aaaaaa;
     }
+    .highlight {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 <body>
@@ -340,13 +345,13 @@ Games;44;;;;;;
 
         const card = document.createElement('div');
         card.className = 'champ-card';
-        card.innerHTML = `
-          <img src="${imageUrl}" alt="${champName}" onerror="this.src='https://via.placeholder.com/100?text=No+Img'">
-          <strong>${champName}</strong>
-          <small>Picks: ${champ['Picks'] || 0}</small>
-          <small>Winrate: ${champ['Winrate'] || '0%'}</small>
-          <small>Banrate: ${champ['Banrate'] || '0%'}</small>
-        `;
+       card.innerHTML = `
+        <img src="${imgPath}" alt="${c["Champion"]}" class="champ-img">
+        <div class="champ-name">${c["Champion"]}</div>
+        <div class="champ-info highlight">Pick: ${c["Pick"]}%</div>
+        <div class="champ-info">Winrate: ${c["Winrate"]}%</div>
+        <div class="champ-info">Banrate: ${c["Banrate"]}%</div>
+      `;
         grid.appendChild(card);
       }
     }
