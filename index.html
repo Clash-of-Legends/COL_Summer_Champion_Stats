@@ -71,6 +71,11 @@
       color: #ffd700;
       font-weight: bold;
     }
+	#modal-table th, #modal-table td {
+	  padding: 8px;
+	  text-align: center;
+	}
+
 
 
   </style>
@@ -89,182 +94,760 @@
     </select>
   </div>
 
+<div id="modal" style="display:none; background:#2c2c3c; padding:20px; border-radius:10px; max-width:800px; position:fixed; z-index:1000; top:50%; left:50%; transform:translate(-50%, -50%);">
+  <div style="background:#2c2c3c; padding:20px; border-radius:10px; max-width:600px; margin:auto;">
+    <h2 id="modal-title">Detail šampiona</h2>
+	<table id="modal-table" style="width:100%; border-collapse:collapse; margin-top:20px; text-align:center;">
+      <thead>
+        <tr>
+          <th>Hráč</th><th>Tým</th><th>Enemy</th><th>Výsledek</th><th>K</th><th>D</th><th>A</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div style="text-align:center; margin-top:20px;">
+      <button onclick="closeModal()" style="padding:10px 20px; background:#ffd700; color:black; border:none; border-radius:6px;">Zavřít</button>
+    </div>
+  </div>
+</div>
+
+
   <div id="grid"></div>
   <script>
-    const csvData = `
-Games;56;;;;;;
+	const csvData = `
+	Games;58;;;;;;
 ;Champ;Wins;Loses;Picks;Bans;Winrate;Banrate
-;Smolder;10;6;16;22;63%;39%
-;Sejuani;10;6;16;4;63%;7%
-;Syndra;8;7;15;22;53%;39%
-;Xin Zhao;7;7;14;22;50%;39%
-;Gwen;8;5;13;14;62%;25%
-;Maokai;7;6;13;5;54%;9%
-;Ornn;6;6;12;9;50%;16%
-;Orianna;2;9;11;12;18%;21%
-;Nautilus;10;1;11;10;91%;18%
-;Rell;7;4;11;10;64%;18%
+;Sejuani;10;7;17;4;59%;7%
+;Smolder;11;6;17;22;65%;38%
+;Syndra;8;7;15;23;53%;40%
+;Xin Zhao;7;7;14;22;50%;38%
+;Gwen;8;5;13;14;62%;24%
+;Maokai;8;6;14;6;57%;10%
+;Ornn;6;6;12;10;50%;17%
 ;Kai'Sa;5;6;11;8;45%;14%
-;Wukong;7;3;10;10;70%;18%
-;Sylas;6;4;10;8;60%;14%
-;Xayah;8;2;10;4;80%;7%
+;Nautilus;10;1;11;10;91%;17%
+;Orianna;2;9;11;13;18%;22%
+;Rell;7;4;11;10;64%;17%
+;Sylas;6;4;10;9;60%;16%
 ;Varus;7;3;10;1;70%;2%
-;Ahri;7;2;9;10;78%;18%
-;Braum;4;5;9;8;44%;14%
-;Jarvan IV;2;7;9;6;22%;11%
+;Wukong;7;3;10;10;70%;17%
+;Xayah;9;2;11;4;82%;7%
+;Ahri;7;3;10;10;70%;17%
+;Braum;4;5;9;9;44%;16%
+;Ezreal;3;7;10;1;30%;2%
+;Jarvan IV;3;7;10;6;30%;10%
 ;Shen;5;4;9;4;56%;7%
-;Ezreal;3;6;9;1;33%;2%
-;Jinx;4;4;8;10;50%;18%
-;Yorick;5;3;8;10;63%;18%
-;Azir;5;3;8;10;63%;18%
-;Milio;4;4;8;9;50%;16%
-;Amumu;3;5;8;6;38%;11%
+;Amumu;3;5;8;6;38%;10%
+;Azir;5;3;8;10;63%;17%
+;Jinx;4;5;9;10;44%;17%
 ;Karma;2;6;8;3;25%;5%
-;Rakan;2;6;8;3;25%;5%
-;Nami;5;3;8;1;63%;2%
-;Vladimir;4;3;7;17;57%;30%
-;Lulu;3;4;7;10;43%;18%
-;Jax;3;4;7;6;43%;11%
-;Viktor;4;3;7;6;57%;11%
-;Sivir;3;4;7;2;43%;4%
+;Milio;5;4;9;9;56%;16%
+;Nami;6;3;9;1;67%;2%
+;Rakan;2;7;9;3;22%;5%
+;Yorick;5;3;8;10;63%;17%
+;Jax;3;4;7;8;43%;14%
+;Lulu;3;5;8;10;38%;17%
+;Sivir;3;4;7;2;43%;3%
 ;Tristana;2;5;7;0;29%;0%
-;Mel;2;4;6;11;33%;20%
-;Olaf;4;2;6;9;67%;16%
-;Naafiri;4;2;6;4;67%;7%
+;Viktor;5;3;8;6;63%;10%
+;Vladimir;4;3;7;19;57%;33%
 ;K'Sante;3;3;6;0;50%;0%
-;Yone;3;2;5;14;60%;25%
-;Taliyah;2;3;5;8;40%;14%
-;Zyra;3;2;5;8;60%;14%
-;Thresh;4;1;5;7;80%;13%
-;Vi;1;4;5;7;20%;13%
-;Pantheon;3;2;5;6;60%;11%
+;Mel;2;5;7;12;29%;21%
+;Naafiri;4;2;6;4;67%;7%
+;Olaf;4;2;6;9;67%;16%
+;Ashe;3;2;5;1;60%;2%
+;Pantheon;4;2;6;6;67%;10%
 ;Senna;2;3;5;3;40%;5%
-;Ashe;3;2;5;0;60%;0%
-;Lillia;1;3;4;11;25%;20%
+;Taliyah;2;3;5;8;40%;14%
+;Thresh;4;1;5;7;80%;12%
+;Vi;1;4;5;7;20%;12%
+;Yone;3;3;6;14;50%;24%
+;Zyra;3;2;5;8;60%;14%
+;Dr. Mundo;0;4;4;1;0%;2%
+;Jhin;3;1;4;3;75%;5%
+;Lillia;1;3;4;12;25%;21%
 ;Lucian;3;1;4;8;75%;14%
+;Malphite;4;1;5;3;80%;5%
+;Mordekaiser;0;4;4;4;0%;7%
+;Neeko;2;2;4;1;50%;2%
 ;Poppy;0;4;4;8;0%;14%
 ;Tahm Kench;3;1;4;5;75%;9%
-;Mordekaiser;0;4;4;4;0%;7%
-;Twitch;2;2;4;4;50%;7%
-;Malphite;3;1;4;3;75%;5%
 ;Trundle;2;2;4;3;50%;5%
-;Jhin;3;1;4;3;75%;5%
-;Volibear;2;2;4;2;50%;4%
-;Neeko;2;2;4;1;50%;2%
-;Dr. Mundo;0;4;4;1;0%;2%
-;Darius;3;0;3;11;100%;20%
-;Ivern;2;1;3;8;67%;14%
-;Viego;3;0;3;6;100%;11%
-;Sett;1;2;3;4;33%;7%
-;Master Yi;1;2;3;3;33%;5%
-;Ryze;0;3;3;3;0%;5%
-;Yuumi;0;3;3;3;0%;5%
-;Zac;1;2;3;3;33%;5%
-;Nocturne;1;2;3;2;33%;4%
-;Renekton;1;2;3;2;33%;4%
-;Soraka;1;2;3;2;33%;4%
-;Fiora;1;2;3;2;33%;4%
+;Twitch;2;2;4;6;50%;10%
+;Volibear;2;2;4;2;50%;3%
+;Alistar;1;2;3;0;33%;0%
+;Annie;3;1;4;0;75%;0%
+;Corki;2;1;3;0;67%;0%
+;Darius;3;0;3;11;100%;19%
+;Fiora;1;2;3;2;33%;3%
+;Gnar;1;2;3;0;33%;0%
 ;Hwei;0;3;3;1;0%;2%
 ;Cho'Gath;1;2;3;1;33%;2%
+;Ivern;2;1;3;8;67%;14%
+;Master Yi;1;2;3;3;33%;5%
+;Nocturne;1;2;3;2;33%;3%
+;Renekton;1;2;3;2;33%;3%
+;Ryze;0;3;3;3;0%;5%
+;Sett;1;2;3;4;33%;7%
+;Soraka;1;2;3;2;33%;3%
 ;Udyr;2;1;3;1;67%;2%
-;Zeri;0;3;3;1;0%;2%
-;Alistar;1;2;3;0;33%;0%
-;Annie;2;1;3;0;67%;0%
-;Corki;2;1;3;0;67%;0%
-;Gnar;1;2;3;0;33%;0%
-;Vayne;1;2;3;0;33%;0%
 ;Urgot;1;2;3;0;33%;0%
+;Vayne;1;2;3;0;33%;0%
+;Viego;3;0;3;7;100%;12%
+;Yuumi;0;3;3;4;0%;7%
+;Zac;1;2;3;4;33%;7%
+;Zeri;0;3;3;3;0%;5%
+;Cassiopeia;2;0;2;0;100%;0%
 ;Elise;1;1;2;3;50%;5%
-;Vex;1;1;2;3;50%;5%
-;Jayce;1;1;2;2;50%;4%
-;Kassadin;1;1;2;2;50%;4%
-;Pyke;0;2;2;2;0%;4%
+;Jayce;1;1;2;2;50%;3%
+;Kassadin;1;1;2;2;50%;3%
 ;Leona;1;1;2;1;50%;2%
 ;Miss Fortune;1;1;2;0;50%;0%
+;Pyke;0;2;2;2;0%;3%
 ;Sion;2;0;2;0;100%;0%
-;Cassiopeia;2;0;2;0;100%;0%
-;Draven;1;0;1;7;100%;13%
-;Zoe;0;1;1;7;0%;13%
-;Kindred;1;0;1;6;100%;11%
-;Skarner;0;1;1;6;0%;11%
-;Yasuo;1;0;1;5;100%;9%
-;Caitlyn;0;1;1;3;0%;5%
-;Akali;1;0;1;2;100%;4%
-;Aurora;0;1;1;2;0%;4%
-;Bel'Veth;0;1;1;2;0%;4%
-;Galio;0;1;1;2;0%;4%
-;Kalista;0;1;1;2;0%;4%
-;LeBlanc;1;0;1;2;100%;4%
+;Vex;1;1;2;3;50%;5%
 ;Aatrox;0;1;1;1;0%;2%
-;Irelia;0;1;1;1;0%;2%
-;Kayn;1;0;1;1;100%;2%
-;Sona;0;1;1;1;0%;2%
-;Taric;0;1;1;1;0%;2%
-;Vel'Koz;1;0;1;1;100%;2%
+;Akali;1;0;1;2;100%;3%
 ;Anivia;0;1;1;0;0%;0%
+;Aurora;0;1;1;2;0%;3%
+;Bel'Veth;0;1;1;2;0%;3%
+;Caitlyn;0;1;1;3;0%;5%
+;Draven;1;0;1;7;100%;12%
 ;Ekko;0;1;1;0;0%;0%
+;Galio;0;1;1;2;0%;3%
+;Irelia;0;1;1;1;0%;2%
+;Kalista;0;1;1;2;0%;3%
+;Kayn;1;0;1;1;100%;2%
 ;Kennen;1;0;1;0;100%;0%
+;Kindred;1;1;2;6;50%;10%
+;LeBlanc;1;0;1;2;100%;3%
 ;Lissandra;0;1;1;0;0%;0%
 ;Nidalee;1;0;1;0;100%;0%
 ;Rammus;0;1;1;0;0%;0%
 ;Samira;0;1;1;0;0%;0%
 ;Singed;0;1;1;0;0%;0%
+;Skarner;0;1;1;6;0%;10%
+;Sona;0;1;1;1;0%;2%
 ;Swain;1;0;1;0;100%;0%
+;Taric;0;1;1;1;0%;2%
 ;Teemo;1;0;1;0;100%;0%
+;Vel'Koz;1;0;1;1;100%;2%
+;Yasuo;1;0;1;5;100%;9%
 ;Zed;0;1;1;0;0%;0%
 ;Ziggs;0;1;1;0;0%;0%
-;Blitzcrank;;;0;6;#DĚLENÍ_NULOU!;11%
-;Aurelion Sol;;;0;4;#DĚLENÍ_NULOU!;7%
-;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;5%
-;Aphelios;;;0;2;#DĚLENÍ_NULOU!;4%
-;Camille;;;0;2;#DĚLENÍ_NULOU!;4%
-;Hecarim;;;0;2;#DĚLENÍ_NULOU!;4%
-;Xerath;;;0;2;#DĚLENÍ_NULOU!;4%
+;Zoe;0;1;1;7;0%;12%
 ;Akshan;;;0;1;#DĚLENÍ_NULOU!;2%
-;Diana;;;0;1;#DĚLENÍ_NULOU!;2%
-;Garen;;;0;1;#DĚLENÍ_NULOU!;2%
-;Kayle;;;0;1;#DĚLENÍ_NULOU!;2%
-;Kled;;;0;1;#DĚLENÍ_NULOU!;2%
-;Seraphine;;;0;1;#DĚLENÍ_NULOU!;2%
-;Shaco;;;0;1;#DĚLENÍ_NULOU!;2%
-;Twisted Fate;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Ambessa;;;0;0;#DĚLENÍ_NULOU!;0%
+;Aphelios;;;0;2;#DĚLENÍ_NULOU!;3%
+;Aurelion Sol;;;0;4;#DĚLENÍ_NULOU!;7%
 ;Bard;;;0;0;#DĚLENÍ_NULOU!;0%
+;Blitzcrank;;;0;6;#DĚLENÍ_NULOU!;10%
 ;Brand;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Briar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Camille;;;0;2;#DĚLENÍ_NULOU!;3%
+;Diana;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Evelynn;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Fiddlesticks;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Fizz;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Gangplank;;;0;0;#DĚLENÍ_NULOU!;0%
+;Garen;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Gragas;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Graves;;;0;0;#DĚLENÍ_NULOU!;0%
+;Hecarim;;;0;2;#DĚLENÍ_NULOU!;3%
 ;Heimerdinger;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Illaoi;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Janna;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Karthus;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Katarina;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kayle;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Kha'Zix;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kled;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Kog'Maw;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Lee Sin;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Lux;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Malzahar;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Morgana;;;0;0;#DĚLENÍ_NULOU!;0%
-;Nasus;;;0;0;#DĚLENÍ_NULOU!;0%
+;Nasus;0;1;1;0;0%;0%
 ;Nilah;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Nunu and Willump;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Qiyana;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Quinn;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Rek'Sai;;;0;0;#DĚLENÍ_NULOU!;0%
+;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;5%
 ;Rengar;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Riven;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Rumble;;;0;0;#DĚLENÍ_NULOU!;0%
+;Seraphine;;;0;1;#DĚLENÍ_NULOU!;2%
+;Shaco;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Shyvana;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Talon;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Tryndamere;;;0;0;#DĚLENÍ_NULOU!;0%
+;Twisted Fate;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Veigar;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Warwick;;;0;0;#DĚLENÍ_NULOU!;0%
+;Xerath;;;0;2;#DĚLENÍ_NULOU!;3%
 ;Zilean;;;0;0;#DĚLENÍ_NULOU!;0%
-`.trim();
+	`.trim();
+	const matchData = `
+	Champové;Hráč;Tým;Enemy;Win/Loss;Kills;Deaths;Assists
+	Wukong;Morphed;Chill Capybara;Hunting Sharks;Win;20;0;15
+	Zac;Holub;Loud Parrots;Swift Cheetahs;Win;18;1;8
+	Kaisa;Wodr;Jumpy Kangaroo;Hunting Sharks;Win;17;3;8
+	Maokai;Holub;Loud Parrots;Hunting Sharks;Win;16;3;13
+	Kalista;Stomci;Venomous Snakes;Shy Pandas;Loss;16;4;16
+	Syndra;Lovecoury;Venomous Snakes;Calm Iguana;Win;15;3;11
+	Jhin;Predator;Exotic Monitors;Mighty Tigers;Win;15;7;7
+	Sejuani;Xpepe;Chill Capybara;Hunting Sharks;Win;15;5;18
+	Smolder;Zen;Sneaky Aligators;Fancy Flamingo;Win;14;3;9
+	Shen;Ladik;Fancy Flamingo;Chill Capybara;Win;14;2;18
+	Milio;Mia;Hunting Sharks;Loud Parrots;Loss;14;5;5
+	Azir;Dablik;Fury Bears;Venomous Snakes;Win;14;6;15
+	Azir;Mordecaay;Giant Whales;Swift Cheetahs;Win;13;6;21
+	Pantheon;Dao;Mighty Tigers;Shy Pandas;Loss;13;1;13
+	Vi;Onifus;Calm Iguana;Proud Lions;Win;13;5;15
+	LeBlanc;Nugy;Hungry Wolves;Mighty Tigers;Win;13;4;7
+	Ahri;Zen;Sneaky Aligators;Hunting Sharks;Win;12;1;12
+	Varus;Unshead;Giant Whales;Hunting Sharks;Win;12;4;13
+	Naafiri;Dao;Mighty Tigers;Calm Iguana;Win;12;4;13
+	Vi;Radek;Venomous Snakes;Proud Lions;Loss;12;6;14
+	Wukong;Hajnej;Shy Pandas;Exotic Monitors;Win;12;5;6
+	Sylas;Panda;Jumpy Kangaroo;Chill Capybara;Win;11;2;7
+	Xayah;Wodr;Jumpy Kangaroo;Giant Whales;Win;11;5;9
+	Viego;Kessig;Giant Whales;Swift Cheetahs;Win;11;6;14
+	Xin;Radek;Venomous Snakes;Calm Iguana;Win;11;2;19
+	Syndra;Sajox;Exotic Monitors;Venomous Snakes;Win;11;2;10
+	Braum;Erko;Proud Lions;Calm Iguana;Loss;11;6;11
+	Viktor;Dablik;Fury Bears;Proud Lions;Win;11;3;16
+	Amumu;Onifus;Calm Iguana;Shy Pandas;Win;11;4;19
+	Ksante;Dark;Proud Lions;Venomous Snakes;Win;11;3;1
+	Xayah;Ernie;Shy Pandas;Swift Cheetahs;Win;11;3;9
+	Jarvan IV;Arashid;Jumpy Kangaroo;Hunting Sharks;Win;10;4;21
+	Taliyah;Panda;Jumpy Kangaroo;Giant Whales;Win;10;3;12
+	Xin;Kryštof;Sneaky Aligators;Jumpy Kangaroo;Win;10;3;12
+	Sylas;Zen;Sneaky Aligators;Loud Parrots;Win;10;2;4
+	Corki;Zen;Sneaky Aligators;Giant Whales;Win;10;0;4
+	Xayah;Unshead;Giant Whales;Swift Cheetahs;Win;10;3;17
+	Jax;Ladik;Fancy Flamingo;Hunting Sharks;Win;10;2;8
+	Malphite;Xpepe;Chill Capybara;Swift Cheetahs;Win;10;4;7
+	Yone;Lovecoury;Venomous Snakes;Shy Pandas;Loss;10;6;19
+	Udyr;Dao;Mighty Tigers;Fury Bears;Win;10;2;4
+	Sylas;Dreamer;Calm Iguana;Shy Pandas;Win;10;5;19
+	Ahri;Mabe;Calm Iguana;Exotic Monitors;Win;10;3;14
+	Xayah;Wodr;Jumpy Kangaroo;Loud Parrots;Win;9;6;6
+	Teemo;Kryštof;Sneaky Aligators;Hunting Sharks;Win;9;2;9
+	Smolder;Zen;Sneaky Aligators;Swift Cheetahs;Win;9;6;7
+	Wukong;Kessig;Giant Whales;Jumpy Kangaroo;Loss;9;6;10
+	Syndra;Mordecaay;Giant Whales;Hunting Sharks;Win;9;8;17
+	Smolder;Restricted;Hunting Sharks;Giant Whales;Loss;9;9;6
+	Gwen;Michal;Fancy Flamingo;Hunting Sharks;Win;9;6;6
+	Syndra;Asmo;Fancy Flamingo;Chill Capybara;Win;9;5;15
+	Xin;Morphed;Chill Capybara;Fancy Flamingo;Loss;9;8;12
+	Ornn;Holub;Loud Parrots;Chill Capybara;Win;9;2;12
+	Maokai;Marmelada;Mighty Tigers;Shy Pandas;Loss;9;2;10
+	Maokai;Marmelada;Mighty Tigers;Calm Iguana;Win;9;5;9
+	Azir;Dablik;Fury Bears;Hungry Wolves;Win;9;0;6
+	Xin;Toofast;Hungry Wolves;Calm Iguana;Loss;9;6;9
+	Syndra;Pisslow;Mighty Tigers;Venomous Snakes;Win;9;2;11
+	Maokai;Gabe;Shy Pandas;Venomous Snakes;Win;9;6;12
+	Orianna;Pilot;Shy Pandas;Fury Bears;Win;9;0;5
+	Gnar;Blaze;Hungry Wolves;Exotic Monitors;Win;9;1;10
+	Taliyah;Nugy;Hungry Wolves;Exotic Monitors;Win;9;4;16
+	Rell;Jenikk;Venomous Snakes;Fury Bears;Loss;9;9;22
+	Cassiopea;Nugy;Hungry Wolves;Shy Pandas;Win;9;2;10
+	Viego;Miracle;Proud Lions;Mighty Tigers;Win;9;0;11
+	Smolder;447;Fury Bears;Calm Iguana;Win;9;3;7
+	Cassiopea;Sajox;Exotic Monitors;Mighty Tigers;Win;9;2;10
+	Darius;Dark;Proud Lions;Shy Pandas;Win;9;2;9
+	Kaisa;Astro;Proud Lions;Shy Pandas;Win;9;1;14
+	Sivir;Wodr;Jumpy Kangaroo;Chill Capybara;Win;8;3;13
+	Zyra;Kryštof;Sneaky Aligators;Fancy Flamingo;Win;8;3;13
+	Xin;Kryštof;Sneaky Aligators;Chill Capybara;Win;8;5;8
+	Draven;Valis;Sneaky Aligators;Hunting Sharks;Win;8;0;3
+	Annie;Xeruth;Chill Capybara;Sneaky Aligators;Loss;8;5;8
+	Naafiri;Kessig;Giant Whales;Chill Capybara;Win;8;3;12
+	Sejuani;Skenk;Hunting Sharks;Giant Whales;Loss;8;8;9
+	Hwei;Xeruth;Chill Capybara;Fancy Flamingo;Loss;8;5;6
+	Milio;Monikas;Chill Capybara;Fancy Flamingo;Loss;8;8;18
+	Viktor;Asmo;Fancy Flamingo;Swift Cheetahs;Win;8;3;6
+	Annie;Morphed;Chill Capybara;Swift Cheetahs;Win;8;4;11
+	Ahri;Wensd;Loud Parrots;Chill Capybara;Win;8;5;9
+	Jarvan IV;Sgoob;Loud Parrots;Swift Cheetahs;Win;8;3;11
+	Gwen;Altein;Exotic Monitors;Fury Bears;Win;8;3;2
+	Nocturne;Winník;Exotic Monitors;Fury Bears;Win;8;1;10
+	Sejuani;Houba;Fury Bears;Hungry Wolves;Win;8;0;17
+	Sejuani;Miracle;Proud Lions;Hungry Wolves;Win;8;2;11
+	Yone;Poštolka;Proud Lions;Hungry Wolves;Win;8;3;5
+	Trundle;Dao;Mighty Tigers;Venomous Snakes;Win;8;8;18
+	Vex;Pilot;Shy Pandas;Venomous Snakes;Win;8;7;10
+	Rell;Jenikk;Venomous Snakes;Hungry Wolves;Loss;8;4;3
+	Ahri;Mabe;Calm Iguana;Shy Pandas;Win;8;3;13
+	Syndra;Lovecoury;Venomous Snakes;Fury Bears;Loss;8;6;21
+	Ivern;Toofast;Hungry Wolves;Shy Pandas;Win;8;2;16
+	Sejuani;Onifus;Calm Iguana;Exotic Monitors;Win;8;1;14
+	Ksante;Marmelada;Mighty Tigers;Proud Lions;Loss;8;5;4
+	Mell;Pilot;Shy Pandas;Exotic Monitors;Win;8;4;9
+	Sylas;Pisslow;Mighty Tigers;Exotic Monitors;Loss;8;5;3
+	Varus;Vajtakk;Mighty Tigers;Exotic Monitors;Loss;8;10;6
+	Jayce;Xeruth;Chill Capybara;Hunting Sharks;Win;8;0;17
+	Smolder;Ernie;Shy Pandas;Swift Cheetahs;Win;8;4;7
+	Sejuani;Arashid;Jumpy Kangaroo;Chill Capybara;Win;7;1;13
+	Olaf;Alko;Jumpy Kangaroo;Giant Whales;Win;7;2;5
+	Sylas;Panda;Jumpy Kangaroo;Hunting Sharks;Win;7;4;7
+	Mell;Amith;Swift Cheetahs;Sneaky Aligators;Loss;7;6;5
+	Ornn;Mato;Giant Whales;Hunting Sharks;Win;7;2;22
+	Xin;Kessig;Giant Whales;Hunting Sharks;Win;7;3;14
+	Wukong;Kessig;Giant Whales;Loud Parrots;Win;7;0;10
+	Trundle;Mato;Giant Whales;Chill Capybara;Win;7;3;5
+	Xayah;Lenny;Fancy Flamingo;Giant Whales;Win;7;1;6
+	Taliyah;Kubik;Hunting Sharks;Giant Whales;Loss;7;7;7
+	Pantheon;Moreal;Swift Cheetahs;Giant Whales;Loss;7;7;12
+	Shen;Ladik;Fancy Flamingo;Loud Parrots;Win;7;4;8
+	Chogath;Ladik;Fancy Flamingo;Swift Cheetahs;Win;7;3;5
+	Mordekaiser;Xpepe;Chill Capybara;Loud Parrots;Loss;7;7;3
+	Xin;Sgoob;Loud Parrots;Chill Capybara;Win;7;3;14
+	Jax;Sovaz;Swift Cheetahs;Hunting Sharks;Loss;7;2;4
+	Darius;Moreal;Swift Cheetahs;Hunting Sharks;Loss;7;2;12
+	Syndra;Pilot;Shy Pandas;Mighty Tigers;Win;7;5;4
+	Vladimir;Pisslow;Mighty Tigers;Shy Pandas;Loss;7;0;9
+	Thresh;Jenikk;Venomous Snakes;Calm Iguana;Win;7;5;25
+	Ornn;Dark;Proud Lions;Exotic Monitors;Win;7;2;8
+	Sejuani;Winník;Exotic Monitors;Proud Lions;Loss;7;3;8
+	Lissandra;Sajox;Exotic Monitors;Proud Lions;Loss;7;6;4
+	Ahri;Lovecoury;Venomous Snakes;Mighty Tigers;Loss;7;7;6
+	Ryze;Pilot;Shy Pandas;Calm Iguana;Loss;7;7;5
+	Varus;Eclipse;Calm Iguana;Shy Pandas;Win;7;4;16
+	Amumu;Houba;Fury Bears;Venomous Snakes;Win;7;6;17
+	Jinx;Astro;Proud Lions;Venomous Snakes;Win;7;11;14
+	Yorick;Dark;Proud Lions;Mighty Tigers;Win;7;3;10
+	Xin;Winník;Exotic Monitors;Shy Pandas;Loss;7;7;9
+	Gwen;Alko;Jumpy Kangaroo;Chill Capybara;Win;6;0;1
+	Renekton;Alko;Jumpy Kangaroo;Hunting Sharks;Win;6;0;3
+	Rell;Tee;Jumpy Kangaroo;Fancy Flamingo;Win;6;1;10
+	Yorick;Poli;Sneaky Aligators;Jumpy Kangaroo;Win;6;1;3
+	Sion;Poli;Sneaky Aligators;Swift Cheetahs;Win;6;0;7
+	Wukong;Kryštof;Sneaky Aligators;Loud Parrots;Win;6;2;8
+	Azir;Zen;Sneaky Aligators;Jumpy Kangaroo;Win;6;3;16
+	Varus;Valis;Sneaky Aligators;Giant Whales;Win;6;0;6
+	Tahm Kench;Lama;Sneaky Aligators;Swift Cheetahs;Win;6;3;14
+	Jinx;Unshead;Giant Whales;Jumpy Kangaroo;Loss;6;7;8
+	Jax;Sovaz;Swift Cheetahs;Jumpy Kangaroo;Win;6;0;8
+	Pyke;Plešoun;Fancy Flamingo;Sneaky Aligators;Loss;6;6;3
+	Gwen;Sgoob;Loud Parrots;Sneaky Aligators;Loss;6;6;2
+	Smolder;Unshead;Giant Whales;Chill Capybara;Win;6;2;12
+	Yorick;Ladik;Fancy Flamingo;Giant Whales;Win;6;1;1
+	Nautilus;Mia;Hunting Sharks;Giant Whales;Loss;6;6;12
+	Urgot;Sovaz;Swift Cheetahs;Giant Whales;Loss;6;10;11
+	Ashe;Raiiden;Swift Cheetahs;Giant Whales;Loss;6;7;11
+	Ezreal;Simba;Chill Capybara;Giant Whales;Loss;6;5;5
+	Master Yi;Michal;Fancy Flamingo;Loud Parrots;Win;6;1;9
+	Lulu;Makima;Loud Parrots;Fancy Flamingo;Loss;6;2;5
+	Olaf;Popo;Hunting Sharks;Fancy Flamingo;Loss;6;7;1
+	Gwen;Michal;Fancy Flamingo;Chill Capybara;Win;6;7;8
+	Mell;Amith;Swift Cheetahs;Chill Capybara;Loss;6;5;4
+	Kennen;Wensd;Loud Parrots;Hunting Sharks;Win;6;4;3
+	Taliyah;Mabe;Calm Iguana;Venomous Snakes;Loss;6;9;5
+	Neeko;Dreamer;Calm Iguana;Venomous Snakes;Loss;6;9;7
+	Rakan;Jenikk;Venomous Snakes;Exotic Monitors;Loss;6;8;8
+	Sejuani;Winník;Exotic Monitors;Venomous Snakes;Win;6;1;18
+	Ornn;Dark;Proud Lions;Hungry Wolves;Win;6;4;11
+	Nidalee;Dreamer;Calm Iguana;Proud Lions;Win;6;5;15
+	Yone;Poštolka;Proud Lions;Exotic Monitors;Win;6;6;8
+	Karma;Hani;Mighty Tigers;Venomous Snakes;Win;6;4;18
+	Tahm Kench;Kipek;Hungry Wolves;Exotic Monitors;Win;6;3;17
+	Lulu;Muffi;Shy Pandas;Calm Iguana;Loss;6;7;10
+	Dr. Mundo;Bucko;Venomous Snakes;Fury Bears;Loss;6;5;6
+	Milio;Muffi;Shy Pandas;Hungry Wolves;Loss;6;5;11
+	Gwen;Miracle;Proud Lions;Venomous Snakes;Win;6;3;12
+	Maokai;Gabe;Shy Pandas;Proud Lions;Loss;6;4;9
+	Annie;Pilot;Shy Pandas;Swift Cheetahs;Win;6;4;12
+	Nasus;Sovaz;Swift Cheetahs;Shy Pandas;Loss;6;4;5
+	Viktor;Pilot;Shy Pandas;Swift Cheetahs;Win;6;1;14
+	Ezreal;Raiiden;Swift Cheetahs;Shy Pandas;Loss;6;3;1
+	Yorick;Poli;Sneaky Aligators;Chill Capybara;Win;5;2;88
+	Sion;Poli;Sneaky Aligators;Hunting Sharks;Win;5;1;7
+	Zyra;Kryštof;Sneaky Aligators;Swift Cheetahs;Win;5;3;18
+	Senna;Valis;Sneaky Aligators;Jumpy Kangaroo;Win;5;2;14
+	Xayah;Valis;Sneaky Aligators;Fancy Flamingo;Win;5;6;12
+	Elise;Lama;Sneaky Aligators;Hunting Sharks;Win;5;2;13
+	Lillia;Moreal;Swift Cheetahs;Jumpy Kangaroo;Win;5;2;9
+	Ekko;Skenk;Hunting Sharks;Jumpy Kangaroo;Loss;5;8;5
+	Hwei;Wensd;Loud Parrots;Jumpy Kangaroo;Loss;5;3;1
+	Zoe;Lenny;Fancy Flamingo;Sneaky Aligators;Loss;5;3;3
+	Smolder;Simba;Chill Capybara;Sneaky Aligators;Loss;5;5;8
+	Ahri;Mordecaay;Giant Whales;Loud Parrots;Win;5;2;6
+	Ahri;Mordecaay;Giant Whales;Chill Capybara;Win;5;2;14
+	Mell;Asmo;Fancy Flamingo;Loud Parrots;Win;5;3;9
+	Ornn;Holub;Loud Parrots;Fancy Flamingo;Loss;5;2;7
+	Ornn;Xpepe;Chill Capybara;Fancy Flamingo;Loss;5;4;11
+	Vi;Moreal;Swift Cheetahs;Fancy Flamingo;Loss;5;3;8
+	Rakan;Natyna;Swift Cheetahs;Fancy Flamingo;Loss;5;7;7
+	Tristana;Morphed;Chill Capybara;Loud Parrots;Loss;5;2;2
+	Orianna;Kubik;Hunting Sharks;Swift Cheetahs;Win;5;6;6
+	Rell;Dreamer;Calm Iguana;Mighty Tigers;Loss;5;5;10
+	Jarvan IV;Radek;Venomous Snakes;Exotic Monitors;Loss;5;6;6
+	Thresh;Erko;Proud Lions;Hungry Wolves;Win;5;0;19
+	Sejuani;Miracle;Proud Lions;Calm Iguana;Loss;5;7;10
+	Tristana;Poštolka;Proud Lions;Calm Iguana;Loss;5;7;3
+	Kassadin;Mabe;Calm Iguana;Proud Lions;Win;5;0;9
+	Gwen;Miracle;Proud Lions;Exotic Monitors;Win;5;2;10
+	Xin;Radek;Venomous Snakes;Mighty Tigers;Loss;5;5;9
+	Ivern;Radek;Venomous Snakes;Shy Pandas;Loss;5;6;23
+	Maokai;Gabe;Shy Pandas;Fury Bears;Win;5;1;1
+	Ornn;Marmelada;Mighty Tigers;Fury Bears;Win;5;2;5
+	Vladimir;Pisslow;Mighty Tigers;Fury Bears;Win;5;0;6
+	Rell;Děda;Exotic Monitors;Hungry Wolves;Loss;5;7;4
+	Yone;Lagier;Fury Bears;Proud Lions;Win;5;1;6
+	Sejuani;Houba;Fury Bears;Proud Lions;Win;5;2;19
+	Sejuani;Hajnej;Shy Pandas;Calm Iguana;Loss;5;10;9
+	Volibear;Radek;Venomous Snakes;Fury Bears;Loss;5;6;18
+	Maokai;Marmelada;Mighty Tigers;Hungry Wolves;Loss;5;2;2
+	Samira;Pisslow;Mighty Tigers;Hungry Wolves;Loss;5;4;3
+	Vladimir;Poštolka;Proud Lions;Mighty Tigers;Win;5;1;5
+	Thresh;Erko;Proud Lions;Mighty Tigers;Win;5;3;15
+	Sejuani;Houba;Fury Bears;Calm Iguana;Win;5;2;14
+	Syndra;Mabe;Calm Iguana;Fury Bears;Loss;5;6;4
+	Zeri;Ernie;Shy Pandas;Proud Lions;Loss;5;5;8
+	Yorick;Popo;Hunting Sharks;Chill Capybara;Loss;5;8;4
+	Kindred;Moreal;Swift Cheetahs;Shy Pandas;Loss;5;6;8
+	Pantheon;Hajnej;Shy Pandas;Swift Cheetahs;Win;5;2;7
+	Amumu;Arashid;Jumpy Kangaroo;Sneaky Aligators;Loss;4;8;3
+	Naafiri;Arashid;Jumpy Kangaroo;Fancy Flamingo;Win;4;3;11
+	Naafiri;Arashid;Jumpy Kangaroo;Loud Parrots;Win;4;2;10
+	Darius;Alko;Jumpy Kangaroo;Fancy Flamingo;Win;4;1;3
+	Malphite;Alko;Jumpy Kangaroo;Loud Parrots;Win;4;0;4
+	Orianna;Panda;Jumpy Kangaroo;Fancy Flamingo;Win;4;2;14
+	Sett;Panda;Jumpy Kangaroo;Loud Parrots;Win;4;2;7
+	Smolder;Wodr;Jumpy Kangaroo;Sneaky Aligators;Loss;4;6;6
+	Zyra;Kryštof;Sneaky Aligators;Giant Whales;Win;4;1;9
+	Akali;Zen;Sneaky Aligators;Chill Capybara;Win;4;1;14
+	Tahm Kench;Lama;Sneaky Aligators;Fancy Flamingo;Win;4;1;18
+	Ezreal;Simba;Chill Capybara;Jumpy Kangaroo;Loss;4;4;1
+	Ashe;Raiiden;Swift Cheetahs;Jumpy Kangaroo;Win;4;0;9
+	Viktor;Restricted;Hunting Sharks;Jumpy Kangaroo;Loss;4;11;5
+	Skarner;Sgoob;Loud Parrots;Jumpy Kangaroo;Loss;4;6;5
+	Ornn;Xpepe;Chill Capybara;Sneaky Aligators;Loss;4;4;9
+	Shen;Mato;Giant Whales;Loud Parrots;Win;4;1;6
+	Jinx;Unshead;Giant Whales;Loud Parrots;Win;4;0;10
+	Xin;Michal;Fancy Flamingo;Giant Whales;Win;4;3;5
+	Syndra;Asmo;Fancy Flamingo;Giant Whales;Win;4;2;6
+	Sylas;Xeruth;Chill Capybara;Giant Whales;Loss;4;6;8
+	Shen;Plešoun;Fancy Flamingo;Hunting Sharks;Win;4;5;12
+	Karma;Mia;Hunting Sharks;Fancy Flamingo;Loss;4;4;7
+	Zac;Moreal;Swift Cheetahs;Chill Capybara;Loss;4;5;11
+	Velkoz;Wensd;Loud Parrots;Swift Cheetahs;Win;4;2;13
+	Azir;Sajox;Exotic Monitors;Fury Bears;Win;4;1;13
+	Miss Fortune;Predator;Exotic Monitors;Fury Bears;Win;4;2;12
+	Viktor;Dablik;Fury Bears;Exotic Monitors;Loss;4;9;1
+	Lulu;Hani;Mighty Tigers;Shy Pandas;Loss;4;1;23
+	Kassadin;Mabe;Calm Iguana;Mighty Tigers;Loss;4;6;6
+	Sylas;Pisslow;Mighty Tigers;Calm Iguana;Win;4;3;11
+	Volibear;Altein;Exotic Monitors;Venomous Snakes;Win;4;7;8
+	Lulu;Dreamer;Calm Iguana;Hungry Wolves;Win;4;7;13
+	Smolder;Nugy;Hungry Wolves;Calm Iguana;Loss;4;1;9
+	Varus;Eclipse;Calm Iguana;Proud Lions;Win;4;4;11
+	Gnar;Altein;Exotic Monitors;Proud Lions;Loss;4;4;5
+	Lulu;Muffi;Shy Pandas;Venomous Snakes;Win;4;8;18
+	Fiora;Altein;Exotic Monitors;Hungry Wolves;Loss;4;7;0
+	Gnar;Blaze;Hungry Wolves;Venomous Snakes;Win;4;2;6
+	Jarvan IV;Toofast;Hungry Wolves;Venomous Snakes;Win;4;4;9
+	Tahm Kench;Kipek;Hungry Wolves;Venomous Snakes;Win;4;4;13
+	Jax;Dark;Proud Lions;Fury Bears;Loss;4;5;1
+	Alistar;Deagles;Fury Bears;Venomous Snakes;Win;4;6;24
+	Maokai;Jenikk;Venomous Snakes;Proud Lions;Loss;4;9;16
+	Dr. Mundo;Altein;Exotic Monitors;Shy Pandas;Loss;4;7;6
+	Sylas;Kubik;Hunting Sharks;Chill Capybara;Loss;4;9;3
+	Jarvan IV;Hajnej;Shy Pandas;Swift Cheetahs;Win;4;5;14
+	Maokai;Gabe;Shy Pandas;Swift Cheetahs;Win;4;2;7
+	Jayce;Panda;Jumpy Kangaroo;Sneaky Aligators;Loss;3;6;5
+	Rell;Tee;Jumpy Kangaroo;Loud Parrots;Win;3;2;17
+	Shen;Poli;Sneaky Aligators;Loud Parrots;Win;3;3;11
+	Jhin;Valis;Sneaky Aligators;Chill Capybara;Win;3;6;14
+	Rell;Lama;Sneaky Aligators;Jumpy Kangaroo;Win;3;3;22
+	Neeko;Lama;Sneaky Aligators;Chill Capybara;Win;3;5;12
+	Wukong;Morphed;Chill Capybara;Jumpy Kangaroo;Loss;3;5;4
+	Vex;Mordecaay;Giant Whales;Jumpy Kangaroo;Loss;3;9;11
+	Syndra;Amith;Swift Cheetahs;Jumpy Kangaroo;Win;3;1;8
+	Twitch;Michal;Fancy Flamingo;Jumpy Kangaroo;Loss;3;5;2
+	Sivir;Cler;Loud Parrots;Jumpy Kangaroo;Loss;3;5;7
+	Nocturne;Michal;Fancy Flamingo;Sneaky Aligators;Loss;3;11;5
+	Jarvan IV;Moreal;Swift Cheetahs;Sneaky Aligators;Loss;3;7;9
+	Ashe;Raiiden;Swift Cheetahs;Sneaky Aligators;Loss;3;4;5
+	Urgot;Holub;Loud Parrots;Sneaky Aligators;Loss;3;8;2
+	Master Yi;Skenk;Hunting Sharks;Sneaky Aligators;Loss;3;11;1
+	Chogath;Mato;Giant Whales;Sneaky Aligators;Loss;3;1;0
+	Vi;Kessig;Giant Whales;Fancy Flamingo;Loss;3;6;3
+	Orianna;Mordecaay;Giant Whales;Fancy Flamingo;Loss;3;5;3
+	Ornn;Mato;Giant Whales;Swift Cheetahs;Win;3;6;17
+	Rakan;Majo;Giant Whales;Swift Cheetahs;Win;3;2;31
+	Sylas;Wensd;Loud Parrots;Giant Whales;Loss;3;4;0
+	Syndra;Amith;Swift Cheetahs;Giant Whales;Loss;3;6;15
+	Xin;Morphed;Chill Capybara;Giant Whales;Loss;3;7;7
+	Belveth;Sgoob;Loud Parrots;Fancy Flamingo;Loss;3;6;4
+	Neeko;Asmo;Fancy Flamingo;Hunting Sharks;Win;3;1;13
+	Viego;Skenk;Hunting Sharks;Fancy Flamingo;Loss;3;5;6
+	Syndra;Kubik;Hunting Sharks;Fancy Flamingo;Loss;3;7;3
+	Syndra;Amith;Swift Cheetahs;Fancy Flamingo;Loss;3;7;0
+	Smolder;Raiiden;Swift Cheetahs;Chill Capybara;Loss;3;5;8
+	Milio;Makima;Loud Parrots;Swift Cheetahs;Win;3;0;19
+	Irelia;Sovaz;Swift Cheetahs;Loud Parrots;Loss;3;6;2
+	Gwen;Sgoob;Loud Parrots;Hunting Sharks;Win;3;0;5
+	Lulu;Makima;Loud Parrots;Hunting Sharks;Win;3;0;16
+	Vi;Skenk;Hunting Sharks;Loud Parrots;Loss;3;9;4
+	Yummi;Muffi;Shy Pandas;Mighty Tigers;Win;3;4;8
+	Amumu;Onifus;Calm Iguana;Mighty Tigers;Loss;3;9;8
+	Milio;Hani;Mighty Tigers;Calm Iguana;Win;3;2;21
+	Smolder;Predator;Exotic Monitors;Venomous Snakes;Win;3;1;12
+	Braum;Děda;Exotic Monitors;Venomous Snakes;Win;3;0;22
+	Jarvan IV;Toofast;Hungry Wolves;Fury Bears;Loss;3;7;4
+	Braum;Kipek;Hungry Wolves;Fury Bears;Loss;3;4;3
+	Volibear;Toofast;Hungry Wolves;Proud Lions;Loss;3;4;3
+	Shen;Buzz;Calm Iguana;Hungry Wolves;Win;3;2;6
+	Amumu;Onifus;Calm Iguana;Hungry Wolves;Win;3;4;8
+	Vladimir;Mabe;Calm Iguana;Hungry Wolves;Win;3;4;7
+	Amumu;Děda;Exotic Monitors;Proud Lions;Loss;3;9;12
+	Leona;Jenikk;Venomous Snakes;Mighty Tigers;Loss;3;5;17
+	Lucian;447;Fury Bears;Mighty Tigers;Loss;3;2;0
+	Xin;Winník;Exotic Monitors;Hungry Wolves;Loss;3;7;2
+	Wukong;Toofast;Hungry Wolves;Exotic Monitors;Win;3;1;12
+	Lillia;Miracle;Proud Lions;Fury Bears;Loss;3;6;4
+	Ksante;Gabe;Shy Pandas;Calm Iguana;Loss;3;6;4
+	Orianna;Pilot;Shy Pandas;Hungry Wolves;Loss;3;5;4
+	Vladimir;Buzz;Calm Iguana;Exotic Monitors;Win;3;2;3
+	Braum;Dreamer;Calm Iguana;Exotic Monitors;Win;3;4;20
+	Amumu;Děda;Exotic Monitors;Calm Iguana;Loss;3;5;
+	Malphite;Bucko;Venomous Snakes;Proud Lions;Loss;3;4;12
+	Annie;Erko;Proud Lions;Venomous Snakes;Win;3;7;22
+	Mell;Sajox;Exotic Monitors;Shy Pandas;Loss;3;7;7
+	Karma;Děda;Exotic Monitors;Shy Pandas;Loss;3;2;11
+	Maokai;Gabe;Shy Pandas;Exotic Monitors;Win;3;7;9
+	Viktor;Dablik;Fury Bears;Calm Iguana;Win;3;3;17
+	Gwen;Buzz;Calm Iguana;Fury Bears;Loss;3;7;0
+	Fiora;Altein;Exotic Monitors;Mighty Tigers;Win;3;6;4
+	Sejuani;Winník;Exotic Monitors;Mighty Tigers;Win;3;1;16
+	Dr. Mundo;Dao;Mighty Tigers;Exotic Monitors;Loss;3;6;11
+	Lulu;Hani;Mighty Tigers;Exotic Monitors;Loss;3;5;15
+	Vladimir;Pilot;Shy Pandas;Proud Lions;Loss;3;1;3
+	Malphite;Gabe;Shy Pandas;Swift Cheetahs;Win;3;2;11
+	Mell;Amith;Swift Cheetahs;Shy Pandas;Loss;3;8;6
+	Udyr;Arashid;Jumpy Kangaroo;Giant Whales;Win;2;6;13
+	Olaf;Alko;Jumpy Kangaroo;Swift Cheetahs;Loss;2;5;1
+	Senna;Wodr;Jumpy Kangaroo;Fancy Flamingo;Win;2;0;12
+	Nautilus;Tee;Jumpy Kangaroo;Hunting Sharks;Win;2;3;23
+	Jhin;Valis;Sneaky Aligators;Swift Cheetahs;Win;2;3;15
+	Ezreal;Valis;Sneaky Aligators;Loud Parrots;Win;2;1;9
+	Trundle;Mato;Giant Whales;Jumpy Kangaroo;Loss;2;4;4
+	Pantheon;Kubik;Hunting Sharks;Jumpy Kangaroo;Loss;2;8;4
+	Senna;Mia;Hunting Sharks;Jumpy Kangaroo;Loss;2;8;9
+	Galio;Asmo;Fancy Flamingo;Sneaky Aligators;Loss;2;7;4
+	Shen;Morphed;Chill Capybara;Sneaky Aligators;Loss;2;6;13
+	Aatrox;Sovaz;Swift Cheetahs;Sneaky Aligators;Loss;2;3;3
+	Rammus;Popo;Hunting Sharks;Sneaky Aligators;Loss;2;8;0
+	Nautilus;Majo;Giant Whales;Hunting Sharks;Win;2;3;19
+	Nautilus;Majo;Giant Whales;Loud Parrots;Win;2;1;11
+	Maokai;Plešoun;Fancy Flamingo;Giant Whales;Win;2;1;11
+	Zac;Popo;Hunting Sharks;Giant Whales;Loss;2;7;6
+	Lucian;Lenny;Fancy Flamingo;Loud Parrots;Win;2;0;7
+	Pantheon;Plešoun;Fancy Flamingo;Loud Parrots;Win;2;3;6
+	Rell;Plešoun;Fancy Flamingo;Chill Capybara;Win;2;4;22
+	Kindred;Michal;Fancy Flamingo;Swift Cheetahs;Win;2;2;8
+	Jax;Sovaz;Swift Cheetahs;Fancy Flamingo;Loss;2;8;1
+	Zyra;Natyna;Swift Cheetahs;Chill Capybara;Loss;2;2;10
+	Sona;Monikas;Chill Capybara;Loud Parrots;Loss;2;7;8
+	Nami;Makima;Loud Parrots;Chill Capybara;Win;2;0;21
+	Mordekaiser;Popo;Hunting Sharks;Loud Parrots;Loss;2;5;0
+	Rakan;Mia;Hunting Sharks;Swift Cheetahs;Win;2;3;7
+	Vladimir;Lagier;Fury Bears;Exotic Monitors;Loss;2;4;1
+	Sett;Gabe;Shy Pandas;Mighty Tigers;Win;2;6;2
+	Mordekaiser;Buzz;Calm Iguana;Mighty Tigers;Loss;2;5;2
+	Shen;Lagier;Fury Bears;Hungry Wolves;Win;2;1;9
+	Jax;Blaze;Hungry Wolves;Proud Lions;Loss;2;4;1
+	Azir;Nugy;Hungry Wolves;Proud Lions;Loss;2;2;4
+	Nautilus;Kipek;Hungry Wolves;Calm Iguana;Loss;2;2;13
+	Renekton;Dark;Proud Lions;Calm Iguana;Loss;2;7;2
+	Kaisa;Astro;Proud Lions;Calm Iguana;Loss;2;5;4
+	Milio;Muffi;Shy Pandas;Fury Bears;Win;2;1;16
+	Azir;Dablik;Fury Bears;Shy Pandas;Loss;2;3;1
+	Tristana;447;Fury Bears;Shy Pandas;Loss;2;4;0
+	Orianna;Dablik;Fury Bears;Mighty Tigers;Loss;2;3;2
+	Ryze;Nugy;Hungry Wolves;Venomous Snakes;Win;2;1;11
+	Urgot;Bucko;Venomous Snakes;Hungry Wolves;Loss;2;2;2
+	Vi;Radek;Venomous Snakes;Hungry Wolves;Loss;2;5;5
+	Ahri;Lovecoury;Venomous Snakes;Hungry Wolves;Loss;2;4;5
+	Xayah;447;Fury Bears;Proud Lions;Win;2;3;14
+	Varus;Astro;Proud Lions;Fury Bears;Loss;2;5;6
+	Smolder;Ernie;Shy Pandas;Calm Iguana;Loss;2;4;8
+	Olaf;Buzz;Calm Iguana;Shy Pandas;Win;2;2;13
+	Smolder;Stomci;Venomous Snakes;Fury Bears;Loss;2;6;16
+	Wukong;Blaze;Hungry Wolves;Shy Pandas;Win;2;1;9
+	Nautilus;Kipek;Hungry Wolves;Shy Pandas;Win;2;5;14
+	Xayah;Eclipse;Calm Iguana;Exotic Monitors;Win;2;0;7
+	Gwen;Altein;Exotic Monitors;Calm Iguana;Loss;2;4;2
+	Jarvan IV;Winník;Exotic Monitors;Calm Iguana;Loss;2;7;7
+	Syndra;Sajox;Exotic Monitors;Calm Iguana;Loss;2;5;6
+	Kaisa;Stomci;Venomous Snakes;Proud Lions;Loss;2;8;6
+	Ivern;Toofast;Hungry Wolves;Mighty Tigers;Win;2;2;16
+	Smolder;Brta;Hungry Wolves;Mighty Tigers;Win;2;3;3
+	Zed;Dao;Mighty Tigers;Hungry Wolves;Loss;2;5;3
+	Maokai;Onifus;Calm Iguana;Fury Bears;Loss;2;8;7
+	Nautilus;Děda;Exotic Monitors;Mighty Tigers;Win;2;7;19
+	Yummi;Muffi;Shy Pandas;Proud Lions;Loss;2;3;5
+	Yasuo;Poštolka;Proud Lions;Shy Pandas;Win;2;4;3
+	Thresh;Erko;Proud Lions;Shy Pandas;Win;2;3;2
+	Ahri;Amith;Swift Cheetahs;Shy Pandas;Loss;2;5;6
+	Jinx;Raiiden;Swift Cheetahs;Shy Pandas;Loss;2;3;9
+	Lulu;Natyna;Swift Cheetahs;Shy Pandas;Loss;2;3;11
+	Sejuani;Arashid;Jumpy Kangaroo;Swift Cheetahs;Loss;1;4;3
+	Sett;Alko;Jumpy Kangaroo;Sneaky Aligators;Loss;1;4;1
+	Jhin;Wodr;Jumpy Kangaroo;Swift Cheetahs;Loss;1;2;1
+	Nautilus;Tee;Jumpy Kangaroo;Giant Whales;Win;1;4;19
+	Yorick;Poli;Sneaky Aligators;Giant Whales;Win;1;2;4
+	Neeko;Lama;Sneaky Aligators;Loud Parrots;Win;1;1;9
+	Rakan;Natyna;Swift Cheetahs;Jumpy Kangaroo;Win;1;1;12
+	Ornn;Ladik;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;3
+	Karma;Asmo;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;4
+	Hwei;Lenny;Fancy Flamingo;Jumpy Kangaroo;Loss;1;3;0
+	Alistar;Plešoun;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;3
+	Renekton;Popo;Hunting Sharks;Jumpy Kangaroo;Loss;1;7;1
+	Singed;Kubik;Hunting Sharks;Sneaky Aligators;Loss;1;8;1
+	Shen;Majo;Giant Whales;Sneaky Aligators;Loss;1;5;0
+	Ksante;Mato;Giant Whales;Fancy Flamingo;Loss;1;4;0
+	Kaisa;Unshead;Giant Whales;Fancy Flamingo;Loss;1;4;3
+	Nautilus;Majo;Giant Whales;Chill Capybara;Win;1;5;17
+	Lillia;Sgoob;Loud Parrots;Giant Whales;Loss;1;5;1
+	Rell;Natyna;Swift Cheetahs;Giant Whales;Loss;1;10;15
+	Braum;Monikas;Chill Capybara;Giant Whales;Loss;1;6;11
+	Orianna;Wensd;Loud Parrots;Fancy Flamingo;Loss;1;6;2
+	Ezreal;Lenny;Fancy Flamingo;Hunting Sharks;Win;1;3;5
+	Varus;Restricted;Hunting Sharks;Fancy Flamingo;Loss;1;6;2
+	Tristana;Lenny;Fancy Flamingo;Chill Capybara;Win;1;7;10
+	Tristana;Lenny;Fancy Flamingo;Swift Cheetahs;Win;1;2;5
+	Leona;Plešoun;Fancy Flamingo;Swift Cheetahs;Win;1;1;19
+	Sivir;Cler;Loud Parrots;Chill Capybara;Win;1;2;13
+	Ashe;Cler;Loud Parrots;Swift Cheetahs;Win;1;1;11
+	Lillia;Moreal;Swift Cheetahs;Loud Parrots;Loss;1;7;3
+	Mell;Amith;Swift Cheetahs;Hunting Sharks;Loss;1;1;12
+	Braum;Natyna;Swift Cheetahs;Hunting Sharks;Loss;1;2;13
+	Xin;Skenk;Hunting Sharks;Swift Cheetahs;Win;1;8;5
+	Amumu;Děda;Exotic Monitors;Fury Bears;Win;1;1;15
+	Jarvan IV;Houba;Fury Bears;Exotic Monitors;Loss;1;5;3
+	Mordekaiser;Buzz;Calm Iguana;Venomous Snakes;Loss;1;5;1
+	Poppy;Onifus;Calm Iguana;Venomous Snakes;Loss;1;7;5
+	Tristana;Eclipse;Calm Iguana;Venomous Snakes;Loss;1;7;1
+	Tristana;Eclipse;Calm Iguana;Mighty Tigers;Loss;1;5;4
+	Orianna;Lovecoury;Venomous Snakes;Exotic Monitors;Loss;1;4;3
+	Yorick;Blaze;Hungry Wolves;Fury Bears;Loss;1;1;1
+	Orianna;Nugy;Hungry Wolves;Fury Bears;Loss;1;6;2
+	Taric;Kipek;Hungry Wolves;Proud Lions;Loss;1;8;4
+	Jinx;Eclipse;Calm Iguana;Hungry Wolves;Win;1;2;7
+	Gwen;Blaze;Hungry Wolves;Calm Iguana;Loss;1;2;10
+	Twitch;Brta;Hungry Wolves;Calm Iguana;Loss;1;4;8
+	Kaisa;Astro;Proud Lions;Exotic Monitors;Win;1;6;11
+	Nami;Erko;Proud Lions;Exotic Monitors;Win;1;3;12
+	Ezreal;Vajtakk;Mighty Tigers;Venomous Snakes;Win;1;5;9
+	Smolder;Ernie;Shy Pandas;Venomous Snakes;Win;1;6;15
+	Fiora;Lagier;Fury Bears;Mighty Tigers;Loss;1;5;1
+	Nami;Hani;Mighty Tigers;Fury Bears;Win;1;0;15
+	Azir;Sajox;Exotic Monitors;Hungry Wolves;Loss;1;4;3
+	Varus;Predator;Exotic Monitors;Hungry Wolves;Loss;1;2;3
+	Smolder;Brta;Hungry Wolves;Exotic Monitors;Win;1;1;9
+	Nautilus;Erko;Proud Lions;Fury Bears;Loss;1;7;9
+	Gwen;Lagier;Fury Bears;Venomous Snakes;Win;1;8;13
+	Xayah;447;Fury Bears;Venomous Snakes;Win;1;5;12
+	Maokai;Gabe;Shy Pandas;Hungry Wolves;Loss;1;4;3
+	Twitch;Brta;Hungry Wolves;Shy Pandas;Win;1;4;12
+	Sivir;Predator;Exotic Monitors;Calm Iguana;Loss;1;4;3
+	Ryze;Pisslow;Mighty Tigers;Proud Lions;Loss;1;5;3
+	Xayah;Vajtakk;Mighty Tigers;Proud Lions;Loss;1;2;5
+	Rakan;Hani;Mighty Tigers;Proud Lions;Loss;1;4;9
+	Vayne;Astro;Proud Lions;Mighty Tigers;Win;1;3;7
+	Xayah;Eclipse;Calm Iguana;Fury Bears;Loss;1;4;6
+	Poppy;Marmelada;Mighty Tigers;Exotic Monitors;Loss;1;6;4
+	Nocturne;Hajnej;Shy Pandas;Proud Lions;Loss;1;6;4
+	Naafiri;Skenk;Hunting Sharks;Chill Capybara;Loss;1;6;5
+	Mell;Restricted;Hunting Sharks;Chill Capybara;Loss;1;11;9
+	Swain;Simba;Chill Capybara;Hunting Sharks;Win;1;4;27
+	Yone;Sovaz;Swift Cheetahs;Shy Pandas;Loss;1;1;2
+	Yone;Panda;Jumpy Kangaroo;Swift Cheetahs;Loss;0;4;3
+	Karma;Tee;Jumpy Kangaroo;Sneaky Aligators;Loss;0;6;10
+	Braum;Tee;Jumpy Kangaroo;Chill Capybara;Win;0;1;20
+	Karma;Tee;Jumpy Kangaroo;Swift Cheetahs;Loss;0;4;1
+	Nautilus;Lama;Sneaky Aligators;Giant Whales;Win;0;1;17
+	Ornn;Xpepe;Chill Capybara;Jumpy Kangaroo;Loss;0;5;1
+	Orianna;Xeruth;Chill Capybara;Jumpy Kangaroo;Loss;0;9;2
+	Rakan;Monikas;Chill Capybara;Jumpy Kangaroo;Loss;0;9;4
+	Nami;Majo;Giant Whales;Jumpy Kangaroo;Loss;0;5;15
+	Vayne;Holub;Loud Parrots;Jumpy Kangaroo;Loss;0;5;0
+	Maokai;Makima;Loud Parrots;Jumpy Kangaroo;Loss;0;5;5
+	Trundle;Ladik;Fancy Flamingo;Sneaky Aligators;Loss;0;6;5
+	Milio;Monikas;Chill Capybara;Sneaky Aligators;Loss;0;3;14
+	Braum;Natyna;Swift Cheetahs;Sneaky Aligators;Loss;0;8;10
+	Orianna;Wensd;Loud Parrots;Sneaky Aligators;Loss;0;4;3
+	Sivir;Cler;Loud Parrots;Sneaky Aligators;Loss;0;3;5
+	Soraka;Makima;Loud Parrots;Sneaky Aligators;Loss;0;1;8
+	Anivia;Restricted;Hunting Sharks;Sneaky Aligators;Loss;0;3;1
+	Zyra;Mia;Hunting Sharks;Sneaky Aligators;Loss;0;9;1
+	Jarvan IV;Kessig;Giant Whales;Sneaky Aligators;Loss;0;3;3
+	Syndra;Mordecaay;Giant Whales;Sneaky Aligators;Loss;0;7;1
+	Jinx;Unshead;Giant Whales;Sneaky Aligators;Loss;0;5;1
+	Karma;Majo;Giant Whales;Fancy Flamingo;Loss;0;4;6
+	Renekton;Holub;Loud Parrots;Giant Whales;Loss;0;3;0
+	Caitlyn;Cler;Loud Parrots;Giant Whales;Loss;0;5;2
+	Nami;Makima;Loud Parrots;Giant Whales;Loss;0;5;1
+	Jinx;Cler;Loud Parrots;Fancy Flamingo;Loss;0;5;4
+	Twitch;Simba;Chill Capybara;Fancy Flamingo;Loss;0;9;7
+	Corki;Raiiden;Swift Cheetahs;Fancy Flamingo;Loss;0;1;1
+	Wukong;Sovaz;Swift Cheetahs;Chill Capybara;Loss;0;6;3
+	Varus;Simba;Chill Capybara;Swift Cheetahs;Win;0;3;5
+	Nami;Monikas;Chill Capybara;Swift Cheetahs;Win;0;4;22
+	Senna;Simba;Chill Capybara;Loud Parrots;Loss;0;3;4
+	Viktor;Amith;Swift Cheetahs;Loud Parrots;Loss;0;6;1
+	Sivir;Raiiden;Swift Cheetahs;Loud Parrots;Loss;0;3;1
+	Braum;Natyna;Swift Cheetahs;Loud Parrots;Loss;0;8;3
+	Jinx;Cler;Loud Parrots;Hunting Sharks;Win;0;3;8
+	Aurora;Kubik;Hunting Sharks;Loud Parrots;Loss;0;4;2
+	Ashe;Raiiden;Swift Cheetahs;Hunting Sharks;Loss;0;0;12
+	Olaf;Popo;Hunting Sharks;Swift Cheetahs;Win;0;9;2
+	Kaisa;Restricted;Hunting Sharks;Swift Cheetahs;Win;0;3;2
+	Zeri;447;Fury Bears;Exotic Monitors;Loss;0;4;2
+	Xin;Hajnej;Shy Pandas;Mighty Tigers;Win;0;10;2
+	Zeri;Ernie;Shy Pandas;Mighty Tigers;Win;0;7;1
+	Jinx;Vajtakk;Mighty Tigers;Shy Pandas;Loss;0;5;13
+	Kaisa;Stomci;Venomous Snakes;Calm Iguana;Win;0;1;5
+	Ezreal;Vajtakk;Mighty Tigers;Calm Iguana;Win;0;3;12
+	Sivir;Stomci;Venomous Snakes;Exotic Monitors;Loss;0;4;4
+	Lucian;447;Fury Bears;Hungry Wolves;Win;0;1;6
+	Senna;Brta;Hungry Wolves;Fury Bears;Loss;0;4;2
+	Ezreal;Brta;Hungry Wolves;Proud Lions;Loss;0;5;1
+	Kaisa;Astro;Proud Lions;Hungry Wolves;Win;0;1;5
+	Olaf;Buzz;Calm Iguana;Proud Lions;Win;0;2;11
+	Miss Fortune;Predator;Exotic Monitors;Proud Lions;Loss;0;3;6
+	Kaisa;Stomci;Venomous Snakes;Mighty Tigers;Loss;0;4;9
+	Pyke;Jenikk;Venomous Snakes;Shy Pandas;Loss;0;5;10
+	Lucian;Ernie;Shy Pandas;Fury Bears;Win;0;2;3
+	Yorick;Lagier;Fury Bears;Shy Pandas;Loss;0;3;0
+	Jarvan IV;Houba;Fury Bears;Shy Pandas;Loss;0;6;3
+	Sejuani;Houba;Fury Bears;Mighty Tigers;Loss;0;4;2
+	Corki;Vajtakk;Mighty Tigers;Fury Bears;Win;0;1;4
+	Ezreal;Brta;Hungry Wolves;Venomous Snakes;Win;0;0;11
+	Varus;Stomci;Venomous Snakes;Hungry Wolves;Loss;0;1;3
+	Vayne;Ernie;Shy Pandas;Hungry Wolves;Loss;0;8;4
+	Jax;Blaze;Hungry Wolves;Mighty Tigers;Win;0;2;0
+	Ziggs;Vajtakk;Mighty Tigers;Hungry Wolves;Loss;0;6;1
+	Rakan;Hani;Mighty Tigers;Hungry Wolves;Loss;0;4;10
+	Gwen;Dao;Mighty Tigers;Proud Lions;Loss;0;7;1
+	Ezreal;Predator;Exotic Monitors;Shy Pandas;Loss;0;3;5
+	Ezreal;Ernie;Shy Pandas;Exotic Monitors;Win;0;1;5
+	Milio;Muffi;Shy Pandas;Exotic Monitors;Win;0;2;11
+	Rell;Deagles;Fury Bears;Calm Iguana;Win;0;3;17
+	Sejuani;Miracle;Proud Lions;Shy Pandas;Win;0;1;9
+	Karma;Mia;Hunting Sharks;Chill Capybara;Loss;0;10;9
+	Milio;Muffi;Shy Pandas;Swift Cheetahs;Win;0;2;15
+	Nami;Muffi;Shy Pandas;Swift Cheetahs;Win;0;2;19
+	Sejuani;Moreal;Swift Cheetahs;Shy Pandas;Loss;0;6;7
+	Rakan;Natyna;Swift Cheetahs;Shy Pandas;Loss;0;8;9
+	Soraka;Monikas;Chill Capybara;Hunting Sharks;Win;1;4;27
+		`.trim();
+
 
     const customImagePaths = {
       "Mel": "images/Mel.jpg",
@@ -347,14 +930,68 @@ Games;56;;;;;;
         const card = document.createElement('div');
         card.className = 'champ-card';
         card.innerHTML = `
-          <img src="${imageUrl}" alt="${champName}" class="champ-img">
-          <strong>${champName}</strong>
-          <small class="highlight">Pick: ${champ['Picks']}</small>
-          <small>Winrate: ${champ['Winrate']}</small>
-          <small>Banrate: ${champ['Banrate']}</small>
-        `;
+		  <img src="${imageUrl}" alt="${champName}" class="champ-img">
+		  <strong>${champName}</strong>
+		  <small class="highlight">Pick: ${champ['Picks']}</small>
+		  <small>Winrate: ${champ['Winrate']}</small>
+		  <small>Banrate: ${champ['Banrate']}</small>
+		`;
+		card.onclick = () => openModal(champ['Champ']);
+
+
         grid.appendChild(card);
       }
     }
+	
+	let matchRows = [];
+
+	function parseMatchData(text) {
+	  const lines = text.trim().split('\n').slice(1); // bez hlavičky
+	  matchRows = lines.map(row => {
+		const [champ, player, team, enemy, result, k, d, a] = row.split(';').map(x => x.trim());
+		return { champ, player, team, enemy, result, k, d, a };
+	  });
+	}
+
+	parseMatchData(matchData);
+
+	function openModal(champName) {
+	  const modal = document.getElementById('modal');
+	  const title = document.getElementById('modal-title');
+	  const tbody = document.getElementById('modal-table').querySelector('tbody');
+
+	  title.textContent = `Zápasy pro: ${champName}`;
+	  tbody.innerHTML = '';
+
+	  const filtered = matchRows.filter(m => m.champ.trim() === champName.trim());
+	  if (filtered.length === 0) {
+		tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
+	  } else {
+		for (const row of filtered) {
+		  const tr = document.createElement('tr');
+		  const resultColor = row.result === 'Win' ? 'limegreen' : 'crimson';
+		  tr.innerHTML = `
+			<td>${row.player}</td>
+			<td>${row.team}</td>
+			<td>${row.enemy}</td>
+			<td style="color:${resultColor}; font-weight:bold;">${row.result}</td>
+			<td>${row.k}</td>
+			<td>${row.d}</td>
+			<td>${row.a}</td>
+		  `;
+		  tbody.appendChild(tr);
+		}
+	  }
+
+	  modal.style.display = 'block';
+	}
+
+
+
+	function closeModal() {
+	  document.getElementById('modal').style.display = 'none';
+	}
+
+	
   </script>
 </body>
