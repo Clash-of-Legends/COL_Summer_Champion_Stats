@@ -114,144 +114,143 @@
 
   <div id="grid"></div>
   <script>
-	const csvData = `
-	Games;61;;;;;;
+	const csvData = `Games;65;;;;;;
 ;Champ;Wins;Loses;Picks;Bans;Winrate;Banrate
-;Sejuani;10;8;18;4;56%;7%
-;Smolder;11;6;17;25;65%;41%
-;Syndra;8;8;16;23;50%;38%
-;Xin Zhao;8;7;15;22;53%;36%
-;Maokai;8;7;15;7;53%;11%
-;Ornn;7;7;14;11;50%;18%
-;Gwen;8;5;13;17;62%;28%
-;Nautilus;11;1;12;10;92%;16%
-;Xayah;10;2;12;4;83%;7%
-;Orianna;2;9;11;14;18%;23%
-;Rell;7;4;11;10;64%;16%
-;Kai'Sa;5;6;11;8;45%;13%
-;Jarvan IV;3;8;11;6;27%;10%
-;Varus;7;4;11;1;64%;2%
-;Wukong;7;3;10;12;70%;20%
-;Ahri;7;3;10;10;70%;16%
-;Sylas;6;4;10;9;60%;15%
-;Ezreal;3;7;10;1;30%;2%
-;Jinx;5;5;10;10;50%;16%
-;Braum;5;5;10;10;50%;16%
-;Milio;6;4;10;10;60%;16%
-;Shen;6;4;10;4;60%;7%
-;Rakan;2;7;9;3;22%;5%
-;Nami;6;3;9;1;67%;2%
-;Azir;6;3;9;11;67%;18%
-;Viktor;6;3;9;6;67%;10%
-;Karma;2;7;9;3;22%;5%
-;Yorick;5;3;8;11;63%;18%
-;Lulu;3;5;8;12;38%;20%
-;Amumu;3;5;8;6;38%;10%
-;Vladimir;4;3;7;19;57%;31%
-;Mel;2;5;7;13;29%;21%
-;Jax;3;4;7;8;43%;13%
-;Sivir;3;4;7;4;43%;7%
-;Tristana;2;5;7;0;29%;0%
-;Pantheon;4;3;7;6;57%;10%
-;Yone;3;3;6;14;50%;23%
-;Olaf;4;2;6;9;67%;15%
-;Naafiri;4;2;6;4;67%;7%
-;K'Sante;3;3;6;0;50%;0%
-;Taliyah;2;3;5;8;40%;13%
-;Zyra;3;2;5;8;60%;13%
+;Smolder;11;6;17;27;65%;42%
+;Syndra;9;8;17;23;53%;35%
+;Xin Zhao;9;8;17;22;53%;34%
+;Gwen;8;5;13;21;62%;32%
+;Vladimir;4;3;7;21;57%;32%
+;Orianna;2;9;11;15;18%;23%
+;Yone;3;3;6;14;50%;22%
+;Lillia;1;3;4;14;25%;22%
+;Lulu;3;7;10;13;30%;20%
+;Mel;2;5;7;13;29%;20%
+;Ornn;8;8;16;12;50%;18%
+;Wukong;8;3;11;12;73%;18%
+;Ahri;8;3;11;11;73%;17%
+;Milio;6;5;11;11;55%;17%
+;Azir;7;3;10;11;70%;17%
+;Braum;5;5;10;11;50%;17%
+;Yorick;5;3;8;11;63%;17%
+;Darius;3;0;3;11;100%;17%
+;Nautilus;12;1;13;10;92%;15%
+;Jinx;5;6;11;10;45%;15%
+;Rell;7;4;11;10;64%;15%
+;Sylas;6;4;10;10;60%;15%
+;Zyra;3;2;5;10;60%;15%
+;Yuumi;0;3;3;10;0%;15%
+;Olaf;4;3;7;9;57%;14%
+;Lucian;3;1;4;9;75%;14%
+;Draven;2;0;2;9;100%;14%
+;Zoe;0;1;1;9;0%;14%
+;Kai'Sa;5;7;12;8;42%;12%
+;Jax;3;4;7;8;43%;12%
+;Poppy;0;5;5;8;0%;12%
+;Taliyah;2;3;5;8;40%;12%
+;Ivern;2;1;3;8;67%;12%
+;Viego;3;0;3;8;100%;12%
+;Blitzcrank;0;1;1;8;0%;12%
+;Maokai;9;7;16;7;56%;11%
+;Pantheon;4;3;7;7;57%;11%
+;Vi;1;5;6;7;17%;11%
 ;Thresh;4;1;5;7;80%;11%
-;Vi;1;4;5;7;20%;11%
-;Senna;2;3;5;3;40%;5%
-;Malphite;4;1;5;3;80%;5%
-;Ashe;3;2;5;1;60%;2%
+;Fiora;1;2;3;7;33%;11%
+;Jarvan IV;4;8;12;6;33%;9%
+;Viktor;7;3;10;6;70%;9%
+;Amumu;3;6;9;6;33%;9%
+;Twitch;3;2;5;6;60%;9%
+;Kindred;1;1;2;6;50%;9%
+;Skarner;1;1;2;6;50%;9%
+;Tahm Kench;4;1;5;5;80%;8%
+;Yasuo;1;0;1;5;100%;8%
+;Sejuani;11;8;19;4;58%;6%
+;Xayah;11;2;13;4;85%;6%
+;Shen;7;5;12;4;58%;6%
+;Sivir;3;4;7;4;43%;6%
+;Mordekaiser;1;5;6;4;17%;6%
+;Naafiri;4;2;6;4;67%;6%
+;Malphite;4;1;5;4;80%;6%
+;Sett;1;2;3;4;33%;6%
+;Zac;1;2;3;4;33%;6%
+;Bel'Veth;0;1;1;4;0%;6%
+;Kalista;0;1;1;4;0%;6%
+;Aurelion Sol;;;0;4;#DĚLENÍ_NULOU!;6%
+;Karma;3;7;10;3;30%;5%
+;Rakan;2;7;9;3;22%;5%
 ;Jhin;3;2;5;3;60%;5%
-;Volibear;3;2;5;2;60%;3%
-;Lillia;1;3;4;12;25%;20%
-;Lucian;3;1;4;9;75%;15%
-;Poppy;0;4;4;8;0%;13%
-;Twitch;2;2;4;6;50%;10%
-;Tahm Kench;3;1;4;5;75%;8%
-;Mordekaiser;0;4;4;4;0%;7%
+;Senna;2;3;5;3;40%;5%
+;Zeri;1;4;5;3;20%;5%
+;Soraka;1;3;4;3;25%;5%
 ;Trundle;2;2;4;3;50%;5%
-;Dr. Mundo;0;4;4;2;0%;3%
-;Neeko;2;2;4;1;50%;2%
-;Annie;3;1;4;0;75%;0%
-;Zeri;1;3;4;3;25%;5%
-;Renekton;2;2;4;2;50%;3%
-;Soraka;1;3;4;2;25%;3%
-;Hwei;0;4;4;1;0%;2%
-;Darius;3;0;3;11;100%;18%
-;Ivern;2;1;3;8;67%;13%
-;Viego;3;0;3;7;100%;11%
-;Sett;1;2;3;4;33%;7%
-;Yuumi;0;3;3;7;0%;11%
-;Zac;1;2;3;4;33%;7%
 ;Master Yi;1;2;3;3;33%;5%
 ;Ryze;0;3;3;3;0%;5%
-;Fiora;1;2;3;5;33%;8%
-;Nocturne;1;2;3;2;33%;3%
-;Cho'Gath;1;2;3;1;33%;2%
-;Udyr;2;1;3;1;67%;2%
-;Alistar;1;2;3;0;33%;0%
-;Corki;2;1;3;0;67%;0%
-;Gnar;1;2;3;0;33%;0%
-;Urgot;1;2;3;0;33%;0%
-;Vayne;1;2;3;0;33%;0%
-;Jayce;2;1;3;2;67%;3%
-;Cassiopeia;2;1;3;0;67%;0%
-;Kindred;1;1;2;6;50%;10%
+;Caitlyn;0;2;2;3;0%;5%
 ;Elise;1;1;2;3;50%;5%
 ;Vex;1;1;2;3;50%;5%
-;Kassadin;1;1;2;2;50%;3%
+;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;5%
+;Volibear;3;2;5;2;60%;3%
+;Dr. Mundo;0;4;4;2;0%;3%
+;Renekton;2;2;4;2;50%;3%
+;Aurora;0;3;3;2;0%;3%
+;Jayce;2;1;3;2;67%;3%
+;Kassadin;1;2;3;2;33%;3%
+;Nocturne;1;2;3;2;33%;3%
 ;Pyke;0;2;2;2;0%;3%
-;Leona;1;1;2;1;50%;2%
-;Miss Fortune;1;1;2;0;50%;0%
-;Sion;2;0;2;0;100%;0%
-;Skarner;1;1;2;6;50%;10%
-;Draven;1;0;1;7;100%;11%
-;Zoe;0;1;1;7;0%;11%
-;Yasuo;1;0;1;5;100%;8%
-;Caitlyn;0;1;1;3;0%;5%
 ;Akali;1;0;1;2;100%;3%
-;Aurora;0;1;1;2;0%;3%
-;Bel'Veth;0;1;1;2;0%;3%
+;Aphelios;0;1;1;2;0%;3%
 ;Galio;0;1;1;2;0%;3%
-;Kalista;0;1;1;2;0%;3%
 ;LeBlanc;1;0;1;2;100%;3%
+;Samira;0;1;1;2;0%;3%
+;Swain;1;0;1;2;100%;3%
+;Camille;;;0;2;#DĚLENÍ_NULOU!;3%
+;Hecarim;;;0;2;#DĚLENÍ_NULOU!;3%
+;Xerath;;;0;2;#DĚLENÍ_NULOU!;3%
+;Varus;7;4;11;1;64%;2%
+;Ezreal;3;7;10;1;30%;2%
+;Nami;7;3;10;1;70%;2%
+;Ashe;3;2;5;1;60%;2%
+;Hwei;0;4;4;1;0%;2%
+;Neeko;2;2;4;1;50%;2%
+;Cho'Gath;1;2;3;1;33%;2%
+;Udyr;2;1;3;1;67%;2%
+;Leona;1;1;2;1;50%;2%
 ;Aatrox;0;1;1;1;0%;2%
+;Akshan;0;1;1;1;0%;2%
 ;Irelia;0;1;1;1;0%;2%
+;Kayle;0;1;1;1;0%;2%
 ;Kayn;1;0;1;1;100%;2%
 ;Sona;0;1;1;1;0%;2%
 ;Taric;0;1;1;1;0%;2%
 ;Vel'Koz;1;0;1;1;100%;2%
-;Anivia;0;1;1;0;0%;0%
-;Ekko;0;1;1;0;0%;0%
-;Kennen;1;0;1;0;100%;0%
-;Lissandra;0;1;1;0;0%;0%
-;Nidalee;1;0;1;0;100%;0%
-;Rammus;0;1;1;0;0%;0%
-;Samira;0;1;1;0;0%;0%
-;Singed;0;1;1;0;0%;0%
-;Swain;1;0;1;2;100%;3%
-;Teemo;1;0;1;0;100%;0%
-;Zed;0;1;1;0;0%;0%
-;Ziggs;0;1;1;0;0%;0%
-;Nasus;0;1;1;0;0%;0%
-;Blitzcrank;0;1;1;6;0%;10%
-;Aphelios;0;1;1;2;0%;3%
-;Kayle;0;1;1;1;0%;2%
-;Aurelion Sol;;;0;4;#DĚLENÍ_NULOU!;7%
-;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;5%
-;Camille;;;0;2;#DĚLENÍ_NULOU!;3%
-;Hecarim;;;0;2;#DĚLENÍ_NULOU!;3%
-;Xerath;;;0;2;#DĚLENÍ_NULOU!;3%
-;Akshan;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Diana;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Garen;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Kled;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Seraphine;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Shaco;;;0;1;#DĚLENÍ_NULOU!;2%
 ;Twisted Fate;;;0;1;#DĚLENÍ_NULOU!;2%
+;Tristana;3;5;8;0;38%;0%
+;K'Sante;3;3;6;0;50%;0%
+;Annie;3;1;4;0;75%;0%
+;Alistar;1;2;3;0;33%;0%
+;Cassiopeia;2;1;3;0;67%;0%
+;Corki;2;1;3;0;67%;0%
+;Gnar;1;2;3;0;33%;0%
+;Urgot;1;2;3;0;33%;0%
+;Vayne;1;2;3;0;33%;0%
+;Miss Fortune;1;1;2;0;50%;0%
+;Nasus;0;2;2;0;0%;0%
+;Sion;2;0;2;0;100%;0%
+;Anivia;0;1;1;0;0%;0%
+;Ekko;0;1;1;0;0%;0%
+;Kennen;1;0;1;0;100%;0%
+;Lissandra;0;1;1;0;0%;0%
+;Nidalee;1;0;1;0;100%;0%
+;Rammus;0;1;1;0;0%;0%
+;Singed;0;1;1;0;0%;0%
+;Teemo;1;0;1;0;100%;0%
+;Zed;0;1;1;0;0%;0%
+;Ziggs;0;1;1;0;0%;0%
 ;Ambessa;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Bard;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Brand;;;0;0;#DĚLENÍ_NULOU!;0%
@@ -876,6 +875,42 @@ Skarner;Winník;Exotic Monitors;Chill Capybara;Win;1;2;16
 Azir;Sajox;Exotic Monitors;Chill Capybara;Win;1;5;12
 Xayah;Predator;Exotic Monitors;Chill Capybara;Win;13;2;5
 Braum;Deda;Exotic Monitors;Chill Capybara;Win;2;4;18
+Mordekaiser;Altein;Exotic Monitors;Calm Iguana;Loss;10;5;6
+Sejuani;Winník;Exotic Monitors;Calm Iguana;Loss;3;4;19
+Azir;Sajox;Exotic Monitors;Calm Iguana;Loss;5;4;12
+Nautilus;Deda;Exotic Monitors;Calm Iguana;Loss;0;7;21
+Shen;Buzz;Calm Iguana;Exotic Monitors;Win;4;5;16
+Amumu;Onifus;Calm Iguana;Exotic Monitors;Win;1;9;13
+Kaisa;Mabe;Calm Iguana;Exotic Monitors;Win;8;5;12
+Poppy;Dreamer;Calm Iguana;Exotic Monitors;Win;4;7;18
+Ornn;Altein;Exotic Monitors;Calm Iguana;Win;5;3;7
+Xin Zhao;Winník;Exotic Monitors;Calm Iguana;Win;5;2;14
+Ahri;Sajox;Exotic Monitors;Calm Iguana;Win;8;3;10
+Tahm Kench;Deda;Exotic Monitors;Calm Iguana;Win;1;3;17
+Olaf;Buzz;Calm Iguana;Exotic Monitors;Loss;0;5;3
+Vi;Onifus;Calm Iguana;Exotic Monitors;Loss;1;8;4
+Zeri;Mabe;Calm Iguana;Exotic Monitors;Loss;1;9;4
+Lulu;Dreamer;Calm Iguana;Exotic Monitors;Loss;1;6;9
+Ornn;Holub;Loud Parrots;Shy Pandas;Win;1;6;7
+Nasus;Sgoob;Loud Parrots;Shy Pandas;Win;5;6;4
+Kassadin;Wensd;Loud Parrots;Shy Pandas;Win;4;5;2
+Jinx;Cler;Loud Parrots;Shy Pandas;Win;2;9;4
+Milio;Makima;Loud Parrots;Shy Pandas;Win;0;4;6
+Maokai;Gabe;Shy Pandas;Loud Parrots;Win;2;3;16
+JarvanIV;Hajnej;Shy Pandas;Loud Parrots;Win;5;4;18
+Syndra;Pilot;Shy Pandas;Loud Parrots;Win;9;2;8
+Twitch;Ernie;Shy Pandas;Loud Parrots;Win;12;2;8
+Nami;Muffi;Shy Pandas;Loud Parrots;Win;2;1;21
+Mordekaiser;Holub;Loud Parrots;Shy Pandas;Loss;1;6;1
+Xin Zhao;Sgoob;Loud Parrots;Shy Pandas;Loss;2;7;3
+Aurora;Wensd;Loud Parrots;Shy Pandas;Loss;4;2;4
+Caitlyn;Cler;Loud Parrots;Shy Pandas;Loss;1;5;0
+Lulu;Makima;Loud Parrots;Shy Pandas;Loss;0;3;3
+Shen;Gabe;Shy Pandas;Loud Parrots;Win;4;1;10
+Wukong;Hajnej;Shy Pandas;Loud Parrots;Win;5;3;5
+Viktor;Pilot;Shy Pandas;Loud Parrots;Win;8;2;9
+Draven;Ernie;Shy Pandas;Loud Parrots;Win;6;2;5
+Karma;Muffi;Shy Pandas;Loud Parrots;Win;0;0;17
 		`.trim();
 
 
