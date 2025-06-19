@@ -115,851 +115,878 @@
   <div id="grid"></div>
   <script>
 	const csvData = `
- Games;70;;;;;;
+Games;73;;;;;;
 ;Champ;Wins;Loses;Picks;Bans;Winrate;Banrate
-;Aatrox;0;1;1;1;0%;1%
-;Ahri;8;4;12;11;67%;16%
-;Akali;1;0;1;2;100%;3%
-;Akshan;0;1;1;1;0%;1%
-;Alistar;1;2;3;0;33%;0%
-;Ambessa;;;0;0;#DĚLENÍ_NULOU!;0%
-;Amumu;3;6;9;6;33%;9%
-;Anivia;0;1;1;0;0%;0%
-;Annie;3;2;5;1;60%;1%
-;Aphelios;0;1;1;2;0%;3%
-;Ashe;3;3;6;1;50%;1%
-;Aurelion Sol;0;1;1;4;0%;6%
-;Aurora;0;3;3;2;0%;3%
-;Azir;8;4;12;11;67%;16%
-;Bard;;;0;0;#DĚLENÍ_NULOU!;0%
-;Bel'Veth;0;1;1;4;0%;6%
-;Blitzcrank;0;1;1;8;0%;11%
-;Brand;;;0;0;#DĚLENÍ_NULOU!;0%
-;Braum;5;6;11;11;45%;16%
-;Briar;;;0;0;#DĚLENÍ_NULOU!;0%
-;Caitlyn;0;2;2;4;0%;6%
-;Camille;;;0;2;#DĚLENÍ_NULOU!;3%
-;Cassiopeia;2;1;3;0;67%;0%
-;Corki;2;1;3;1;67%;1%
-;Darius;3;0;3;11;100%;16%
-;Diana;;;0;1;#DĚLENÍ_NULOU!;1%
-;Dr. Mundo;1;4;5;2;20%;3%
-;Draven;2;1;3;9;67%;13%
-;Ekko;0;1;1;0;0%;0%
-;Elise;1;1;2;3;50%;4%
-;Evelynn;;;0;0;#DĚLENÍ_NULOU!;0%
+;Sejuani;13;8;21;4;62%;5%
+;Xin Zhao;11;9;20;25;55%;34%
+;Syndra;9;10;19;25;47%;34%
+;Smolder;12;6;18;32;67%;44%
+;Ornn;9;8;17;14;53%;19%
+;Maokai;9;8;17;8;53%;11%
+;Gwen;8;7;15;23;53%;32%
+;Xayah;11;4;15;4;73%;5%
+;Nautilus;13;1;14;14;93%;19%
+;Shen;9;5;14;7;64%;10%
+;Jarvan IV;4;10;14;6;29%;8%
+;Orianna;4;9;13;16;31%;22%
+;Rell;9;4;13;13;69%;18%
+;Ahri;8;5;13;11;62%;15%
+;Azir;9;4;13;11;69%;15%
+;Wukong;9;3;12;16;75%;22%
+;Jinx;5;7;12;13;42%;18%
+;Braum;5;7;12;11;42%;15%
+;Kai'Sa;5;7;12;9;42%;12%
+;Viktor;9;3;12;6;75%;8%
+;Rakan;3;9;12;4;25%;5%
+;Varus;8;4;12;1;67%;1%
+;Milio;6;5;11;14;55%;19%
+;Sylas;7;4;11;11;64%;15%
+;Karma;3;8;11;4;27%;5%
 ;Ezreal;4;7;11;1;36%;1%
-;Fiddlesticks;;;0;0;#DĚLENÍ_NULOU!;0%
-;Fiora;1;2;3;9;33%;13%
-;Fizz;;;0;0;#DĚLENÍ_NULOU!;0%
-;Galio;0;1;1;2;0%;3%
-;Gangplank;;;0;0;#DĚLENÍ_NULOU!;0%
-;Garen;;;0;1;#DĚLENÍ_NULOU!;1%
-;Gnar;1;2;3;0;33%;0%
-;Gragas;;;0;0;#DĚLENÍ_NULOU!;0%
-;Graves;;;0;0;#DĚLENÍ_NULOU!;0%
-;Gwen;8;6;14;23;57%;33%
-;Hecarim;;;0;2;#DĚLENÍ_NULOU!;3%
-;Heimerdinger;;;0;0;#DĚLENÍ_NULOU!;0%
+;Nami;8;3;11;1;73%;1%
+;Lulu;3;7;10;15;30%;21%
+;Amumu;3;6;9;8;33%;11%
+;Pantheon;5;4;9;7;56%;10%
+;Sivir;4;5;9;4;44%;5%
+;Mel;3;5;8;13;38%;18%
+;Yorick;5;3;8;12;63%;16%
+;Jax;4;4;8;8;50%;11%
+;Tristana;3;5;8;0;38%;0%
+;Vladimir;4;3;7;24;57%;33%
+;Olaf;4;3;7;9;57%;12%
+;Tahm Kench;6;1;7;5;86%;7%
+;Mordekaiser;2;5;7;4;29%;5%
+;Jhin;5;2;7;3;71%;4%
+;Zeri;3;4;7;3;43%;4%
+;Yone;3;3;6;17;50%;23%
+;Twitch;3;3;6;9;50%;12%
+;Thresh;5;1;6;7;83%;10%
+;Vi;1;5;6;7;17%;10%
+;Malphite;4;2;6;5;67%;7%
+;Naafiri;4;2;6;4;67%;5%
+;Nocturne;3;3;6;2;50%;3%
+;Volibear;3;3;6;2;50%;3%
+;Ashe;3;3;6;1;50%;1%
+;K'Sante;3;3;6;0;50%;0%
+;Taliyah;2;3;5;11;40%;15%
+;Zyra;3;2;5;10;60%;14%
+;Lucian;3;2;5;9;60%;12%
+;Poppy;0;5;5;8;0%;11%
+;Senna;2;3;5;5;40%;7%
+;Dr. Mundo;1;4;5;2;20%;3%
+;Annie;3;2;5;1;60%;1%
+;Lillia;1;3;4;14;25%;19%
+;Fiora;1;3;4;10;25%;14%
+;Viego;3;1;4;8;75%;11%
+;Renekton;2;2;4;4;50%;5%
+;Trundle;2;2;4;4;50%;5%
+;Zac;1;3;4;4;25%;5%
+;Soraka;1;3;4;3;25%;4%
 ;Hwei;0;4;4;1;0%;1%
 ;Cho'Gath;1;3;4;1;25%;1%
-;Illaoi;;;0;0;#DĚLENÍ_NULOU!;0%
-;Irelia;0;1;1;1;0%;1%
-;Ivern;2;1;3;8;67%;11%
-;Janna;0;1;1;0;0%;0%
-;Jarvan IV;4;9;13;6;31%;9%
-;Jax;3;4;7;8;43%;11%
+;Neeko;2;2;4;1;50%;1%
+;Alistar;1;3;4;0;25%;0%
+;Cassiopeia;3;1;4;0;75%;0%
+;Draven;2;1;3;12;67%;16%
+;Darius;3;0;3;11;100%;15%
+;Ivern;2;1;3;11;67%;15%
+;Yuumi;0;3;3;10;0%;14%
+;Skarner;1;2;3;6;33%;8%
+;Ryze;0;3;3;4;0%;5%
+;Sett;1;2;3;4;33%;5%
+;Master Yi;1;2;3;3;33%;4%
+;Aurora;0;3;3;2;0%;3%
+;Gnar;1;2;3;2;33%;3%
 ;Jayce;2;1;3;2;67%;3%
-;Jhin;4;2;6;3;67%;4%
-;Jinx;5;6;11;13;45%;19%
-;Kai'Sa;5;7;12;9;42%;13%
-;Kalista;0;1;1;4;0%;6%
-;Karma;3;8;11;4;27%;6%
-;Karthus;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Kassadin;1;2;3;2;33%;3%
-;Katarina;;;0;0;#DĚLENÍ_NULOU!;0%
+;Corki;2;1;3;1;67%;1%
+;Udyr;2;1;3;1;67%;1%
+;Nasus;0;3;3;0;0%;0%
+;Urgot;1;2;3;0;33%;0%
+;Vayne;1;2;3;0;33%;0%
+;Kindred;1;1;2;6;50%;8%
+;Caitlyn;0;2;2;4;0%;5%
+;Elise;1;1;2;3;50%;4%
+;Vex;1;1;2;3;50%;4%
+;LeBlanc;1;1;2;2;50%;3%
+;Pyke;0;2;2;2;0%;3%
+;Leona;1;1;2;1;50%;1%
+;Miss Fortune;1;1;2;0;50%;0%
+;Sion;2;0;2;0;100%;0%
+;Zoe;0;1;1;9;0%;12%
+;Blitzcrank;0;1;1;8;0%;11%
+;Yasuo;1;0;1;5;100%;7%
+;Aurelion Sol;0;1;1;4;0%;5%
+;Bel'Veth;0;1;1;4;0%;5%
+;Camille;1;0;1;4;100%;5%
+;Kalista;0;1;1;4;0%;5%
+;Akali;1;0;1;2;100%;3%
+;Aphelios;0;1;1;2;0%;3%
+;Galio;0;1;1;2;0%;3%
+;Samira;0;1;1;2;0%;3%
+;Swain;1;0;1;2;100%;3%
+;Aatrox;0;1;1;1;0%;1%
+;Akshan;0;1;1;1;0%;1%
+;Irelia;0;1;1;1;0%;1%
 ;Kayle;0;1;1;1;0%;1%
 ;Kayn;1;0;1;1;100%;1%
+;Sona;0;1;1;1;0%;1%
+;Taric;0;1;1;1;0%;1%
+;Vel'Koz;1;0;1;1;100%;1%
+;Ambessa;0;1;1;0;0%;0%
+;Anivia;0;1;1;0;0%;0%
+;Ekko;0;1;1;0;0%;0%
+;Janna;0;1;1;0;0%;0%
 ;Kennen;1;0;1;0;100%;0%
-;Kha'Zix;;;0;0;#DĚLENÍ_NULOU!;0%
-;Kindred;1;1;2;6;50%;9%
-;Kled;;;0;1;#DĚLENÍ_NULOU!;1%
-;Kog'Maw;;;0;0;#DĚLENÍ_NULOU!;0%
-;K'Sante;3;3;6;0;50%;0%
-;LeBlanc;1;0;1;2;100%;3%
-;Lee Sin;;;0;0;#DĚLENÍ_NULOU!;0%
-;Leona;1;1;2;1;50%;1%
-;Lillia;1;3;4;14;25%;20%
 ;Lissandra;0;1;1;0;0%;0%
-;Lucian;3;1;4;9;75%;13%
-;Lulu;3;7;10;15;30%;21%
-;Lux;;;0;0;#DĚLENÍ_NULOU!;0%
-;Malphite;4;2;6;4;67%;6%
-;Malzahar;;;0;0;#DĚLENÍ_NULOU!;0%
-;Maokai;9;8;17;8;53%;11%
-;Master Yi;1;2;3;3;33%;4%
-;Mel;3;5;8;13;38%;19%
-;Milio;6;5;11;14;55%;20%
-;Miss Fortune;1;1;2;0;50%;0%
-;Mordekaiser;2;5;7;4;29%;6%
-;Morgana;;;0;0;#DĚLENÍ_NULOU!;0%
-;Naafiri;4;2;6;4;67%;6%
-;Nami;8;3;11;1;73%;1%
-;Nasus;0;3;3;0;0%;0%
-;Nautilus;12;1;13;14;92%;20%
-;Neeko;2;2;4;1;50%;1%
 ;Nidalee;1;0;1;0;100%;0%
+;Rammus;0;1;1;0;0%;0%
+;Singed;0;1;1;0;0%;0%
+;Teemo;1;0;1;0;100%;0%
+;Zed;0;1;1;0;0%;0%
+;Ziggs;0;1;1;0;0%;0%
+;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;4%
+;Hecarim;;;0;2;#DĚLENÍ_NULOU!;3%
+;Xerath;;;0;2;#DĚLENÍ_NULOU!;3%
+;Diana;;;0;1;#DĚLENÍ_NULOU!;1%
+;Garen;;;0;1;#DĚLENÍ_NULOU!;1%
+;Kled;;;0;1;#DĚLENÍ_NULOU!;1%
+;Seraphine;;;0;1;#DĚLENÍ_NULOU!;1%
+;Shaco;;;0;1;#DĚLENÍ_NULOU!;1%
+;Twisted Fate;;;0;1;#DĚLENÍ_NULOU!;1%
+;Bard;;;0;0;#DĚLENÍ_NULOU!;0%
+;Brand;;;0;0;#DĚLENÍ_NULOU!;0%
+;Briar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Evelynn;;;0;0;#DĚLENÍ_NULOU!;0%
+;Fiddlesticks;;;0;0;#DĚLENÍ_NULOU!;0%
+;Fizz;;;0;0;#DĚLENÍ_NULOU!;0%
+;Gangplank;;;0;0;#DĚLENÍ_NULOU!;0%
+;Gragas;;;0;0;#DĚLENÍ_NULOU!;0%
+;Graves;;;0;0;#DĚLENÍ_NULOU!;0%
+;Heimerdinger;;;0;0;#DĚLENÍ_NULOU!;0%
+;Illaoi;;;0;0;#DĚLENÍ_NULOU!;0%
+;Karthus;;;0;0;#DĚLENÍ_NULOU!;0%
+;Katarina;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kha'Zix;;;0;0;#DĚLENÍ_NULOU!;0%
+;Kog'Maw;;;0;0;#DĚLENÍ_NULOU!;0%
+;Lee Sin;;;0;0;#DĚLENÍ_NULOU!;0%
+;Lux;;;0;0;#DĚLENÍ_NULOU!;0%
+;Malzahar;;;0;0;#DĚLENÍ_NULOU!;0%
+;Morgana;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Nilah;;;0;0;#DĚLENÍ_NULOU!;0%
-;Nocturne;3;2;5;2;60%;3%
 ;Nunu and Willump;;;0;0;#DĚLENÍ_NULOU!;0%
-;Olaf;4;3;7;9;57%;13%
-;Orianna;3;9;12;16;25%;23%
-;Ornn;8;8;16;14;50%;20%
-;Pantheon;4;4;8;7;50%;10%
-;Poppy;0;5;5;8;0%;11%
-;Pyke;0;2;2;2;0%;3%
 ;Qiyana;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Quinn;;;0;0;#DĚLENÍ_NULOU!;0%
-;Rakan;3;8;11;4;27%;6%
-;Rammus;0;1;1;0;0%;0%
 ;Rek'Sai;;;0;0;#DĚLENÍ_NULOU!;0%
-;Rell;8;4;12;13;67%;19%
-;Renata Glasc;;;0;3;#DĚLENÍ_NULOU!;4%
-;Renekton;2;2;4;2;50%;3%
 ;Rengar;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Riven;;;0;0;#DĚLENÍ_NULOU!;0%
 ;Rumble;;;0;0;#DĚLENÍ_NULOU!;0%
-;Ryze;0;3;3;4;0%;6%
-;Samira;0;1;1;2;0%;3%
-;Sejuani;12;8;20;4;60%;6%
-;Senna;2;3;5;5;40%;7%
-;Seraphine;;;0;1;#DĚLENÍ_NULOU!;1%
-;Sett;1;2;3;4;33%;6%
-;Shaco;;;0;1;#DĚLENÍ_NULOU!;1%
-;Shen;9;5;14;4;64%;6%
 ;Shyvana;;;0;0;#DĚLENÍ_NULOU!;0%
-;Singed;0;1;1;0;0%;0%
-;Sion;2;0;2;0;100%;0%
-;Sivir;3;5;8;4;38%;6%
-;Skarner;1;1;2;6;50%;9%
-;Smolder;12;6;18;29;67%;41%
-;Sona;0;1;1;1;0%;1%
-;Soraka;1;3;4;3;25%;4%
-;Swain;1;0;1;2;100%;3%
-;Sylas;7;4;11;10;64%;14%
-;Syndra;9;9;18;25;50%;36%
-;Tahm Kench;5;1;6;5;83%;7%
-;Taliyah;2;3;5;9;40%;13%
 ;Talon;;;0;0;#DĚLENÍ_NULOU!;0%
-;Taric;0;1;1;1;0%;1%
-;Teemo;1;0;1;0;100%;0%
-;Thresh;5;1;6;7;83%;10%
-;Tristana;3;5;8;0;38%;0%
-;Trundle;2;2;4;4;50%;6%
 ;Tryndamere;;;0;0;#DĚLENÍ_NULOU!;0%
-;Twisted Fate;;;0;1;#DĚLENÍ_NULOU!;1%
-;Twitch;3;2;5;9;60%;13%
-;Udyr;2;1;3;1;67%;1%
-;Urgot;1;2;3;0;33%;0%
-;Varus;8;4;12;1;67%;1%
-;Vayne;1;2;3;0;33%;0%
 ;Veigar;;;0;0;#DĚLENÍ_NULOU!;0%
-;Vel'Koz;1;0;1;1;100%;1%
-;Vex;1;1;2;3;50%;4%
-;Vi;1;5;6;7;17%;10%
-;Viego;3;1;4;8;75%;11%
-;Viktor;9;3;12;6;75%;9%
-;Vladimir;4;3;7;24;57%;34%
-;Volibear;3;3;6;2;50%;3%
 ;Warwick;;;0;0;#DĚLENÍ_NULOU!;0%
-;Wukong;9;3;12;13;75%;19%
-;Xayah;11;4;15;4;73%;6%
-;Xerath;;;0;2;#DĚLENÍ_NULOU!;3%
-;Xin Zhao;10;9;19;23;53%;33%
-;Yasuo;1;0;1;5;100%;7%
-;Yone;3;3;6;17;50%;24%
-;Yorick;5;3;8;12;63%;17%
-;Yuumi;0;3;3;10;0%;14%
-;Zac;1;3;4;4;25%;6%
-;Zed;0;1;1;0;0%;0%
-;Zeri;2;4;6;3;33%;4%
-;Ziggs;0;1;1;0;0%;0%
 ;Zilean;;;0;0;#DĚLENÍ_NULOU!;0%
-;Zoe;0;1;1;9;0%;13%
-;Zyra;3;2;5;10;60%;14%
 	`.trim();
 	const matchData = `
-	Champové;Hráč;Tým;Enemy;Win/Loss;Kills;Deaths;Assists
+	ChampovŽ;Hr‡‹;Tům;Enemy;Win/Loss;Kills;Deaths;Assists
 Jayce;Xeruth;Chill Capybara;Hunting Sharks;Win;20;0;15
-Zac;Holub;Loud Parrots;Swift Cheetahs;Win;18;1;8
 Kaisa;Wodr;Jumpy Kangaroo;Hunting Sharks;Win;17;3;8
-Pyke;Jenikk;Venomous Snakes;Shy Pandas;Loss;16;5;10
 Gwen;Sgoob;Loud Parrots;Hunting Sharks;Win;16;0;5
-MonkeyKing;Morphed;Chill Capybara;Hunting Sharks;Win;15;0;18
-Kaisa;Stomci;Venomous Snakes;Calm Iguana;Win;15;1;5
+Pyke;Jenikk;Venomous Snakes;Shy Pandas;Loss;16;5;10
 Jhin;Predator;Exotic Monitors;Mighty Tigers;Win;15;7;7
+Kaisa;Stomci;Venomous Snakes;Calm Iguana;Win;15;1;5
+MonkeyKing;Morphed;Chill Capybara;Hunting Sharks;Win;15;0;18
 Gwen;Michal;Fancy Flamingo;Chill Capybara;Win;14;7;8
 Smolder;Zen;Sneaky Aligators;Fancy Flamingo;Win;14;3;9
 Xayah;447;Fury Bears;Venomous Snakes;Win;14;5;12
+Azir;Mordecaay;Giant Whales;Swift Cheetahs;Win;13;6;21
+Jinx;Predator;Exotic Monitors;Chill Capybara;Win;13;2;6
+Kassadin;Mabe;Calm Iguana;Proud Lions;Win;13;0;9
 Pantheon;Dao;Mighty Tigers;Shy Pandas;Win;13;1;13
 Vladimir;Pisslow;Mighty Tigers;Shy Pandas;Win;13;0;9
-Kassadin;Mabe;Calm Iguana;Proud Lions;Win;13;0;9
-Azir;Mordecaay;Giant Whales;Swift Cheetahs;Win;13;6;21
-Smolder;Brta;Hungry Wolves;Mighty Tigers;Win;13;3;3
-Jinx;Predator;Exotic Monitors;Chill Capybara;Win;13;2;6
 Xayah;Predator;Exotic Monitors;Chill Capybara;Win;13;2;5
+Smolder;Brta;Hungry Wolves;Mighty Tigers;Win;13;3;3
 Ahri;Zen;Sneaky Aligators;Hunting Sharks;Win;12;1;12
+Kaisa;Stomci;Venomous Snakes;Proud Lions;Loss;12;8;6
 Mel;Pilot;Shy Pandas;Exotic Monitors;Win;12;4;9
 Sylas;Pisslow;Mighty Tigers;Calm Iguana;Win;12;3;11
-Varus;Unshead;Giant Whales;Hunting Sharks;Win;12;4;13
-Kaisa;Stomci;Venomous Snakes;Proud Lions;Loss;12;8;6
 Twitch;Ernie;Shy Pandas;Loud Parrots;Win;12;2;8
-Syndra;Lovecoury;Venomous Snakes;Calm Iguana;Win;11;3;11
-Viego;Kessig;Giant Whales;Swift Cheetahs;Win;11;6;14
-Xayah;Ernie;Shy Pandas;Swift Cheetahs;Win;11;3;9
-Sylas;Panda;Jumpy Kangaroo;Chill Capybara;Win;11;2;7
+Varus;Unshead;Giant Whales;Hunting Sharks;Win;12;4;13
 Ahri;Mabe;Calm Iguana;Shy Pandas;Win;11;3;13
+Azir;Dablik;Fury Bears;Shy Pandas;Loss;11;5;8
 Gwen;Miracle;Proud Lions;Venomous Snakes;Win;11;3;12
 Olaf;Buzz;Calm Iguana;Proud Lions;Win;11;5;12
+Smolder;Predator;Exotic Monitors;Venomous Snakes;Win;11;1;12
+Sylas;Panda;Jumpy Kangaroo;Chill Capybara;Win;11;2;7
+Syndra;Lovecoury;Venomous Snakes;Calm Iguana;Win;11;3;11
+Viego;Kessig;Giant Whales;Swift Cheetahs;Win;11;6;14
+Viego;Kessig;Giant Whales;Exotic Monitors;Loss;11;5;5
+Xayah;Ernie;Shy Pandas;Swift Cheetahs;Win;11;3;9
 Xayah;447;Fury Bears;Proud Lions;Win;11;3;14
 Xayah;Wodr;Jumpy Kangaroo;Giant Whales;Win;11;5;9
-Smolder;Predator;Exotic Monitors;Venomous Snakes;Win;11;1;12
-Viego;Kessig;Giant Whales;Exotic Monitors;Loss;11;5;5
-Azir;Dablik;Fury Bears;Shy Pandas;Loss;11;5;8
-Mordekaiser;Altein;Exotic Monitors;Calm Iguana;Win;10;5;6
-JarvanIV;Arashid;Jumpy Kangaroo;Hunting Sharks;Win;10;4;21
-Xin Zhao;Kryštof;Sneaky Aligators;Jumpy Kangaroo;Win;10;3;12
-Corki;Zen;Sneaky Aligators;Giant Whales;Win;10;0;4
+Xin Zhao;Toofast;Hungry Wolves;Exotic Monitors;Win;11;1;11
 Annie;Morphed;Chill Capybara;Swift Cheetahs;Win;10;4;11
-Kalista;Stomci;Venomous Snakes;Shy Pandas;Loss;10;4;16
-Vladimir;Pisslow;Mighty Tigers;Fury Bears;Win;10;0;6
+Corki;Zen;Sneaky Aligators;Giant Whales;Win;10;0;4
 DrMundo;Bucko;Venomous Snakes;Fury Bears;Loss;10;5;6
-Viego;Skenk;Hunting Sharks;Fancy Flamingo;Win;10;6;6
-Taliyah;Panda;Jumpy Kangaroo;Giant Whales;Win;10;3;12
-Xayah;Unshead;Giant Whales;Swift Cheetahs;Win;10;3;17
-Sylas;Zen;Sneaky Aligators;Loud Parrots;Win;10;2;4
-Xayah;Eclipse;Calm Iguana;Exotic Monitors;Win;10;0;7
-Zeri;Simba;Chill Capybara;Exotic Monitors;Win;10;1;7
+JarvanIV;Arashid;Jumpy Kangaroo;Hunting Sharks;Win;10;4;21
+Kalista;Stomci;Venomous Snakes;Shy Pandas;Loss;10;4;16
+Mordekaiser;Altein;Exotic Monitors;Calm Iguana;Win;10;5;6
 Smolder;Ernie;Shy Pandas;Fury Bears;Win;10;5;8
+Sylas;Zen;Sneaky Aligators;Loud Parrots;Win;10;2;4
+Taliyah;Panda;Jumpy Kangaroo;Giant Whales;Win;10;3;12
+Viego;Skenk;Hunting Sharks;Fancy Flamingo;Win;10;6;6
+Vladimir;Pisslow;Mighty Tigers;Fury Bears;Win;10;0;6
+Xayah;Unshead;Giant Whales;Swift Cheetahs;Win;10;3;17
+Xayah;Eclipse;Calm Iguana;Exotic Monitors;Win;10;0;7
+Xin Zhao;Kryätof;Sneaky Aligators;Jumpy Kangaroo;Win;10;3;12
+Zeri;Simba;Chill Capybara;Exotic Monitors;Win;10;1;7
 Zeri;Lagier;Fury Bears;Shy Pandas;Win;10;1;13
-Naafiri;Dao;Mighty Tigers;Calm Iguana;Win;9;4;13
-MonkeyKing;Kessig;Giant Whales;Jumpy Kangaroo;Loss;9;6;10
-Vex;Pilot;Shy Pandas;Venomous Snakes;Win;9;7;10
-Tristana;Lenny;Fancy Flamingo;Chill Capybara;Win;9;7;10
-Teemo;Kryštof;Sneaky Aligators;Hunting Sharks;Win;9;2;9
-Smolder;Zen;Sneaky Aligators;Swift Cheetahs;Win;9;6;7
-Smolder;447;Fury Bears;Calm Iguana;Win;9;3;7
-Hwei;Xeruth;Chill Capybara;Fancy Flamingo;Loss;9;5;6
-Xayah;Wodr;Jumpy Kangaroo;Loud Parrots;Win;9;6;6
+Cassiopeia;Sajox;Exotic Monitors;Mighty Tigers;Win;9;2;10
+Ezreal;Vajtakk;Mighty Tigers;Venomous Snakes;Win;9;5;9
 Gwen;Lagier;Fury Bears;Venomous Snakes;Win;9;8;13
-Xin Zhao;Sgoob;Loud Parrots;Chill Capybara;Win;9;3;14
-Rell;Jenikk;Venomous Snakes;Fury Bears;Loss;9;9;22
-Vladimir;Poštolka;Proud Lions;Mighty Tigers;Win;9;1;5
-Syndra;Mordecaay;Giant Whales;Hunting Sharks;Win;9;8;17
-MonkeyKing;Toofast;Hungry Wolves;Exotic Monitors;Win;9;1;12
-Vladimir;Mabe;Calm Iguana;Hungry Wolves;Loss;9;1;9
-Smolder;Brta;Hungry Wolves;Exotic Monitors;Win;9;1;9
-Twitch;Brta;Hungry Wolves;Shy Pandas;Win;9;4;12
+Gwen;Lagier;Fury Bears;Shy Pandas;Loss;9;2;7
+Hwei;Xeruth;Chill Capybara;Fancy Flamingo;Loss;9;5;6
 Kaisa;Astro;Proud Lions;Shy Pandas;Win;9;1;3
 Lucian;Ernie;Shy Pandas;Fury Bears;Win;9;2;3
-Syndra;Kubik;Hunting Sharks;Fancy Flamingo;Win;9;1;13
-Ezreal;Vajtakk;Mighty Tigers;Venomous Snakes;Win;9;5;9
 Lucian;447;Fury Bears;Hungry Wolves;Win;9;1;6
-Cassiopeia;Sajox;Exotic Monitors;Mighty Tigers;Win;9;2;10
+MonkeyKing;Kessig;Giant Whales;Jumpy Kangaroo;Loss;9;6;10
+Naafiri;Dao;Mighty Tigers;Calm Iguana;Win;9;4;13
+Rell;Jenikk;Venomous Snakes;Fury Bears;Loss;9;9;22
+Smolder;Zen;Sneaky Aligators;Swift Cheetahs;Win;9;6;7
+Smolder;447;Fury Bears;Calm Iguana;Win;9;3;7
+Syndra;Mordecaay;Giant Whales;Hunting Sharks;Win;9;8;17
+Syndra;Kubik;Hunting Sharks;Fancy Flamingo;Win;9;1;13
 Syndra;Pilot;Shy Pandas;Loud Parrots;Win;9;2;8
-Gwen;Lagier;Fury Bears;Shy Pandas;Loss;9;2;7
-Naafiri;Kessig;Giant Whales;Chill Capybara;Win;8;3;12
+Teemo;Kryätof;Sneaky Aligators;Hunting Sharks;Win;9;2;9
+Tristana;Lenny;Fancy Flamingo;Chill Capybara;Win;9;7;10
+Vex;Pilot;Shy Pandas;Venomous Snakes;Win;9;7;10
+Vladimir;Poätolka;Proud Lions;Mighty Tigers;Win;9;1;5
+Vladimir;Mabe;Calm Iguana;Hungry Wolves;Loss;9;1;9
+Xayah;Wodr;Jumpy Kangaroo;Loud Parrots;Win;9;6;6
+Xin Zhao;Sgoob;Loud Parrots;Chill Capybara;Win;9;3;14
+Smolder;Brta;Hungry Wolves;Exotic Monitors;Win;9;1;9
+Twitch;Brta;Hungry Wolves;Shy Pandas;Win;9;4;12
+MonkeyKing;Toofast;Hungry Wolves;Exotic Monitors;Win;9;1;12
+Pantheon;Toofast;Hungry Wolves;Exotic Monitors;Win;9;0;7
+Jax;Blaze;Hungry Wolves;Exotic Monitors;Win;8;2;4
 Ahri;Mabe;Calm Iguana;Exotic Monitors;Win;8;3;14
-Cassiopeia;Nugy;Hungry Wolves;Shy Pandas;Win;8;2;10
-Sivir;Wodr;Jumpy Kangaroo;Chill Capybara;Win;8;3;13
-Zyra;Kryštof;Sneaky Aligators;Fancy Flamingo;Win;8;3;13
-JarvanIV;Sgoob;Loud Parrots;Swift Cheetahs;Win;8;3;11
-Smolder;Ernie;Shy Pandas;Venomous Snakes;Win;8;6;15
-Xin Zhao;Kryštof;Sneaky Aligators;Chill Capybara;Win;8;5;8
-Smolder;Ernie;Shy Pandas;Swift Cheetahs;Win;8;4;7
-Twitch;Simba;Chill Capybara;Fancy Flamingo;Loss;8;9;7
-Tristana;Lenny;Fancy Flamingo;Swift Cheetahs;Win;8;2;5
-Draven;Valis;Sneaky Aligators;Hunting Sharks;Win;8;0;3
-Varus;Eclipse;Calm Iguana;Shy Pandas;Win;8;4;16
-Syndra;Pisslow;Mighty Tigers;Venomous Snakes;Win;8;2;11
-Yone;Lagier;Fury Bears;Proud Lions;Win;8;1;6
-Annie;Xeruth;Chill Capybara;Sneaky Aligators;Loss;8;5;8
-Varus;Simba;Chill Capybara;Swift Cheetahs;Win;8;3;5
-Swain;Simba;Chill Capybara;Hunting Sharks;Win;8;4;17
-Varus;Vajtakk;Mighty Tigers;Exotic Monitors;Loss;8;10;6
-Sylas;Pisslow;Mighty Tigers;Exotic Monitors;Loss;8;5;3
-Yone;Poštolka;Proud Lions;Hungry Wolves;Win;8;3;5
-Smolder;Stomci;Venomous Snakes;Fury Bears;Loss;8;6;16
-Azir;Dablik;Fury Bears;Hungry Wolves;Win;8;0;6
-Smolder;Ernie;Shy Pandas;Exotic Monitors;Win;8;1;5
-Kaisa;Astro;Proud Lions;Hungry Wolves;Win;8;1;5
-Gwen;Dao;Mighty Tigers;Proud Lions;Loss;8;7;1
-Azir;Sajox;Exotic Monitors;Fury Bears;Win;8;1;13
 Ahri;Sajox;Exotic Monitors;Calm Iguana;Win;8;3;10
-Jayce;Xeruth;Chill Capybara;Exotic Monitors;Win;8;1;7
-Nocturne;Winník;Exotic Monitors;Fury Bears;Win;8;1;10
-Kaisa;Mabe;Calm Iguana;Exotic Monitors;Loss;8;5;12
-Viktor;Pilot;Shy Pandas;Loud Parrots;Win;8;2;9
+Annie;Xeruth;Chill Capybara;Sneaky Aligators;Loss;8;5;8
+Azir;Dablik;Fury Bears;Hungry Wolves;Win;8;0;6
+Azir;Sajox;Exotic Monitors;Fury Bears;Win;8;1;13
 Azir;Sajox;Exotic Monitors;Giant Whales;Win;8;5;5
-Chogath;Maťo;Giant Whales;Exotic Monitors;Loss;8;5;7
+Draven;Valis;Sneaky Aligators;Hunting Sharks;Win;8;0;3
+Gwen;Dao;Mighty Tigers;Proud Lions;Loss;8;7;1
+Chogath;Maéo;Giant Whales;Exotic Monitors;Loss;8;5;7
+JarvanIV;Sgoob;Loud Parrots;Swift Cheetahs;Win;8;3;11
+Jayce;Xeruth;Chill Capybara;Exotic Monitors;Win;8;1;7
+Kaisa;Astro;Proud Lions;Hungry Wolves;Win;8;1;5
+Kaisa;Mabe;Calm Iguana;Exotic Monitors;Loss;8;5;12
+Naafiri;Kessig;Giant Whales;Chill Capybara;Win;8;3;12
+Nocturne;Winn’k;Exotic Monitors;Fury Bears;Win;8;1;10
 Orianna;Dablik;Fury Bears;Shy Pandas;Win;8;0;9
-Azir;Dablik;Fury Bears;Venomous Snakes;Win;7;6;15
-Xin Zhao;Kessig;Giant Whales;Hunting Sharks;Win;7;3;14
-Sylas;Dreamer;Calm Iguana;Shy Pandas;Win;7;5;19
-MonkeyKing;Kessig;Giant Whales;Loud Parrots;Win;7;0;10
-Viego;Miracle;Proud Lions;Mighty Tigers;Win;7;0;11
+Sivir;Wodr;Jumpy Kangaroo;Chill Capybara;Win;8;3;13
+Smolder;Ernie;Shy Pandas;Venomous Snakes;Win;8;6;15
+Smolder;Ernie;Shy Pandas;Swift Cheetahs;Win;8;4;7
+Smolder;Stomci;Venomous Snakes;Fury Bears;Loss;8;6;16
+Smolder;Ernie;Shy Pandas;Exotic Monitors;Win;8;1;5
+Swain;Simba;Chill Capybara;Hunting Sharks;Win;8;4;17
+Sylas;Pisslow;Mighty Tigers;Exotic Monitors;Loss;8;5;3
+Syndra;Pisslow;Mighty Tigers;Venomous Snakes;Win;8;2;11
+Tristana;Lenny;Fancy Flamingo;Swift Cheetahs;Win;8;2;5
+Twitch;Simba;Chill Capybara;Fancy Flamingo;Loss;8;9;7
+Varus;Eclipse;Calm Iguana;Shy Pandas;Win;8;4;16
+Varus;Simba;Chill Capybara;Swift Cheetahs;Win;8;3;5
+Varus;Vajtakk;Mighty Tigers;Exotic Monitors;Loss;8;10;6
+Viktor;Pilot;Shy Pandas;Loud Parrots;Win;8;2;9
+Xin Zhao;Kryätof;Sneaky Aligators;Chill Capybara;Win;8;5;8
+Yone;Lagier;Fury Bears;Proud Lions;Win;8;1;6
+Yone;Poätolka;Proud Lions;Hungry Wolves;Win;8;3;5
+Zyra;Kryätof;Sneaky Aligators;Fancy Flamingo;Win;8;3;13
+Cassiopeia;Nugy;Hungry Wolves;Shy Pandas;Win;8;2;10
 Ahri;Wensd;Loud Parrots;Chill Capybara;Win;7;5;9
-Sejuani;Arashid;Jumpy Kangaroo;Chill Capybara;Win;7;1;13
-Darius;Moreal;Swift Cheetahs;Hunting Sharks;Win;7;2;12
-Kindred;Michal;Fancy Flamingo;Swift Cheetahs;Win;7;2;8
-Chogath;Ladik;Fancy Flamingo;Swift Cheetahs;Win;7;3;5
-Sylas;Panda;Jumpy Kangaroo;Hunting Sharks;Win;7;4;7
-Ornn;Mato;Giant Whales;Hunting Sharks;Win;7;2;22
-Trundle;Mato;Giant Whales;Chill Capybara;Win;7;3;5
-Jax;Sovaz;Swift Cheetahs;Hunting Sharks;Win;7;2;4
-Kaisa;Stomci;Venomous Snakes;Mighty Tigers;Loss;7;4;9
-Taliyah;Kubik;Hunting Sharks;Giant Whales;Loss;7;7;7
-Pantheon;Moreal;Swift Cheetahs;Giant Whales;Loss;7;7;12
-Master Yi;Michal;Fancy Flamingo;Loud Parrots;Win;7;1;9
-Jinx;Vajtakk;Mighty Tigers;Shy Pandas;Win;7;5;13
 Annie;Erko;Proud Lions;Venomous Snakes;Win;7;7;22
-Mel;Amith;Swift Cheetahs;Sneaky Aligators;Loss;7;6;5
-Zeri;Ernie;Shy Pandas;Mighty Tigers;Loss;7;7;1
-Xayah;Lenny;Fancy Flamingo;Giant Whales;Win;7;1;6
-Smolder;Ernie;Shy Pandas;Calm Iguana;Loss;7;4;8
-Tristana;Morphed;Chill Capybara;Loud Parrots;Loss;7;2;2
-Mel;Amith;Swift Cheetahs;Hunting Sharks;Win;7;1;12
-Olaf;Alko;Jumpy Kangaroo;Giant Whales;Win;7;2;5
-Gwen;Miracle;Proud Lions;Exotic Monitors;Win;7;2;10
-Mordekaiser;Buzz;Calm Iguana;Mighty Tigers;Loss;7;5;2
-Miss Fortune;Predator;Exotic Monitors;Proud Lions;Loss;7;3;6
-Jhin;Simba;Chill Capybara;Exotic Monitors;Loss;7;2;7
-Lissandra;Sajox;Exotic Monitors;Proud Lions;Loss;7;6;4
-Mel;Sajox;Exotic Monitors;Shy Pandas;Loss;7;7;7
-Xin Zhao;Winník;Exotic Monitors;Giant Whales;Win;7;3;8
-Sylas;Dablik;Fury Bears;Shy Pandas;Win;7;3;15
-Mel;447;Fury Bears;Shy Pandas;Win;7;1;10
+Azir;Dablik;Fury Bears;Venomous Snakes;Win;7;6;15
+Darius;Moreal;Swift Cheetahs;Hunting Sharks;Win;7;2;12
 DrMundo;Lagier;Fury Bears;Shy Pandas;Win;7;3;6
-Xin Zhao;Radek;Venomous Snakes;Calm Iguana;Win;6;2;19
-Volibear;Altein;Exotic Monitors;Venomous Snakes;Win;6;7;8
-Gwen;Sgoob;Loud Parrots;Sneaky Aligators;Loss;6;6;2
-Zeri;Ernie;Shy Pandas;Proud Lions;Loss;6;5;3
-Xin Zhao;Radek;Venomous Snakes;Mighty Tigers;Loss;6;5;9
-Jinx;Astro;Proud Lions;Venomous Snakes;Win;6;11;14
-Tahm Kench;Lama;Sneaky Aligators;Swift Cheetahs;Win;6;3;14
-Olaf;Buzz;Calm Iguana;Shy Pandas;Win;6;2;13
-Syndra;Asmo;Fancy Flamingo;Chill Capybara;Win;6;5;15
-Azir;Zen;Sneaky Aligators;Jumpy Kangaroo;Win;6;3;16
-Sion;Poli;Sneaky Aligators;Swift Cheetahs;Win;6;0;7
-Viktor;Pilot;Shy Pandas;Swift Cheetahs;Win;6;1;14
+Gwen;Miracle;Proud Lions;Exotic Monitors;Win;7;2;10
+Chogath;Ladik;Fancy Flamingo;Swift Cheetahs;Win;7;3;5
+Jax;Sovaz;Swift Cheetahs;Hunting Sharks;Win;7;2;4
+Jhin;Simba;Chill Capybara;Exotic Monitors;Loss;7;2;7
+Jinx;Vajtakk;Mighty Tigers;Shy Pandas;Win;7;5;13
+Kaisa;Stomci;Venomous Snakes;Mighty Tigers;Loss;7;4;9
+Kindred;Michal;Fancy Flamingo;Swift Cheetahs;Win;7;2;8
+Lissandra;Sajox;Exotic Monitors;Proud Lions;Loss;7;6;4
+Master Yi;Michal;Fancy Flamingo;Loud Parrots;Win;7;1;9
+Mel;Amith;Swift Cheetahs;Sneaky Aligators;Loss;7;6;5
+Mel;Amith;Swift Cheetahs;Hunting Sharks;Win;7;1;12
+Mel;Sajox;Exotic Monitors;Shy Pandas;Loss;7;7;7
+Mel;447;Fury Bears;Shy Pandas;Win;7;1;10
+Miss Fortune;Predator;Exotic Monitors;Proud Lions;Loss;7;3;6
+MonkeyKing;Kessig;Giant Whales;Loud Parrots;Win;7;0;10
+Mordekaiser;Buzz;Calm Iguana;Mighty Tigers;Loss;7;5;2
+Olaf;Alko;Jumpy Kangaroo;Giant Whales;Win;7;2;5
+Ornn;Mato;Giant Whales;Hunting Sharks;Win;7;2;22
+Pantheon;Moreal;Swift Cheetahs;Giant Whales;Loss;7;7;12
+Sejuani;Arashid;Jumpy Kangaroo;Chill Capybara;Win;7;1;13
+Smolder;Ernie;Shy Pandas;Calm Iguana;Loss;7;4;8
+Sylas;Dreamer;Calm Iguana;Shy Pandas;Win;7;5;19
+Sylas;Panda;Jumpy Kangaroo;Hunting Sharks;Win;7;4;7
+Sylas;Dablik;Fury Bears;Shy Pandas;Win;7;3;15
+Taliyah;Kubik;Hunting Sharks;Giant Whales;Loss;7;7;7
+Tristana;Morphed;Chill Capybara;Loud Parrots;Loss;7;2;2
+Trundle;Mato;Giant Whales;Chill Capybara;Win;7;3;5
+Viego;Miracle;Proud Lions;Mighty Tigers;Win;7;0;11
+Xayah;Lenny;Fancy Flamingo;Giant Whales;Win;7;1;6
+Xin Zhao;Kessig;Giant Whales;Hunting Sharks;Win;7;3;14
+Xin Zhao;Winn’k;Exotic Monitors;Giant Whales;Win;7;3;8
+Zeri;Ernie;Shy Pandas;Mighty Tigers;Loss;7;7;1
+MonkeyKing;Blaze;Hungry Wolves;Shy Pandas;Win;6;1;9
 Annie;Pilot;Shy Pandas;Swift Cheetahs;Win;6;4;12
-Jax;Sovaz;Swift Cheetahs;Jumpy Kangaroo;Win;6;0;8
-Urgot;Bucko;Venomous Snakes;Hungry Wolves;Win;6;2;6
-Varus;Valis;Sneaky Aligators;Giant Whales;Win;6;0;6
-Mel;Asmo;Fancy Flamingo;Loud Parrots;Win;6;3;9
-Nasus;Sovaz;Swift Cheetahs;Shy Pandas;Loss;6;4;5
-Renekton;Alko;Jumpy Kangaroo;Hunting Sharks;Win;6;0;3
-Yorick;Poli;Sneaky Aligators;Jumpy Kangaroo;Win;6;1;3
+Ashe;Raiiden;Swift Cheetahs;Giant Whales;Loss;6;7;11
+Azir;Zen;Sneaky Aligators;Jumpy Kangaroo;Win;6;3;16
+Draven;Ernie;Shy Pandas;Loud Parrots;Win;6;2;5
 Ezreal;Raiiden;Swift Cheetahs;Shy Pandas;Loss;6;3;1
 Ezreal;Simba;Chill Capybara;Giant Whales;Loss;6;5;5
+Gwen;Sgoob;Loud Parrots;Sneaky Aligators;Loss;6;6;2
 Gwen;Michal;Fancy Flamingo;Hunting Sharks;Loss;6;5;2
-Ornn;Dark;Proud Lions;Exotic Monitors;Win;6;2;8
 Gwen;Alko;Jumpy Kangaroo;Chill Capybara;Win;6;0;1
-Ashe;Raiiden;Swift Cheetahs;Giant Whales;Loss;6;7;11
-Urgot;Sovaz;Swift Cheetahs;Giant Whales;Loss;6;10;11
-Olaf;Popo;Hunting Sharks;Fancy Flamingo;Win;6;2;8
-MonkeyKing;Blaze;Hungry Wolves;Shy Pandas;Win;6;1;9
-Volibear;Radek;Venomous Snakes;Fury Bears;Loss;6;6;18
-Rell;Tee;Jumpy Kangaroo;Fancy Flamingo;Win;6;1;10
-Yorick;Ladik;Fancy Flamingo;Giant Whales;Win;6;1;1
-Sejuani;Miracle;Proud Lions;Hungry Wolves;Win;6;2;11
-MonkeyKing;Kryštof;Sneaky Aligators;Loud Parrots;Win;6;2;8
+Jax;Sovaz;Swift Cheetahs;Jumpy Kangaroo;Win;6;0;8
+Jinx;Astro;Proud Lions;Venomous Snakes;Win;6;11;14
 Jinx;Unshead;Giant Whales;Jumpy Kangaroo;Loss;6;7;8
+Jinx;Cler;Loud Parrots;Hunting Sharks;Win;6;3;8
+Kaisa;Astro;Proud Lions;Exotic Monitors;Win;6;6;11
+Mel;Asmo;Fancy Flamingo;Loud Parrots;Win;6;3;9
+MonkeyKing;Kryätof;Sneaky Aligators;Loud Parrots;Win;6;2;8
+Nasus;Sovaz;Swift Cheetahs;Shy Pandas;Loss;6;4;5
+Olaf;Buzz;Calm Iguana;Shy Pandas;Win;6;2;13
+Olaf;Popo;Hunting Sharks;Fancy Flamingo;Win;6;2;8
+Ornn;Dark;Proud Lions;Exotic Monitors;Win;6;2;8
+Pantheon;Morphed;Chill Capybara;Exotic Monitors;Loss;6;8;9
+Rell;Tee;Jumpy Kangaroo;Fancy Flamingo;Win;6;1;10
+Renekton;Alko;Jumpy Kangaroo;Hunting Sharks;Win;6;0;3
+Sejuani;Miracle;Proud Lions;Hungry Wolves;Win;6;2;11
+Sion;Poli;Sneaky Aligators;Swift Cheetahs;Win;6;0;7
 Smolder;Raiiden;Swift Cheetahs;Chill Capybara;Loss;6;5;8
 Smolder;Unshead;Giant Whales;Chill Capybara;Win;6;2;12
-Kaisa;Astro;Proud Lions;Exotic Monitors;Win;6;6;11
-Tristana;Eclipse;Calm Iguana;Venomous Snakes;Loss;6;7;1
-Jinx;Cler;Loud Parrots;Hunting Sharks;Win;6;3;8
-Pantheon;Morphed;Chill Capybara;Exotic Monitors;Loss;6;8;9
+Syndra;Asmo;Fancy Flamingo;Chill Capybara;Win;6;5;15
 Syndra;Sajox;Exotic Monitors;Venomous Snakes;Win;6;2;10
-Draven;Ernie;Shy Pandas;Loud Parrots;Win;6;2;5
-Viktor;Dablik;Fury Bears;Proud Lions;Win;5;3;16
-Udyr;Dao;Mighty Tigers;Fury Bears;Win;5;2;4
-Ahri;Lovecoury;Venomous Snakes;Mighty Tigers;Loss;5;7;6
-DrMundo;Altein;Exotic Monitors;Shy Pandas;Loss;5;7;6
+Tahm Kench;Lama;Sneaky Aligators;Swift Cheetahs;Win;6;3;14
+Tristana;Eclipse;Calm Iguana;Venomous Snakes;Loss;6;7;1
+Urgot;Bucko;Venomous Snakes;Hungry Wolves;Win;6;2;6
+Urgot;Sovaz;Swift Cheetahs;Giant Whales;Loss;6;10;11
+Varus;Valis;Sneaky Aligators;Giant Whales;Win;6;0;6
+Viktor;Pilot;Shy Pandas;Swift Cheetahs;Win;6;1;14
+Volibear;Altein;Exotic Monitors;Venomous Snakes;Win;6;7;8
+Volibear;Radek;Venomous Snakes;Fury Bears;Loss;6;6;18
+Xin Zhao;Radek;Venomous Snakes;Calm Iguana;Win;6;2;19
+Xin Zhao;Radek;Venomous Snakes;Mighty Tigers;Loss;6;5;9
+Yorick;Poli;Sneaky Aligators;Jumpy Kangaroo;Win;6;1;3
+Yorick;Ladik;Fancy Flamingo;Giant Whales;Win;6;1;1
+Zeri;Ernie;Shy Pandas;Proud Lions;Loss;6;5;3
+Orianna;Sajox;Exotic Monitors;Hungry Wolves;Win;6;3;5
+Sivir;Brta;Hungry Wolves;Exotic Monitors;Win;6;4;12
+Cassiopeia;Nugy;Hungry Wolves;Exotic Monitors;Win;6;1;15
 Gnar;Blaze;Hungry Wolves;Exotic Monitors;Win;5;1;10
-Maokai;Marmelada;Mighty Tigers;Calm Iguana;Win;5;5;9
-Orianna;Pilot;Shy Pandas;Fury Bears;Win;5;0;5
-Yorick;Poli;Sneaky Aligators;Chill Capybara;Win;5;2;8
-Ornn;Altein;Exotic Monitors;Calm Iguana;Win;5;3;7
-Smolder;Restricted;Hunting Sharks;Giant Whales;Loss;5;9;6
-Sejuani;Skenk;Hunting Sharks;Giant Whales;Loss;5;8;9
-Ryze;Pilot;Shy Pandas;Calm Iguana;Loss;5;7;5
-Zyra;Kryštof;Sneaky Aligators;Swift Cheetahs;Win;5;3;18
-Xayah;Valis;Sneaky Aligators;Fancy Flamingo;Win;5;6;12
-Sejuani;Houba;Fury Bears;Proud Lions;Win;5;2;19
-Syndra;Lovecoury;Venomous Snakes;Fury Bears;Loss;5;6;21
-Sejuani;Houba;Fury Bears;Calm Iguana;Win;5;2;14
-Senna;Valis;Sneaky Aligators;Jumpy Kangaroo;Win;5;2;14
-Elise;Lama;Sneaky Aligators;Hunting Sharks;Win;5;2;13
-Varus;Eclipse;Calm Iguana;Proud Lions;Win;5;4;11
-Xin Zhao;Morphed;Chill Capybara;Fancy Flamingo;Loss;5;8;12
-Lillia;Moreal;Swift Cheetahs;Jumpy Kangaroo;Win;5;2;9
-Lucian;Lenny;Fancy Flamingo;Loud Parrots;Win;5;0;7
-Kindred;Moreal;Swift Cheetahs;Shy Pandas;Loss;5;6;8
-Pantheon;Hajnej;Shy Pandas;Swift Cheetahs;Win;5;2;7
-Sion;Poli;Sneaky Aligators;Hunting Sharks;Win;5;1;7
-Ekko;Skenk;Hunting Sharks;Jumpy Kangaroo;Loss;5;8;5
-Vayne;Astro;Proud Lions;Mighty Tigers;Win;5;3;7
-Syndra;Amith;Swift Cheetahs;Fancy Flamingo;Loss;5;7;0
-Yone;Lovecoury;Venomous Snakes;Shy Pandas;Loss;5;6;19
-Zoe;Lenny;Fancy Flamingo;Sneaky Aligators;Loss;5;3;3
-Smolder;Simba;Chill Capybara;Sneaky Aligators;Loss;5;5;8
+Gwen;Blaze;Hungry Wolves;Calm Iguana;Win;5;2;6
+Ambessa;Blaze;Hungry Wolves;Exotic Monitors;Loss;5;4;0
+Ahri;Lovecoury;Venomous Snakes;Mighty Tigers;Loss;5;7;6
 Ahri;Mordecaay;Giant Whales;Chill Capybara;Win;5;2;14
 Ahri;Mordecaay;Giant Whales;Loud Parrots;Win;5;2;6
-Hwei;Wensd;Loud Parrots;Jumpy Kangaroo;Loss;5;3;1
-Yone;Poštolka;Proud Lions;Exotic Monitors;Win;5;6;8
-Syndra;Mabe;Calm Iguana;Fury Bears;Loss;5;6;4
-Belveth;Sgoob;Loud Parrots;Fancy Flamingo;Loss;5;6;4
-Tristana;Poštolka;Proud Lions;Calm Iguana;Loss;5;7;3
-Corki;Vajtakk;Mighty Tigers;Fury Bears;Win;5;1;4
-Kaisa;Astro;Proud Lions;Calm Iguana;Loss;5;5;4
-Gwen;Blaze;Hungry Wolves;Calm Iguana;Win;5;2;6
-Naafiri;Skenk;Hunting Sharks;Chill Capybara;Loss;5;6;4
-Orianna;Lovecoury;Venomous Snakes;Exotic Monitors;Loss;5;4;3
-Zed;Dao;Mighty Tigers;Hungry Wolves;Loss;5;5;3
-Sejuani;Miracle;Proud Lions;Shy Pandas;Win;5;1;9
-Senna;Simba;Chill Capybara;Loud Parrots;Loss;5;3;4
-MonkeyKing;Sovaz;Swift Cheetahs;Chill Capybara;Loss;5;6;3
-Kaisa;Restricted;Hunting Sharks;Swift Cheetahs;Loss;5;3;2
-Ziggs;Vajtakk;Mighty Tigers;Hungry Wolves;Loss;5;6;1
-Volibear;Morphed;Chill Capybara;Exotic Monitors;Win;5;1;14
-Azir;Sajox;Exotic Monitors;Calm Iguana;Win;5;4;12
-JarvanIV;Morphed;Chill Capybara;Exotic Monitors;Loss;5;3;11
 Aphelions;Simba;Chill Capybara;Exotic Monitors;Loss;5;5;6
-Xin Zhao;Winník;Exotic Monitors;Calm Iguana;Win;5;2;14
-Nasus;Sgoob;Loud Parrots;Shy Pandas;Loss;5;6;4
+Azir;Sajox;Exotic Monitors;Calm Iguana;Win;5;4;12
+Belveth;Sgoob;Loud Parrots;Fancy Flamingo;Loss;5;6;4
+Corki;Vajtakk;Mighty Tigers;Fury Bears;Win;5;1;4
+DrMundo;Altein;Exotic Monitors;Shy Pandas;Loss;5;7;6
+Ekko;Skenk;Hunting Sharks;Jumpy Kangaroo;Loss;5;8;5
+Elise;Lama;Sneaky Aligators;Hunting Sharks;Win;5;2;13
+Camille;Blaze;Hungry Wolves;Exotic Monitors;Win;5;4;3
+Hwei;Wensd;Loud Parrots;Jumpy Kangaroo;Loss;5;3;1
+JarvanIV;Morphed;Chill Capybara;Exotic Monitors;Loss;5;3;11
 JarvanIV;Hajnej;Shy Pandas;Loud Parrots;Win;5;4;18
+Kaisa;Astro;Proud Lions;Calm Iguana;Loss;5;5;4
+Kaisa;Restricted;Hunting Sharks;Swift Cheetahs;Loss;5;3;2
+Kindred;Moreal;Swift Cheetahs;Shy Pandas;Loss;5;6;8
+Lillia;Moreal;Swift Cheetahs;Jumpy Kangaroo;Win;5;2;9
+Lucian;Lenny;Fancy Flamingo;Loud Parrots;Win;5;0;7
+Maokai;Marmelada;Mighty Tigers;Calm Iguana;Win;5;5;9
+MonkeyKing;Sovaz;Swift Cheetahs;Chill Capybara;Loss;5;6;3
 MonkeyKing;Hajnej;Shy Pandas;Loud Parrots;Win;5;3;5
+Naafiri;Skenk;Hunting Sharks;Chill Capybara;Loss;5;6;4
+Nasus;Sgoob;Loud Parrots;Shy Pandas;Loss;5;6;4
+Orianna;Pilot;Shy Pandas;Fury Bears;Win;5;0;5
+Orianna;Lovecoury;Venomous Snakes;Exotic Monitors;Loss;5;4;3
+Ornn;Altein;Exotic Monitors;Calm Iguana;Win;5;3;7
+Pantheon;Hajnej;Shy Pandas;Swift Cheetahs;Win;5;2;7
+Ryze;Pilot;Shy Pandas;Calm Iguana;Loss;5;7;5
+Sejuani;Skenk;Hunting Sharks;Giant Whales;Loss;5;8;9
+Sejuani;Houba;Fury Bears;Proud Lions;Win;5;2;19
+Sejuani;Houba;Fury Bears;Calm Iguana;Win;5;2;14
+Sejuani;Miracle;Proud Lions;Shy Pandas;Win;5;1;9
 Sejuani;Hajnej;Shy Pandas;Fury Bears;Win;5;6;14
+Senna;Valis;Sneaky Aligators;Jumpy Kangaroo;Win;5;2;14
+Senna;Simba;Chill Capybara;Loud Parrots;Loss;5;3;4
+Sion;Poli;Sneaky Aligators;Hunting Sharks;Win;5;1;7
+Smolder;Restricted;Hunting Sharks;Giant Whales;Loss;5;9;6
+Smolder;Simba;Chill Capybara;Sneaky Aligators;Loss;5;5;8
+Syndra;Lovecoury;Venomous Snakes;Fury Bears;Loss;5;6;21
+Syndra;Amith;Swift Cheetahs;Fancy Flamingo;Loss;5;7;0
+Syndra;Mabe;Calm Iguana;Fury Bears;Loss;5;6;4
 Syndra;Pilot;Shy Pandas;Fury Bears;Loss;5;4;2
-Aurora;Wensd;Loud Parrots;Shy Pandas;Loss;4;2;4
-Kassadin;Wensd;Loud Parrots;Shy Pandas;Loss;4;5;2
-Nidalee;Dreamer;Calm Iguana;Proud Lions;Win;4;5;16
-K'sante;Dark;Proud Lions;Venomous Snakes;Win;4;3;1
-Jax;Ladik;Fancy Flamingo;Hunting Sharks;Loss;4;7;1
-Renekton;Altein;Exotic Monitors;Chill Capybara;Win;4;4;8
-Shen;Mato;Giant Whales;Loud Parrots;Win;4;1;6
-Vladimir;Pilot;Shy Pandas;Proud Lions;Loss;4;1;4
-Tahm Kench;Lama;Sneaky Aligators;Fancy Flamingo;Win;4;1;18
-Naafiri;Arashid;Jumpy Kangaroo;Loud Parrots;Win;4;2;10
-Maokai;Gabe;Shy Pandas;Fury Bears;Win;4;1;1
-Shen;Ladik;Fancy Flamingo;Chill Capybara;Win;4;2;18
-JarvanIV;Hajnej;Shy Pandas;Swift Cheetahs;Loss;4;5;14
-Velkoz;Wensd;Loud Parrots;Swift Cheetahs;Win;4;2;13
-Zeri;447;Fury Bears;Exotic Monitors;Loss;4;4;2
-Sett;Panda;Jumpy Kangaroo;Loud Parrots;Win;4;2;7
-Ashe;Raiiden;Swift Cheetahs;Jumpy Kangaroo;Win;4;0;9
+Tristana;Poätolka;Proud Lions;Calm Iguana;Loss;5;7;3
+Udyr;Dao;Mighty Tigers;Fury Bears;Win;5;2;4
+Varus;Eclipse;Calm Iguana;Proud Lions;Win;5;4;11
+Vayne;Astro;Proud Lions;Mighty Tigers;Win;5;3;7
+Viktor;Dablik;Fury Bears;Proud Lions;Win;5;3;16
+Volibear;Morphed;Chill Capybara;Exotic Monitors;Win;5;1;14
+Xayah;Valis;Sneaky Aligators;Fancy Flamingo;Win;5;6;12
+Xin Zhao;Morphed;Chill Capybara;Fancy Flamingo;Loss;5;8;12
+Xin Zhao;Winn’k;Exotic Monitors;Calm Iguana;Win;5;2;14
+Yone;Lovecoury;Venomous Snakes;Shy Pandas;Loss;5;6;19
+Yone;Poätolka;Proud Lions;Exotic Monitors;Win;5;6;8
+Yorick;Poli;Sneaky Aligators;Chill Capybara;Win;5;2;8
+Zed;Dao;Mighty Tigers;Hungry Wolves;Loss;5;5;3
+Ziggs;Vajtakk;Mighty Tigers;Hungry Wolves;Loss;5;6;1
+Zoe;Lenny;Fancy Flamingo;Sneaky Aligators;Loss;5;3;3
+Zyra;Kryätof;Sneaky Aligators;Swift Cheetahs;Win;5;3;18
+Azir;Nugy;Hungry Wolves;Exotic Monitors;Win;5;2;6
 Gnar;Blaze;Hungry Wolves;Venomous Snakes;Loss;4;2;2
-Zyra;Kryštof;Sneaky Aligators;Giant Whales;Win;4;1;9
-Maokai;Gabe;Shy Pandas;Swift Cheetahs;Win;4;2;7
-Malphite;Alko;Jumpy Kangaroo;Loud Parrots;Win;4;0;4
-Vi;Radek;Venomous Snakes;Hungry Wolves;Win;4;4;9
-Ezreal;Vajtakk;Mighty Tigers;Calm Iguana;Win;4;3;12
 Ahri;Lovecoury;Venomous Snakes;Hungry Wolves;Win;4;1;11
-Viktor;Restricted;Hunting Sharks;Jumpy Kangaroo;Loss;4;11;5
-Smolder;Wodr;Jumpy Kangaroo;Sneaky Aligators;Loss;4;6;6
-Amumu;Arashid;Jumpy Kangaroo;Sneaky Aligators;Loss;4;8;3
-Skarner;Sgoob;Loud Parrots;Jumpy Kangaroo;Loss;4;6;5
 Akali;Zen;Sneaky Aligators;Chill Capybara;Win;4;1;14
-Ornn;Xpepe;Chill Capybara;Sneaky Aligators;Loss;4;4;9
-Amumu;Děda;Exotic Monitors;Fury Bears;Win;4;1;15
-Shen;Buzz;Calm Iguana;Hungry Wolves;Loss;4;2;10
-Mel;Amith;Swift Cheetahs;Chill Capybara;Loss;4;5;4
-Jinx;Eclipse;Calm Iguana;Hungry Wolves;Loss;4;4;8
-Sylas;Xeruth;Chill Capybara;Giant Whales;Loss;4;6;8
-Ezreal;Simba;Chill Capybara;Jumpy Kangaroo;Loss;4;4;1
-Lillia;Miracle;Proud Lions;Fury Bears;Loss;4;6;4
-Mel;Restricted;Hunting Sharks;Chill Capybara;Loss;4;11;3
-Orianna;Panda;Jumpy Kangaroo;Fancy Flamingo;Win;4;2;14
-Naafiri;Arashid;Jumpy Kangaroo;Fancy Flamingo;Win;4;3;11
-Miss Fortune;Predator;Exotic Monitors;Fury Bears;Win;4;2;12
-Syndra;Asmo;Fancy Flamingo;Giant Whales;Win;4;2;6
-Maokai;Gabe;Shy Pandas;Hungry Wolves;Loss;4;4;3
+Amumu;Arashid;Jumpy Kangaroo;Sneaky Aligators;Loss;4;8;3
+Amumu;Džda;Exotic Monitors;Fury Bears;Win;4;1;15
+Ashe;Raiiden;Swift Cheetahs;Jumpy Kangaroo;Win;4;0;9
+Aurora;Wensd;Loud Parrots;Shy Pandas;Loss;4;2;4
 Darius;Alko;Jumpy Kangaroo;Fancy Flamingo;Win;4;1;3
-Mordekaiser;Buzz;Calm Iguana;Venomous Snakes;Loss;4;5;1
-Xin Zhao;Michal;Fancy Flamingo;Giant Whales;Win;4;3;5
-Tristana;Eclipse;Calm Iguana;Mighty Tigers;Loss;4;5;4
+Ezreal;Vajtakk;Mighty Tigers;Calm Iguana;Win;4;3;12
+Ezreal;Simba;Chill Capybara;Jumpy Kangaroo;Loss;4;4;1
+JarvanIV;Hajnej;Shy Pandas;Swift Cheetahs;Loss;4;5;14
+Jax;Ladik;Fancy Flamingo;Hunting Sharks;Loss;4;7;1
+Jinx;Eclipse;Calm Iguana;Hungry Wolves;Loss;4;4;8
 Jinx;Unshead;Giant Whales;Loud Parrots;Win;4;0;10
+Kassadin;Wensd;Loud Parrots;Shy Pandas;Loss;4;5;2
+K'Sante;Dark;Proud Lions;Venomous Snakes;Win;4;3;1
+Lillia;Miracle;Proud Lions;Fury Bears;Loss;4;6;4
+Malphite;Alko;Jumpy Kangaroo;Loud Parrots;Win;4;0;4
+Maokai;Gabe;Shy Pandas;Fury Bears;Win;4;1;1
+Maokai;Gabe;Shy Pandas;Swift Cheetahs;Win;4;2;7
+Maokai;Gabe;Shy Pandas;Hungry Wolves;Loss;4;4;3
+Mel;Amith;Swift Cheetahs;Chill Capybara;Loss;4;5;4
+Mel;Restricted;Hunting Sharks;Chill Capybara;Loss;4;11;3
+Miss Fortune;Predator;Exotic Monitors;Fury Bears;Win;4;2;12
+MonkeyKing;Houba;Fury Bears;Shy Pandas;Win;4;0;15
+Mordekaiser;Buzz;Calm Iguana;Venomous Snakes;Loss;4;5;1
+Naafiri;Arashid;Jumpy Kangaroo;Loud Parrots;Win;4;2;10
+Naafiri;Arashid;Jumpy Kangaroo;Fancy Flamingo;Win;4;3;11
+Nidalee;Dreamer;Calm Iguana;Proud Lions;Win;4;5;16
+Nocturne;Houba;Fury Bears;Shy Pandas;Win;4;2;14
+Orianna;Panda;Jumpy Kangaroo;Fancy Flamingo;Win;4;2;14
+Ornn;Xpepe;Chill Capybara;Sneaky Aligators;Loss;4;4;9
 Ornn;Xpepe;Chill Capybara;Exotic Monitors;Win;4;1;3
-Sejuani;Winník;Exotic Monitors;Proud Lions;Loss;4;3;8
-Sejuani;Winník;Exotic Monitors;Venomous Snakes;Win;4;1;18
-Xin Zhao;Winník;Exotic Monitors;Shy Pandas;Loss;4;7;9
-Xin Zhao;Winník;Exotic Monitors;Hungry Wolves;Loss;4;7;2
-Shen;Buzz;Calm Iguana;Exotic Monitors;Loss;4;5;16
 Poppy;Dreamer;Calm Iguana;Exotic Monitors;Loss;4;7;18
+Renekton;Altein;Exotic Monitors;Chill Capybara;Win;4;4;8
+Sejuani;Winn’k;Exotic Monitors;Proud Lions;Loss;4;3;8
+Sejuani;Winn’k;Exotic Monitors;Venomous Snakes;Win;4;1;18
+Sett;Panda;Jumpy Kangaroo;Loud Parrots;Win;4;2;7
+Shen;Mato;Giant Whales;Loud Parrots;Win;4;1;6
+Shen;Ladik;Fancy Flamingo;Chill Capybara;Win;4;2;18
+Shen;Buzz;Calm Iguana;Hungry Wolves;Loss;4;2;10
+Shen;Buzz;Calm Iguana;Exotic Monitors;Loss;4;5;16
 Shen;Gabe;Shy Pandas;Loud Parrots;Win;4;1;10
 Shen;Altein;Exotic Monitors;Giant Whales;Win;4;4;5
-Viktor;Sajox;Exotic Monitors;Giant Whales;Win;4;0;8
-Xayah;Unshead;Giant Whales;Exotic Monitors;Loss;4;2;1
-Viktor;Pilot;Shy Pandas;Fury Bears;Win;4;5;11
-MonkeyKing;Houba;Fury Bears;Shy Pandas;Win;4;0;15
-Nocturne;Houba;Fury Bears;Shy Pandas;Win;4;2;14
+Skarner;Sgoob;Loud Parrots;Jumpy Kangaroo;Loss;4;6;5
+Smolder;Wodr;Jumpy Kangaroo;Sneaky Aligators;Loss;4;6;6
+Sylas;Xeruth;Chill Capybara;Giant Whales;Loss;4;6;8
+Syndra;Asmo;Fancy Flamingo;Giant Whales;Win;4;2;6
+Tahm Kench;Lama;Sneaky Aligators;Fancy Flamingo;Win;4;1;18
+Tristana;Eclipse;Calm Iguana;Mighty Tigers;Loss;4;5;4
 Varus;447;Fury Bears;Shy Pandas;Win;4;2;7
-Vi;Radek;Venomous Snakes;Proud Lions;Loss;3;6;14
-MonkeyKing;Hajnej;Shy Pandas;Exotic Monitors;Win;3;5;6
-Vi;Kessig;Giant Whales;Fancy Flamingo;Loss;3;6;3
-Taliyah;Nugy;Hungry Wolves;Exotic Monitors;Win;3;4;16
-Rakan;Majo;Giant Whales;Swift Cheetahs;Win;3;2;31
-Sejuani;Onifus;Calm Iguana;Exotic Monitors;Win;3;1;14
-Azir;Nugy;Hungry Wolves;Proud Lions;Loss;3;2;4
-Maokai;Marmelada;Mighty Tigers;Shy Pandas;Win;3;2;10
-Maokai;Gabe;Shy Pandas;Exotic Monitors;Win;3;7;9
-Fiora;Altein;Exotic Monitors;Mighty Tigers;Win;3;6;4
-Gwen;Altein;Exotic Monitors;Calm Iguana;Loss;3;4;2
-Shen;Altein;Exotic Monitors;Chill Capybara;Win;3;5;6
-Ornn;Mato;Giant Whales;Swift Cheetahs;Win;3;6;17
+Velkoz;Wensd;Loud Parrots;Swift Cheetahs;Win;4;2;13
+Vi;Radek;Venomous Snakes;Hungry Wolves;Win;4;4;9
+Viktor;Restricted;Hunting Sharks;Jumpy Kangaroo;Loss;4;11;5
+Viktor;Sajox;Exotic Monitors;Giant Whales;Win;4;0;8
+Viktor;Pilot;Shy Pandas;Fury Bears;Win;4;5;11
+Vladimir;Pilot;Shy Pandas;Proud Lions;Loss;4;1;4
+Xayah;Unshead;Giant Whales;Exotic Monitors;Loss;4;2;1
+Xin Zhao;Michal;Fancy Flamingo;Giant Whales;Win;4;3;5
+Xin Zhao;Winn’k;Exotic Monitors;Shy Pandas;Loss;4;7;9
+Xin Zhao;Winn’k;Exotic Monitors;Hungry Wolves;Loss;4;7;2
+Zeri;447;Fury Bears;Exotic Monitors;Loss;4;4;2
+Zyra;Kryätof;Sneaky Aligators;Giant Whales;Win;4;1;9
 Jax;Blaze;Hungry Wolves;Proud Lions;Loss;3;4;1
-Twitch;Michal;Fancy Flamingo;Jumpy Kangaroo;Loss;3;5;2
-Urgot;Holub;Loud Parrots;Sneaky Aligators;Loss;3;8;2
-Chogath;Mato;Giant Whales;Sneaky Aligators;Loss;3;1;0
-Mordekaiser;Popo;Hunting Sharks;Loud Parrots;Loss;3;5;0
-Neeko;Asmo;Fancy Flamingo;Hunting Sharks;Loss;3;7;3
-Jhin;Valis;Sneaky Aligators;Chill Capybara;Win;3;6;14
-Neeko;Lama;Sneaky Aligators;Chill Capybara;Win;3;5;12
-Vex;Mordecaay;Giant Whales;Jumpy Kangaroo;Loss;3;9;11
-Nautilus;Deda;Exotic Monitors;Chill Capybara;Win;3;5;11
-Ornn;Marmelada;Mighty Tigers;Fury Bears;Win;3;2;5
-Viktor;Dablik;Fury Bears;Calm Iguana;Win;3;3;17
-Pyke;Plešoun;Fancy Flamingo;Sneaky Aligators;Loss;3;6;3
-Ezreal;Lenny;Fancy Flamingo;Hunting Sharks;Loss;3;6;5
-Orianna;Mordecaay;Giant Whales;Fancy Flamingo;Loss;3;5;3
-Rell;Lama;Sneaky Aligators;Jumpy Kangaroo;Win;3;3;22
-Rell;Tee;Jumpy Kangaroo;Loud Parrots;Win;3;2;17
-Milio;Makima;Loud Parrots;Swift Cheetahs;Win;3;0;19
-Trundle;Dao;Mighty Tigers;Venomous Snakes;Win;3;8;18
-Aurora;Kubik;Hunting Sharks;Loud Parrots;Loss;3;4;2
-Syndra;Amith;Swift Cheetahs;Giant Whales;Loss;3;6;15
-Malphite;Bucko;Venomous Snakes;Proud Lions;Loss;3;4;12
-JarvanIV;Radek;Venomous Snakes;Exotic Monitors;Loss;3;6;6
-Lulu;Hani;Mighty Tigers;Exotic Monitors;Loss;3;5;15
-Malphite;Gabe;Shy Pandas;Swift Cheetahs;Win;3;2;11
-Kassadin;Mabe;Calm Iguana;Mighty Tigers;Loss;3;6;6
-Syndra;Amith;Swift Cheetahs;Jumpy Kangaroo;Win;3;1;8
-Braum;Děda;Exotic Monitors;Venomous Snakes;Win;3;0;22
-Sivir;Cler;Loud Parrots;Jumpy Kangaroo;Loss;3;5;7
-Mel;Amith;Swift Cheetahs;Shy Pandas;Loss;3;8;6
-Xin Zhao;Toofast;Hungry Wolves;Calm Iguana;Win;3;4;8
-JarvanIV;Moreal;Swift Cheetahs;Sneaky Aligators;Loss;3;7;9
-Jayce;Panda;Jumpy Kangaroo;Sneaky Aligators;Loss;3;6;5
-Nocturne;Michal;Fancy Flamingo;Sneaky Aligators;Loss;3;11;5
-DrMundo;Dao;Mighty Tigers;Exotic Monitors;Loss;3;6;11
-Orianna;Nugy;Hungry Wolves;Fury Bears;Loss;3;6;2
-Sejuani;Hajnej;Shy Pandas;Calm Iguana;Loss;3;10;9
-Kennen;Wensd;Loud Parrots;Hunting Sharks;Win;3;4;3
-Irelia;Sovaz;Swift Cheetahs;Loud Parrots;Loss;3;6;2
-Corki;Raiiden;Swift Cheetahs;Fancy Flamingo;Loss;3;1;1
-Master Yi;Skenk;Hunting Sharks;Sneaky Aligators;Loss;3;11;1
 Jax;Blaze;Hungry Wolves;Mighty Tigers;Win;3;2;0
 Ashe;Raiiden;Swift Cheetahs;Sneaky Aligators;Loss;3;4;5
-Smolder;Nugy;Hungry Wolves;Calm Iguana;Win;3;4;7
-Gwen;Buzz;Calm Iguana;Fury Bears;Loss;3;7;0
-Orianna;Wensd;Loud Parrots;Fancy Flamingo;Loss;3;6;2
-Varus;Astro;Proud Lions;Fury Bears;Loss;3;5;6
-Darius;Dark;Proud Lions;Shy Pandas;Win;3;2;5
-Xin Zhao;Morphed;Chill Capybara;Giant Whales;Loss;3;7;7
-Ivern;Radek;Venomous Snakes;Shy Pandas;Loss;3;6;23
+Ashe;Unshead;Giant Whales;Exotic Monitors;Loss;3;4;9
+Aurelion Sol;Mordecaay;Giant Whales;Exotic Monitors;Loss;3;7;7
+Aurora;Kubik;Hunting Sharks;Loud Parrots;Loss;3;4;2
 Twitch;Brta;Hungry Wolves;Calm Iguana;Win;3;2;7
+Azir;Sajox;Exotic Monitors;Hungry Wolves;Loss;3;4;3
+Braum;Džda;Exotic Monitors;Venomous Snakes;Win;3;0;22
+Corki;Raiiden;Swift Cheetahs;Fancy Flamingo;Loss;3;1;1
+Darius;Dark;Proud Lions;Shy Pandas;Win;3;2;5
+DrMundo;Dao;Mighty Tigers;Exotic Monitors;Loss;3;6;11
+Ezreal;Lenny;Fancy Flamingo;Hunting Sharks;Loss;3;6;5
 Ezreal;Predator;Exotic Monitors;Shy Pandas;Loss;3;3;5
-Varus;Predator;Exotic Monitors;Chill Capybara;Loss;3;4;0
-Varus;Restricted;Hunting Sharks;Fancy Flamingo;Win;3;3;5
-Sylas;Wensd;Loud Parrots;Giant Whales;Loss;3;4;0
+Fiora;Altein;Exotic Monitors;Mighty Tigers;Win;3;6;4
+Gwen;Altein;Exotic Monitors;Calm Iguana;Loss;3;4;2
+Gwen;Buzz;Calm Iguana;Fury Bears;Loss;3;7;0
+Hwei;Xeruth;Chill Capybara;Exotic Monitors;Loss;3;3;7
+Chogath;Mato;Giant Whales;Sneaky Aligators;Loss;3;1;0
+Irelia;Sovaz;Swift Cheetahs;Loud Parrots;Loss;3;6;2
+Ivern;Radek;Venomous Snakes;Shy Pandas;Loss;3;6;23
+JarvanIV;Radek;Venomous Snakes;Exotic Monitors;Loss;3;6;6
+JarvanIV;Moreal;Swift Cheetahs;Sneaky Aligators;Loss;3;7;9
+Jhin;Brta;Hungry Wolves;Exotic Monitors;Win;3;2;13
+Jayce;Panda;Jumpy Kangaroo;Sneaky Aligators;Loss;3;6;5
+Jhin;Valis;Sneaky Aligators;Chill Capybara;Win;3;6;14
+Kassadin;Mabe;Calm Iguana;Mighty Tigers;Loss;3;6;6
+Kennen;Wensd;Loud Parrots;Hunting Sharks;Win;3;4;3
+Lulu;Hani;Mighty Tigers;Exotic Monitors;Loss;3;5;15
+Malphite;Bucko;Venomous Snakes;Proud Lions;Loss;3;4;12
+Malphite;Gabe;Shy Pandas;Swift Cheetahs;Win;3;2;11
+Malphite;Gabe;Shy Pandas;Fury Bears;Loss;3;5;3
+Maokai;Marmelada;Mighty Tigers;Shy Pandas;Win;3;2;10
+Maokai;Gabe;Shy Pandas;Exotic Monitors;Win;3;7;9
+Maokai;Xpepe;Chill Capybara;Exotic Monitors;Loss;3;4;7
+Master Yi;Skenk;Hunting Sharks;Sneaky Aligators;Loss;3;11;1
+Mel;Amith;Swift Cheetahs;Shy Pandas;Loss;3;8;6
+Milio;Makima;Loud Parrots;Swift Cheetahs;Win;3;0;19
+MonkeyKing;Hajnej;Shy Pandas;Exotic Monitors;Win;3;5;6
 MonkeyKing;Morphed;Chill Capybara;Jumpy Kangaroo;Loss;3;5;4
+Mordekaiser;Popo;Hunting Sharks;Loud Parrots;Loss;3;5;0
+Mordekaiser;Altein;Exotic Monitors;Giant Whales;Win;3;7;0
+Nautilus;Deda;Exotic Monitors;Chill Capybara;Win;3;5;11
+Neeko;Asmo;Fancy Flamingo;Hunting Sharks;Loss;3;7;3
+Neeko;Lama;Sneaky Aligators;Chill Capybara;Win;3;5;12
+Nocturne;Michal;Fancy Flamingo;Sneaky Aligators;Loss;3;11;5
+Nocturne;Winn’k;Exotic Monitors;Giant Whales;Win;3;2;11
+Orianna;Mordecaay;Giant Whales;Fancy Flamingo;Loss;3;5;3
+Orianna;Wensd;Loud Parrots;Fancy Flamingo;Loss;3;6;2
+Ornn;Mato;Giant Whales;Swift Cheetahs;Win;3;6;17
+Ornn;Marmelada;Mighty Tigers;Fury Bears;Win;3;2;5
+Pyke;Pleäoun;Fancy Flamingo;Sneaky Aligators;Loss;3;6;3
+Rakan;Majo;Giant Whales;Swift Cheetahs;Win;3;2;31
+Rell;Lama;Sneaky Aligators;Jumpy Kangaroo;Win;3;3;22
+Rell;Tee;Jumpy Kangaroo;Loud Parrots;Win;3;2;17
+Sejuani;Onifus;Calm Iguana;Exotic Monitors;Win;3;1;14
+Sejuani;Hajnej;Shy Pandas;Calm Iguana;Loss;3;10;9
+Sejuani;Winn’k;Exotic Monitors;Mighty Tigers;Win;3;1;16
+Sejuani;Winn’k;Exotic Monitors;Calm Iguana;Win;3;4;19
+Shen;Altein;Exotic Monitors;Chill Capybara;Win;3;5;6
 Shen;Poli;Sneaky Aligators;Loud Parrots;Win;3;3;11
 Shen;Lagier;Fury Bears;Hungry Wolves;Win;3;1;9
-Zyra;Natyna;Swift Cheetahs;Chill Capybara;Loss;3;2;10
-Vayne;Ernie;Shy Pandas;Hungry Wolves;Loss;3;8;4
-Hwei;Xeruth;Chill Capybara;Exotic Monitors;Loss;3;3;7
-Azir;Sajox;Exotic Monitors;Hungry Wolves;Loss;3;4;3
-Maokai;Xpepe;Chill Capybara;Exotic Monitors;Loss;3;4;7
+Sivir;Cler;Loud Parrots;Jumpy Kangaroo;Loss;3;5;7
+Sylas;Wensd;Loud Parrots;Giant Whales;Loss;3;4;0
+Syndra;Amith;Swift Cheetahs;Giant Whales;Loss;3;6;15
+Syndra;Amith;Swift Cheetahs;Jumpy Kangaroo;Win;3;1;8
 Syndra;Xeruth;Chill Capybara;Exotic Monitors;Loss;3;3;9
-Sejuani;Winník;Exotic Monitors;Mighty Tigers;Win;3;1;16
-Xin Zhao;Winník;Exotic Monitors;Chill Capybara;Win;3;2;10
-Sejuani;Winník;Exotic Monitors;Calm Iguana;Win;3;4;19
-Nocturne;Winník;Exotic Monitors;Giant Whales;Win;3;2;11
-Volibear;Maťo;Giant Whales;Exotic Monitors;Loss;3;6;0
-Mordekaiser;Altein;Exotic Monitors;Giant Whales;Win;3;7;0
-Aurelion Sol;Mordecaay;Giant Whales;Exotic Monitors;Loss;3;7;7
-Ashe;Unshead;Giant Whales;Exotic Monitors;Loss;3;4;9
-Malphite;Gabe;Shy Pandas;Fury Bears;Loss;3;5;3
+Trundle;Dao;Mighty Tigers;Venomous Snakes;Win;3;8;18
+Twitch;Michal;Fancy Flamingo;Jumpy Kangaroo;Loss;3;5;2
+Urgot;Holub;Loud Parrots;Sneaky Aligators;Loss;3;8;2
+Varus;Astro;Proud Lions;Fury Bears;Loss;3;5;6
+Varus;Predator;Exotic Monitors;Chill Capybara;Loss;3;4;0
+Varus;Restricted;Hunting Sharks;Fancy Flamingo;Win;3;3;5
+Vayne;Ernie;Shy Pandas;Hungry Wolves;Loss;3;8;4
+Vex;Mordecaay;Giant Whales;Jumpy Kangaroo;Loss;3;9;11
+Vi;Radek;Venomous Snakes;Proud Lions;Loss;3;6;14
+Vi;Kessig;Giant Whales;Fancy Flamingo;Loss;3;6;3
+Viktor;Dablik;Fury Bears;Calm Iguana;Win;3;3;17
+Volibear;Maéo;Giant Whales;Exotic Monitors;Loss;3;6;0
+Xin Zhao;Morphed;Chill Capybara;Giant Whales;Loss;3;7;7
+Xin Zhao;Winn’k;Exotic Monitors;Chill Capybara;Win;3;2;10
 Zac;Hajnej;Shy Pandas;Fury Bears;Loss;3;6;3
-Xin Zhao;Sgoob;Loud Parrots;Shy Pandas;Loss;2;7;3
-Jinx;Cler;Loud Parrots;Shy Pandas;Loss;2;9;4
-Vi;Skenk;Hunting Sharks;Loud Parrots;Loss;2;9;4
-Leblanc;Nugy;Hungry Wolves;Mighty Tigers;Win;2;4;7
-Amumu;Onifus;Calm Iguana;Shy Pandas;Win;2;4;19
-Malphite;Xpepe;Chill Capybara;Swift Cheetahs;Win;2;4;7
-Ornn;Holub;Loud Parrots;Chill Capybara;Win;2;2;12
-Nautilus;Majo;Giant Whales;Hunting Sharks;Win;2;3;19
-Ivern;Toofast;Hungry Wolves;Shy Pandas;Win;2;2;16
-Volibear;Toofast;Hungry Wolves;Proud Lions;Loss;2;4;3
-Nautilus;Majo;Giant Whales;Loud Parrots;Win;2;1;11
-Trundle;Mato;Giant Whales;Jumpy Kangaroo;Loss;2;4;4
-Gwen;Altein;Exotic Monitors;Fury Bears;Win;2;3;2
-Jhin;Valis;Sneaky Aligators;Swift Cheetahs;Win;2;3;15
-Lulu;Muffi;Shy Pandas;Calm Iguana;Loss;2;7;10
-Pantheon;Plešoun;Fancy Flamingo;Loud Parrots;Win;2;3;6
-Braum;Erko;Proud Lions;Calm Iguana;Loss;2;6;11
-JarvanIV;Houba;Fury Bears;Exotic Monitors;Loss;2;5;3
-Sejuani;Miracle;Proud Lions;Calm Iguana;Loss;2;7;10
-Braum;Deda;Exotic Monitors;Chill Capybara;Win;2;4;18
-Maokai;Jenikk;Venomous Snakes;Proud Lions;Loss;2;9;16
-Braum;Dreamer;Calm Iguana;Exotic Monitors;Win;2;4;20
-Jax;Dark;Proud Lions;Fury Bears;Loss;2;5;1
-Vladimir;Buzz;Calm Iguana;Exotic Monitors;Win;2;2;3
+Zyra;Natyna;Swift Cheetahs;Chill Capybara;Loss;3;2;10
+Lucian;Sajox;Exotic Monitors;Hungry Wolves;Loss;3;4;1
+Sejuani;Winn’k;Exotic Monitors;Hungry Wolves;Win;3;0;9
+Azir;Nugy;Hungry Wolves;Proud Lions;Loss;3;2;4
+Orianna;Nugy;Hungry Wolves;Fury Bears;Loss;3;6;2
+Smolder;Nugy;Hungry Wolves;Calm Iguana;Win;3;4;7
+Taliyah;Nugy;Hungry Wolves;Exotic Monitors;Win;3;4;16
+Xin Zhao;Toofast;Hungry Wolves;Calm Iguana;Win;3;4;8
 Ezreal;Brta;Hungry Wolves;Proud Lions;Loss;2;5;1
-Nautilus;Děda;Exotic Monitors;Mighty Tigers;Win;2;7;19
-Ornn;Holub;Loud Parrots;Fancy Flamingo;Loss;2;2;7
-Nautilus;Tee;Jumpy Kangaroo;Hunting Sharks;Win;2;3;23
-Shen;Morphed;Chill Capybara;Sneaky Aligators;Loss;2;6;13
 Ezreal;Brta;Hungry Wolves;Venomous Snakes;Loss;2;1;3
-Ryze;Nugy;Hungry Wolves;Venomous Snakes;Loss;2;4;5
-Lulu;Natyna;Swift Cheetahs;Shy Pandas;Loss;2;3;11
-JarvanIV;Toofast;Hungry Wolves;Venomous Snakes;Loss;2;2;5
-Jinx;Raiiden;Swift Cheetahs;Shy Pandas;Loss;2;3;9
-Senna;Mia;Hunting Sharks;Jumpy Kangaroo;Loss;2;8;9
-Varus;Stomci;Venomous Snakes;Hungry Wolves;Win;2;0;11
-Ornn;Xpepe;Chill Capybara;Fancy Flamingo;Loss;2;4;11
-Viktor;Asmo;Fancy Flamingo;Swift Cheetahs;Win;2;3;6
-Ahri;Amith;Swift Cheetahs;Shy Pandas;Loss;2;5;6
-Zac;Popo;Hunting Sharks;Giant Whales;Loss;2;7;6
-Vi;Moreal;Swift Cheetahs;Fancy Flamingo;Loss;2;3;8
-Galio;Asmo;Fancy Flamingo;Sneaky Aligators;Loss;2;7;4
-Pantheon;Kubik;Hunting Sharks;Jumpy Kangaroo;Loss;2;8;4
 Aatrox;Sovaz;Swift Cheetahs;Sneaky Aligators;Loss;2;3;3
-Samira;Pisslow;Mighty Tigers;Hungry Wolves;Loss;2;4;3
-Maokai;Marmelada;Mighty Tigers;Hungry Wolves;Loss;2;2;2
+Ahri;Amith;Swift Cheetahs;Shy Pandas;Loss;2;5;6
+Amumu;Onifus;Calm Iguana;Shy Pandas;Win;2;4;19
 Amumu;Onifus;Calm Iguana;Mighty Tigers;Loss;2;9;8
-Yasuo;Poštolka;Proud Lions;Shy Pandas;Win;2;4;9
-Olaf;Alko;Jumpy Kangaroo;Swift Cheetahs;Loss;2;5;1
-Rammus;Popo;Hunting Sharks;Sneaky Aligators;Loss;2;8;0
-Yorick;Popo;Hunting Sharks;Chill Capybara;Loss;2;8;2
-Udyr;Arashid;Jumpy Kangaroo;Giant Whales;Win;2;6;13
-Lucian;447;Fury Bears;Mighty Tigers;Loss;2;3;0
-Nautilus;Erko;Proud Lions;Fury Bears;Loss;2;7;9
-Maokai;Onifus;Calm Iguana;Fury Bears;Loss;2;8;7
-Sejuani;Houba;Fury Bears;Hungry Wolves;Win;2;0;17
-Senna;Wodr;Jumpy Kangaroo;Fancy Flamingo;Win;2;0;12
-Xin Zhao;Hajnej;Shy Pandas;Mighty Tigers;Loss;2;10;2
-Sivir;Predator;Exotic Monitors;Calm Iguana;Loss;2;4;3
-Renekton;Dark;Proud Lions;Calm Iguana;Loss;2;8;2
-Maokai;Plešoun;Fancy Flamingo;Giant Whales;Win;2;1;11
+Braum;Erko;Proud Lions;Calm Iguana;Loss;2;6;11
+Braum;Deda;Exotic Monitors;Chill Capybara;Win;2;4;18
+Braum;Dreamer;Calm Iguana;Exotic Monitors;Win;2;4;20
 Ezreal;Valis;Sneaky Aligators;Loud Parrots;Win;2;1;9
 Fiora;Lagier;Fury Bears;Mighty Tigers;Loss;2;6;1
-Tristana;447;Fury Bears;Shy Pandas;Loss;2;4;0
-Yorick;Lagier;Fury Bears;Shy Pandas;Loss;2;3;0
-Syndra;Sajox;Exotic Monitors;Calm Iguana;Loss;2;5;6
-JarvanIV;Winník;Exotic Monitors;Calm Iguana;Loss;2;7;7
+Galio;Asmo;Fancy Flamingo;Sneaky Aligators;Loss;2;7;4
+Gwen;Altein;Exotic Monitors;Fury Bears;Win;2;3;2
+JarvanIV;Houba;Fury Bears;Exotic Monitors;Loss;2;5;3
+JarvanIV;Winn’k;Exotic Monitors;Calm Iguana;Loss;2;7;7
+JarvanIV;Houba;Fury Bears;Shy Pandas;Loss;2;4;13
+Jax;Dark;Proud Lions;Fury Bears;Loss;2;5;1
+Jhin;Valis;Sneaky Aligators;Swift Cheetahs;Win;2;3;15
+Jinx;Cler;Loud Parrots;Shy Pandas;Loss;2;9;4
+Jinx;Raiiden;Swift Cheetahs;Shy Pandas;Loss;2;3;9
+Lucian;447;Fury Bears;Mighty Tigers;Loss;2;3;0
+Lulu;Muffi;Shy Pandas;Calm Iguana;Loss;2;7;10
+Lulu;Natyna;Swift Cheetahs;Shy Pandas;Loss;2;3;11
+Malphite;Xpepe;Chill Capybara;Swift Cheetahs;Win;2;4;7
+Maokai;Jenikk;Venomous Snakes;Proud Lions;Loss;2;9;16
+Maokai;Marmelada;Mighty Tigers;Hungry Wolves;Loss;2;2;2
+Maokai;Onifus;Calm Iguana;Fury Bears;Loss;2;8;7
+Maokai;Pleäoun;Fancy Flamingo;Giant Whales;Win;2;1;11
 Maokai;Gabe;Shy Pandas;Loud Parrots;Win;2;3;16
 Nami;Muffi;Shy Pandas;Loud Parrots;Win;2;1;21
+Nautilus;Majo;Giant Whales;Hunting Sharks;Win;2;3;19
+Nautilus;Majo;Giant Whales;Loud Parrots;Win;2;1;11
+Nautilus;Džda;Exotic Monitors;Mighty Tigers;Win;2;7;19
+Nautilus;Tee;Jumpy Kangaroo;Hunting Sharks;Win;2;3;23
+Nautilus;Erko;Proud Lions;Fury Bears;Loss;2;7;9
+Olaf;Alko;Jumpy Kangaroo;Swift Cheetahs;Loss;2;5;1
+Ornn;Holub;Loud Parrots;Chill Capybara;Win;2;2;12
+Ornn;Holub;Loud Parrots;Fancy Flamingo;Loss;2;2;7
+Ornn;Xpepe;Chill Capybara;Fancy Flamingo;Loss;2;4;11
+Pantheon;Pleäoun;Fancy Flamingo;Loud Parrots;Win;2;3;6
+Pantheon;Kubik;Hunting Sharks;Jumpy Kangaroo;Loss;2;8;4
 Rakan;Majo;Giant Whales;Exotic Monitors;Loss;2;3;4
+Rammus;Popo;Hunting Sharks;Sneaky Aligators;Loss;2;8;0
+Renekton;Dark;Proud Lions;Calm Iguana;Loss;2;8;2
+Samira;Pisslow;Mighty Tigers;Hungry Wolves;Loss;2;4;3
+Sejuani;Miracle;Proud Lions;Calm Iguana;Loss;2;7;10
+Sejuani;Houba;Fury Bears;Hungry Wolves;Win;2;0;17
+Senna;Mia;Hunting Sharks;Jumpy Kangaroo;Loss;2;8;9
+Senna;Wodr;Jumpy Kangaroo;Fancy Flamingo;Win;2;0;12
+Shen;Morphed;Chill Capybara;Sneaky Aligators;Loss;2;6;13
 Shen;Gabe;Shy Pandas;Fury Bears;Win;2;4;11
-JarvanIV;Houba;Fury Bears;Shy Pandas;Loss;2;4;13
-Xin Zhao;Hajnej;Shy Pandas;Fury Bears;Loss;2;8;4
-Xayah;Ernie;Shy Pandas;Fury Bears;Loss;2;5;3
+Sivir;Predator;Exotic Monitors;Calm Iguana;Loss;2;4;3
 Sivir;Ernie;Shy Pandas;Fury Bears;Loss;2;4;3
-Mordekaiser;Holub;Loud Parrots;Shy Pandas;Loss;1;6;1
-Caitlyn;Cler;Loud Parrots;Shy Pandas;Loss;1;5;0
-Ornn;Holub;Loud Parrots;Shy Pandas;Loss;1;6;7
-Amumu;Houba;Fury Bears;Venomous Snakes;Win;1;6;17
-Lulu;Muffi;Shy Pandas;Venomous Snakes;Win;1;8;18
-Lulu;Dreamer;Calm Iguana;Hungry Wolves;Loss;1;2;13
-JarvanIV;Toofast;Hungry Wolves;Fury Bears;Loss;1;7;4
-Shen;Plešoun;Fancy Flamingo;Hunting Sharks;Loss;1;4;7
-Viktor;Dablik;Fury Bears;Exotic Monitors;Loss;1;9;1
-Nautilus;Majo;Giant Whales;Chill Capybara;Win;1;5;17
-Yorick;Dark;Proud Lions;Mighty Tigers;Win;1;3;10
-Vladimir;Lagier;Fury Bears;Exotic Monitors;Loss;1;4;1
-Shen;Majo;Giant Whales;Sneaky Aligators;Loss;1;5;0
-Thresh;Erko;Proud Lions;Mighty Tigers;Win;1;3;15
-Shen;Ladik;Fancy Flamingo;Loud Parrots;Win;1;4;8
-Nami;Makima;Loud Parrots;Chill Capybara;Win;1;0;21
-Tahm Kench;Kipek;Hungry Wolves;Exotic Monitors;Win;1;3;17
-Nautilus;Kipek;Hungry Wolves;Shy Pandas;Win;1;5;14
-K'sante;Mato;Giant Whales;Fancy Flamingo;Loss;1;4;0
-Gnar;Altein;Exotic Monitors;Proud Lions;Loss;1;4;5
-Fiora;Altein;Exotic Monitors;Hungry Wolves;Loss;1;7;0
-Neeko;Dreamer;Calm Iguana;Venomous Snakes;Loss;1;9;7
-Kayle;Altein;Exotic Monitors;Chill Capybara;Loss;1;8;0
-Yuumi;Muffi;Shy Pandas;Proud Lions;Loss;1;3;8
-Soraka;Monikas;Chill Capybara;Hunting Sharks;Win;1;4;27
-Sivir;Cler;Loud Parrots;Chill Capybara;Win;1;2;13
-Karma;Asmo;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;4
-Amumu;Onifus;Calm Iguana;Hungry Wolves;Loss;1;6;9
-Alistar;Plešoun;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;3
-Ornn;Ladik;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;3
-Tahm Kench;Deda;Exotic Monitors;Calm Iguana;Win;1;3;17
-Rell;Dreamer;Calm Iguana;Mighty Tigers;Loss;1;5;10
-Karma;Mia;Hunting Sharks;Fancy Flamingo;Win;1;5;12
-Hwei;Lenny;Fancy Flamingo;Jumpy Kangaroo;Loss;1;3;0
-Yorick;Poli;Sneaky Aligators;Giant Whales;Win;1;2;4
-Nautilus;Mia;Hunting Sharks;Giant Whales;Loss;1;6;12
-Rell;Děda;Exotic Monitors;Hungry Wolves;Loss;1;7;4
-K'sante;Gabe;Shy Pandas;Calm Iguana;Loss;1;6;4
+Syndra;Sajox;Exotic Monitors;Calm Iguana;Loss;2;5;6
+Tristana;447;Fury Bears;Shy Pandas;Loss;2;4;0
+Trundle;Mato;Giant Whales;Jumpy Kangaroo;Loss;2;4;4
+Udyr;Arashid;Jumpy Kangaroo;Giant Whales;Win;2;6;13
+Varus;Stomci;Venomous Snakes;Hungry Wolves;Win;2;0;11
+Vi;Skenk;Hunting Sharks;Loud Parrots;Loss;2;9;4
+Vi;Moreal;Swift Cheetahs;Fancy Flamingo;Loss;2;3;8
+Viktor;Asmo;Fancy Flamingo;Swift Cheetahs;Win;2;3;6
+Vladimir;Buzz;Calm Iguana;Exotic Monitors;Win;2;2;3
+Tahm Kench;Kiper;Hungry Wolves;Exotic Monitors;Win;2;1;16
+Xayah;Ernie;Shy Pandas;Fury Bears;Loss;2;5;3
+Xin Zhao;Sgoob;Loud Parrots;Shy Pandas;Loss;2;7;3
+Xin Zhao;Hajnej;Shy Pandas;Mighty Tigers;Loss;2;10;2
+Xin Zhao;Hajnej;Shy Pandas;Fury Bears;Loss;2;8;4
+Yasuo;Poätolka;Proud Lions;Shy Pandas;Win;2;4;9
+Yorick;Popo;Hunting Sharks;Chill Capybara;Loss;2;8;2
+Yorick;Lagier;Fury Bears;Shy Pandas;Loss;2;3;0
+Zac;Holub;Loud Parrots;Swift Cheetahs;Win;2;1;8
+Zac;Popo;Hunting Sharks;Giant Whales;Loss;2;7;6
+Ornn;Altein;Exotic Monitors;Hungry Wolves;Win;2;4;7
+Leblanc;Nugy;Hungry Wolves;Mighty Tigers;Win;2;4;7
+Ryze;Nugy;Hungry Wolves;Venomous Snakes;Loss;2;4;5
+Ivern;Toofast;Hungry Wolves;Shy Pandas;Win;2;2;16
+JarvanIV;Toofast;Hungry Wolves;Venomous Snakes;Loss;2;2;5
+Fiora;Altein;Exotic Monitors;Hungry Wolves;Loss;2;8;3
+Skarner;Winn’k;Exotic Monitors;Hungry Wolves;Loss;2;7;3
+Volibear;Toofast;Hungry Wolves;Proud Lions;Loss;2;4;3
 Senna;Brta;Hungry Wolves;Fury Bears;Loss;1;4;2
-Amumu;Děda;Exotic Monitors;Calm Iguana;Loss;1;5;5
-Sylas;Kubik;Hunting Sharks;Chill Capybara;Loss;1;9;5
-Rell;Plešoun;Fancy Flamingo;Chill Capybara;Win;1;4;22
-Leona;Plešoun;Fancy Flamingo;Swift Cheetahs;Win;1;1;19
-Rell;Natyna;Swift Cheetahs;Giant Whales;Loss;1;10;15
-Ashe;Raiiden;Swift Cheetahs;Hunting Sharks;Win;1;0;12
-Alistar;Deagles;Fury Bears;Venomous Snakes;Win;1;6;24
-Orianna;Kubik;Hunting Sharks;Swift Cheetahs;Loss;1;6;6
-Rakan;Natyna;Swift Cheetahs;Jumpy Kangaroo;Win;1;1;12
-Orianna;Pilot;Shy Pandas;Hungry Wolves;Loss;1;5;4
-Ashe;Cler;Loud Parrots;Swift Cheetahs;Win;1;1;11
-Nami;Erko;Proud Lions;Exotic Monitors;Win;1;3;12
+Jinx;Brta;Hungry Wolves;Exotic Monitors;Loss;1;5;1
+Nautilus;Kipek;Hungry Wolves;Shy Pandas;Win;1;5;14
 Nautilus;Kipek;Hungry Wolves;Calm Iguana;Win;1;7;13
-Karma;Hani;Mighty Tigers;Venomous Snakes;Win;1;4;18
-Rakan;Hani;Mighty Tigers;Proud Lions;Loss;1;4;9
-Taliyah;Mabe;Calm Iguana;Venomous Snakes;Loss;1;9;5
-Xayah;Vajtakk;Mighty Tigers;Proud Lions;Loss;1;2;5
-Poppy;Marmelada;Mighty Tigers;Exotic Monitors;Loss;1;6;4
-Ornn;Dark;Proud Lions;Hungry Wolves;Win;1;4;11
-Lillia;Moreal;Swift Cheetahs;Loud Parrots;Loss;1;7;3
-Sejuani;Arashid;Jumpy Kangaroo;Swift Cheetahs;Loss;1;4;3
-Jinx;Cler;Loud Parrots;Fancy Flamingo;Loss;1;5;4
-Yone;Sovaz;Swift Cheetahs;Shy Pandas;Loss;1;1;2
+Tahm Kench;Kipek;Hungry Wolves;Exotic Monitors;Win;1;3;17
+Nautilus;Kiper;Hungry Wolves;Exotic Monitors;Win;1;4;11
+Alistar;Pleäoun;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;3
+Alistar;Deagles;Fury Bears;Venomous Snakes;Win;1;6;24
+Amumu;Houba;Fury Bears;Venomous Snakes;Win;1;6;17
+Amumu;Onifus;Calm Iguana;Hungry Wolves;Loss;1;6;9
+Amumu;Džda;Exotic Monitors;Calm Iguana;Loss;1;5;5
+Amumu;Onifus;Calm Iguana;Exotic Monitors;Loss;1;9;13
+Ashe;Raiiden;Swift Cheetahs;Hunting Sharks;Win;1;0;12
+Ashe;Cler;Loud Parrots;Swift Cheetahs;Win;1;1;11
+Azir;Sajox;Exotic Monitors;Chill Capybara;Win;1;5;12
+Caitlyn;Cler;Loud Parrots;Shy Pandas;Loss;1;5;0
+Draven;447;Fury Bears;Shy Pandas;Loss;1;6;8
+Fiora;Altein;Exotic Monitors;Hungry Wolves;Loss;1;7;0
+Gnar;Altein;Exotic Monitors;Proud Lions;Loss;1;4;5
+Hwei;Lenny;Fancy Flamingo;Jumpy Kangaroo;Loss;1;3;0
 Jax;Sovaz;Swift Cheetahs;Fancy Flamingo;Loss;1;8;1
 Jhin;Wodr;Jumpy Kangaroo;Swift Cheetahs;Loss;1;2;1
-Poppy;Onifus;Calm Iguana;Venomous Snakes;Loss;1;7;5
-Renekton;Popo;Hunting Sharks;Jumpy Kangaroo;Loss;1;7;1
-Sett;Alko;Jumpy Kangaroo;Sneaky Aligators;Loss;1;4;1
-Singed;Kubik;Hunting Sharks;Sneaky Aligators;Loss;1;8;1
-Xayah;Eclipse;Calm Iguana;Fury Bears;Loss;1;4;6
-Nautilus;Tee;Jumpy Kangaroo;Giant Whales;Win;1;4;19
+Jinx;Cler;Loud Parrots;Fancy Flamingo;Loss;1;5;4
+Kaisa;Unshead;Giant Whales;Fancy Flamingo;Loss;1;4;3
+Karma;Asmo;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;4
+Karma;Mia;Hunting Sharks;Fancy Flamingo;Win;1;5;12
+Karma;Hani;Mighty Tigers;Venomous Snakes;Win;1;4;18
 Karma;Mia;Hunting Sharks;Chill Capybara;Loss;1;10;9
-Varus;Predator;Exotic Monitors;Hungry Wolves;Loss;1;2;3
+Karma;Monikas;Chill Capybara;Exotic Monitors;Loss;1;3;13
+Kayle;Altein;Exotic Monitors;Chill Capybara;Loss;1;8;0
+K'Sante;Mato;Giant Whales;Fancy Flamingo;Loss;1;4;0
+K'Sante;Gabe;Shy Pandas;Calm Iguana;Loss;1;6;4
+Leona;Pleäoun;Fancy Flamingo;Swift Cheetahs;Win;1;1;19
+Lillia;Moreal;Swift Cheetahs;Loud Parrots;Loss;1;7;3
 Lillia;Sgoob;Loud Parrots;Giant Whales;Loss;1;5;1
-Sivir;Stomci;Venomous Snakes;Exotic Monitors;Loss;1;4;4
+Lulu;Muffi;Shy Pandas;Venomous Snakes;Win;1;8;18
+Lulu;Dreamer;Calm Iguana;Hungry Wolves;Loss;1;2;13
+Lulu;Dreamer;Calm Iguana;Exotic Monitors;Loss;1;6;9
+Milio;Monikas;Chill Capybara;Exotic Monitors;Win;1;0;18
+Mordekaiser;Holub;Loud Parrots;Shy Pandas;Loss;1;6;1
+Nami;Makima;Loud Parrots;Chill Capybara;Win;1;0;21
+Nami;Erko;Proud Lions;Exotic Monitors;Win;1;3;12
+Nami;Muffi;Shy Pandas;Fury Bears;Win;1;4;19
+Nasus;Deagles;Fury Bears;Shy Pandas;Loss;1;5;10
+Nautilus;Majo;Giant Whales;Chill Capybara;Win;1;5;17
+Nautilus;Mia;Hunting Sharks;Giant Whales;Loss;1;6;12
+Nautilus;Tee;Jumpy Kangaroo;Giant Whales;Win;1;4;19
+Neeko;Dreamer;Calm Iguana;Venomous Snakes;Loss;1;9;7
 Neeko;Lama;Sneaky Aligators;Loud Parrots;Win;1;1;9
 Olaf;Popo;Hunting Sharks;Swift Cheetahs;Loss;1;9;2
+Orianna;Kubik;Hunting Sharks;Swift Cheetahs;Loss;1;6;6
+Orianna;Pilot;Shy Pandas;Hungry Wolves;Loss;1;5;4
+Ornn;Holub;Loud Parrots;Shy Pandas;Loss;1;6;7
+Ornn;Ladik;Fancy Flamingo;Jumpy Kangaroo;Loss;1;4;3
+Ornn;Dark;Proud Lions;Hungry Wolves;Win;1;4;11
+Poppy;Marmelada;Mighty Tigers;Exotic Monitors;Loss;1;6;4
+Poppy;Onifus;Calm Iguana;Venomous Snakes;Loss;1;7;5
+Rakan;Natyna;Swift Cheetahs;Jumpy Kangaroo;Win;1;1;12
+Rakan;Hani;Mighty Tigers;Proud Lions;Loss;1;4;9
+Rell;Dreamer;Calm Iguana;Mighty Tigers;Loss;1;5;10
+Rell;Džda;Exotic Monitors;Hungry Wolves;Loss;1;7;4
+Rell;Pleäoun;Fancy Flamingo;Chill Capybara;Win;1;4;22
+Rell;Natyna;Swift Cheetahs;Giant Whales;Loss;1;10;15
+Renekton;Popo;Hunting Sharks;Jumpy Kangaroo;Loss;1;7;1
+Sejuani;Arashid;Jumpy Kangaroo;Swift Cheetahs;Loss;1;4;3
 Sejuani;Houba;Fury Bears;Mighty Tigers;Loss;1;5;2
-Kaisa;Unshead;Giant Whales;Fancy Flamingo;Loss;1;4;3
-Karma;Monikas;Chill Capybara;Exotic Monitors;Loss;1;3;13
-Milio;Monikas;Chill Capybara;Exotic Monitors;Win;1;0;18
-Azir;Sajox;Exotic Monitors;Chill Capybara;Win;1;5;12
+Sett;Alko;Jumpy Kangaroo;Sneaky Aligators;Loss;1;4;1
+Shen;Pleäoun;Fancy Flamingo;Hunting Sharks;Loss;1;4;7
+Shen;Majo;Giant Whales;Sneaky Aligators;Loss;1;5;0
+Shen;Ladik;Fancy Flamingo;Loud Parrots;Win;1;4;8
+Singed;Kubik;Hunting Sharks;Sneaky Aligators;Loss;1;8;1
+Sivir;Cler;Loud Parrots;Chill Capybara;Win;1;2;13
+Sivir;Stomci;Venomous Snakes;Exotic Monitors;Loss;1;4;4
+Skarner;Winn’k;Exotic Monitors;Chill Capybara;Win;1;2;16
+Soraka;Monikas;Chill Capybara;Hunting Sharks;Win;1;4;27
 Soraka;Monikas;Chill Capybara;Exotic Monitors;Loss;1;6;13
-Amumu;Onifus;Calm Iguana;Exotic Monitors;Loss;1;9;13
-Skarner;Winník;Exotic Monitors;Chill Capybara;Win;1;2;16
+Sylas;Kubik;Hunting Sharks;Chill Capybara;Loss;1;9;5
+Tahm Kench;Deda;Exotic Monitors;Calm Iguana;Win;1;3;17
+Taliyah;Mabe;Calm Iguana;Venomous Snakes;Loss;1;9;5
+Thresh;Erko;Proud Lions;Mighty Tigers;Win;1;3;15
+Thresh;Džda;Exotic Monitors;Giant Whales;Win;1;7;16
+Varus;Predator;Exotic Monitors;Hungry Wolves;Loss;1;2;3
 Vi;Onifus;Calm Iguana;Exotic Monitors;Loss;1;8;4
+Viktor;Dablik;Fury Bears;Exotic Monitors;Loss;1;9;1
+Vladimir;Lagier;Fury Bears;Exotic Monitors;Loss;1;4;1
+Xayah;Vajtakk;Mighty Tigers;Proud Lions;Loss;1;2;5
+Xayah;Eclipse;Calm Iguana;Fury Bears;Loss;1;4;6
+Yone;Sovaz;Swift Cheetahs;Shy Pandas;Loss;1;1;2
+Yorick;Dark;Proud Lions;Mighty Tigers;Win;1;3;10
+Yorick;Poli;Sneaky Aligators;Giant Whales;Win;1;2;4
+Yuumi;Muffi;Shy Pandas;Proud Lions;Loss;1;3;8
 Zeri;Mabe;Calm Iguana;Exotic Monitors;Loss;1;9;4
-Lulu;Dreamer;Calm Iguana;Exotic Monitors;Loss;1;6;9
-Thresh;Děda;Exotic Monitors;Giant Whales;Win;1;7;16
-Nami;Muffi;Shy Pandas;Fury Bears;Win;1;4;19
-Draven;447;Fury Bears;Shy Pandas;Loss;1;6;8
-Nasus;Deagles;Fury Bears;Shy Pandas;Loss;1;5;10
-Lulu;Makima;Loud Parrots;Shy Pandas;Loss;0;3;3
-Milio;Makima;Loud Parrots;Shy Pandas;Loss;0;4;6
-Maokai;Gabe;Shy Pandas;Venomous Snakes;Win;0;6;12
-Milio;Mia;Hunting Sharks;Loud Parrots;Loss;0;5;5
-Sejuani;Xpepe;Chill Capybara;Hunting Sharks;Win;0;5;9
-Vi;Onifus;Calm Iguana;Proud Lions;Win;0;5;15
-JarvanIV;Kessig;Giant Whales;Sneaky Aligators;Loss;0;3;3
-Maokai;Gabe;Shy Pandas;Proud Lions;Loss;0;4;9
-Lulu;Hani;Mighty Tigers;Shy Pandas;Win;0;1;23
+JarvanIV;Winn’k;Exotic Monitors;Hungry Wolves;Loss;1;6;4
+Rell;Džda;Exotic Monitors;Hungry Wolves;Win;1;1;9
+LeBlanc;Nugy;Hungry Wolves;Exotic Monitors;Loss;1;3;1
+Rakan;Džda;Exotic Monitors;Hungry Wolves;Loss;1;5;3
+JarvanIV;Toofast;Hungry Wolves;Fury Bears;Loss;1;7;4
+Nocturne;Toofast;Hungry Wolves;Exotic Monitors;Loss;1;5;2
+Yorick;Blaze;Hungry Wolves;Fury Bears;Loss;0;1;1
 Braum;Kipek;Hungry Wolves;Fury Bears;Loss;0;4;3
-Nami;Majo;Giant Whales;Jumpy Kangaroo;Loss;0;5;15
-Thresh;Jenikk;Venomous Snakes;Calm Iguana;Win;0;5;25
-Karma;Majo;Giant Whales;Fancy Flamingo;Loss;0;4;6
-Leona;Jenikk;Venomous Snakes;Mighty Tigers;Loss;0;5;17
-Nami;Monikas;Chill Capybara;Swift Cheetahs;Win;0;4;22
-Soraka;Makima;Loud Parrots;Sneaky Aligators;Loss;0;1;8
-Braum;Tee;Jumpy Kangaroo;Chill Capybara;Win;0;1;20
+Tahm Kench;Kipek;Hungry Wolves;Venomous Snakes;Loss;0;4;3
 Taric;Kipek;Hungry Wolves;Proud Lions;Loss;0;8;4
+Alistar;Kiper;Hungry Wolves;Exotic Monitors;Loss;0;0;3
+Ahri;Mordecaay;Giant Whales;Exotic Monitors;Loss;0;3;4
+Amumu;Džda;Exotic Monitors;Proud Lions;Loss;0;9;12
+Anivia;Restricted;Hunting Sharks;Sneaky Aligators;Loss;0;3;1
+Annie;Pilot;Shy Pandas;Fury Bears;Loss;0;4;5
+Azir;Dablik;Fury Bears;Shy Pandas;Loss;0;3;1
+Blitzcrank;Deda;Exotic Monitors;Chill Capybara;Loss;0;6;4
+Braum;Tee;Jumpy Kangaroo;Chill Capybara;Win;0;1;20
 Braum;Natyna;Swift Cheetahs;Hunting Sharks;Win;0;2;13
-Ivern;Toofast;Hungry Wolves;Mighty Tigers;Win;0;2;16
+Braum;Monikas;Chill Capybara;Giant Whales;Loss;0;6;11
+Braum;Natyna;Swift Cheetahs;Sneaky Aligators;Loss;0;8;10
+Braum;Natyna;Swift Cheetahs;Loud Parrots;Loss;0;8;3
+Braum;Majo;Giant Whales;Exotic Monitors;Loss;0;5;18
+Caitlyn;Cler;Loud Parrots;Giant Whales;Loss;0;5;2
+Cassiopeia;Sajox;Exotic Monitors;Chill Capybara;Loss;0;5;0
+Janna;Muffi;Shy Pandas;Fury Bears;Loss;0;6;3
+JarvanIV;Kessig;Giant Whales;Sneaky Aligators;Loss;0;3;3
+JarvanIV;Houba;Fury Bears;Shy Pandas;Loss;0;6;3
+Jinx;Unshead;Giant Whales;Sneaky Aligators;Loss;0;5;1
+Karma;Majo;Giant Whales;Fancy Flamingo;Loss;0;4;6
+Karma;Džda;Exotic Monitors;Shy Pandas;Loss;0;2;11
+Karma;Tee;Jumpy Kangaroo;Sneaky Aligators;Loss;0;6;10
+Karma;Tee;Jumpy Kangaroo;Swift Cheetahs;Loss;0;4;1
+Karma;Muffi;Shy Pandas;Loud Parrots;Win;0;0;17
+Karma;Muffi;Shy Pandas;Fury Bears;Loss;0;4;7
+K'Sante;Marmelada;Mighty Tigers;Proud Lions;Loss;0;5;4
+Leona;Jenikk;Venomous Snakes;Mighty Tigers;Loss;0;5;17
+Lulu;Makima;Loud Parrots;Shy Pandas;Loss;0;3;3
+Lulu;Hani;Mighty Tigers;Shy Pandas;Win;0;1;23
+Lulu;Makima;Loud Parrots;Fancy Flamingo;Loss;0;2;5
+Lulu;Makima;Loud Parrots;Hunting Sharks;Win;0;0;16
+Maokai;Gabe;Shy Pandas;Venomous Snakes;Win;0;6;12
+Maokai;Gabe;Shy Pandas;Proud Lions;Loss;0;4;9
+Maokai;Holub;Loud Parrots;Hunting Sharks;Win;0;3;13
+Maokai;Makima;Loud Parrots;Jumpy Kangaroo;Loss;0;5;5
+Maokai;Gabe;Shy Pandas;Fury Bears;Loss;0;5;3
+Milio;Makima;Loud Parrots;Shy Pandas;Loss;0;4;6
+Milio;Mia;Hunting Sharks;Loud Parrots;Loss;0;5;5
 Milio;Hani;Mighty Tigers;Calm Iguana;Win;0;2;21
 Milio;Muffi;Shy Pandas;Exotic Monitors;Win;0;2;11
-Syndra;Mordecaay;Giant Whales;Sneaky Aligators;Loss;0;7;1
-Rakan;Jenikk;Venomous Snakes;Exotic Monitors;Loss;0;8;8
-Rell;Deagles;Fury Bears;Calm Iguana;Win;0;3;17
-Blitzcrank;Deda;Exotic Monitors;Chill Capybara;Loss;0;6;4
-Nautilus;Deda;Exotic Monitors;Calm Iguana;Win;0;7;21
-Sivir;Cler;Loud Parrots;Sneaky Aligators;Loss;0;3;5
-Maokai;Holub;Loud Parrots;Hunting Sharks;Win;0;3;13
-Lulu;Makima;Loud Parrots;Fancy Flamingo;Loss;0;2;5
-Yorick;Blaze;Hungry Wolves;Fury Bears;Loss;0;1;1
-Nocturne;Hajnej;Shy Pandas;Proud Lions;Loss;0;6;9
-Orianna;Wensd;Loud Parrots;Sneaky Aligators;Loss;0;4;3
-Nami;Hani;Mighty Tigers;Fury Bears;Win;0;0;15
-Mordekaiser;Xpepe;Chill Capybara;Loud Parrots;Loss;0;7;3
 Milio;Muffi;Shy Pandas;Fury Bears;Win;0;1;16
-Zac;Moreal;Swift Cheetahs;Chill Capybara;Loss;0;5;11
 Milio;Muffi;Shy Pandas;Hungry Wolves;Loss;0;5;11
-Amumu;Děda;Exotic Monitors;Proud Lions;Loss;0;9;12
-Karma;Děda;Exotic Monitors;Shy Pandas;Loss;0;2;11
-Sett;Gabe;Shy Pandas;Mighty Tigers;Loss;0;6;2
-Lulu;Makima;Loud Parrots;Hunting Sharks;Win;0;0;16
-Azir;Dablik;Fury Bears;Shy Pandas;Loss;0;3;1
-Sona;Monikas;Chill Capybara;Loud Parrots;Loss;0;7;8
-Braum;Monikas;Chill Capybara;Giant Whales;Loss;0;6;11
-K'sante;Marmelada;Mighty Tigers;Proud Lions;Loss;0;5;4
-Rakan;Mia;Hunting Sharks;Swift Cheetahs;Loss;0;3;7
-Thresh;Erko;Proud Lions;Shy Pandas;Win;0;3;14
-Nautilus;Lama;Sneaky Aligators;Giant Whales;Win;0;1;17
-Ryze;Pisslow;Mighty Tigers;Proud Lions;Loss;0;5;3
-Orianna;Dablik;Fury Bears;Mighty Tigers;Loss;0;4;2
-Nami;Muffi;Shy Pandas;Swift Cheetahs;Win;0;2;19
 Milio;Muffi;Shy Pandas;Swift Cheetahs;Win;0;2;15
 Milio;Monikas;Chill Capybara;Sneaky Aligators;Loss;0;3;14
-Tahm Kench;Kipek;Hungry Wolves;Venomous Snakes;Loss;0;4;3
-Xin Zhao;Skenk;Hunting Sharks;Swift Cheetahs;Loss;0;8;5
 Milio;Monikas;Chill Capybara;Fancy Flamingo;Loss;0;8;18
-Braum;Natyna;Swift Cheetahs;Sneaky Aligators;Loss;0;8;10
-Karma;Tee;Jumpy Kangaroo;Sneaky Aligators;Loss;0;6;10
-Rakan;Natyna;Swift Cheetahs;Shy Pandas;Loss;0;8;9
-Sejuani;Moreal;Swift Cheetahs;Shy Pandas;Loss;0;6;7
-Thresh;Erko;Proud Lions;Hungry Wolves;Win;0;0;19
-Maokai;Makima;Loud Parrots;Jumpy Kangaroo;Loss;0;5;5
-Rakan;Natyna;Swift Cheetahs;Fancy Flamingo;Loss;0;7;7
-Trundle;Ladik;Fancy Flamingo;Sneaky Aligators;Loss;0;6;5
-Rakan;Monikas;Chill Capybara;Jumpy Kangaroo;Loss;0;9;4
-Braum;Natyna;Swift Cheetahs;Loud Parrots;Loss;0;8;3
-JarvanIV;Houba;Fury Bears;Shy Pandas;Loss;0;6;3
-Rell;Jenikk;Venomous Snakes;Hungry Wolves;Win;0;4;13
-Yone;Panda;Jumpy Kangaroo;Swift Cheetahs;Loss;0;4;3
-Caitlyn;Cler;Loud Parrots;Giant Whales;Loss;0;5;2
-Orianna;Xeruth;Chill Capybara;Jumpy Kangaroo;Loss;0;9;2
-Yuumi;Muffi;Shy Pandas;Mighty Tigers;Loss;0;4;8
-Anivia;Restricted;Hunting Sharks;Sneaky Aligators;Loss;0;3;1
-Karma;Tee;Jumpy Kangaroo;Swift Cheetahs;Loss;0;4;1
+Mordekaiser;Xpepe;Chill Capybara;Loud Parrots;Loss;0;7;3
+Nami;Majo;Giant Whales;Jumpy Kangaroo;Loss;0;5;15
+Nami;Monikas;Chill Capybara;Swift Cheetahs;Win;0;4;22
+Nami;Hani;Mighty Tigers;Fury Bears;Win;0;0;15
+Nami;Muffi;Shy Pandas;Swift Cheetahs;Win;0;2;19
 Nami;Makima;Loud Parrots;Giant Whales;Loss;0;5;1
-Ornn;Xpepe;Chill Capybara;Jumpy Kangaroo;Loss;0;5;1
-Sivir;Raiiden;Swift Cheetahs;Loud Parrots;Loss;0;3;1
-Jinx;Unshead;Giant Whales;Sneaky Aligators;Loss;0;5;1
-Viktor;Amith;Swift Cheetahs;Loud Parrots;Loss;0;6;1
-Syndra;Pilot;Shy Pandas;Mighty Tigers;Loss;0;5;4
-Rakan;Hani;Mighty Tigers;Hungry Wolves;Loss;0;4;10
-Zyra;Mia;Hunting Sharks;Sneaky Aligators;Loss;0;9;1
-Renekton;Holub;Loud Parrots;Giant Whales;Loss;0;3;0
-Vayne;Holub;Loud Parrots;Jumpy Kangaroo;Loss;0;5;0
-Sion;Xpepe;Chill Capybara;Exotic Monitors;Loss;0;8;7
-Viktor;Sajox;Exotic Monitors;Chill Capybara;Win;0;3;13
-Cassiopeia;Sajox;Exotic Monitors;Chill Capybara;Loss;0;5;0
-Sejuani;Winník;Exotic Monitors;Chill Capybara;Loss;0;5;4
+Nautilus;Deda;Exotic Monitors;Calm Iguana;Win;0;7;21
+Nautilus;Lama;Sneaky Aligators;Giant Whales;Win;0;1;17
+Nocturne;Hajnej;Shy Pandas;Proud Lions;Loss;0;6;9
 Olaf;Buzz;Calm Iguana;Exotic Monitors;Loss;0;5;3
-Karma;Muffi;Shy Pandas;Loud Parrots;Win;0;0;17
-Rell;Děda;Exotic Monitors;Giant Whales;Win;0;2;13
+Orianna;Wensd;Loud Parrots;Sneaky Aligators;Loss;0;4;3
+Orianna;Dablik;Fury Bears;Mighty Tigers;Loss;0;4;2
+Orianna;Xeruth;Chill Capybara;Jumpy Kangaroo;Loss;0;9;2
+Ornn;Xpepe;Chill Capybara;Jumpy Kangaroo;Loss;0;5;1
 Pantheon;Kessig;Giant Whales;Exotic Monitors;Loss;0;4;3
-Ahri;Mordecaay;Giant Whales;Exotic Monitors;Loss;0;3;4
-Braum;Majo;Giant Whales;Exotic Monitors;Loss;0;5;18
-Maokai;Gabe;Shy Pandas;Fury Bears;Loss;0;5;3
-Janna;Muffi;Shy Pandas;Fury Bears;Loss;0;6;3
+Rakan;Jenikk;Venomous Snakes;Exotic Monitors;Loss;0;8;8
+Rakan;Mia;Hunting Sharks;Swift Cheetahs;Loss;0;3;7
+Rakan;Natyna;Swift Cheetahs;Shy Pandas;Loss;0;8;9
+Rakan;Natyna;Swift Cheetahs;Fancy Flamingo;Loss;0;7;7
+Rakan;Monikas;Chill Capybara;Jumpy Kangaroo;Loss;0;9;4
+Rakan;Hani;Mighty Tigers;Hungry Wolves;Loss;0;4;10
 Rakan;Deagles;Fury Bears;Shy Pandas;Win;0;4;22
-Annie;Pilot;Shy Pandas;Fury Bears;Loss;0;4;5
-Karma;Muffi;Shy Pandas;Fury Bears;Loss;0;4;7
+Rell;Deagles;Fury Bears;Calm Iguana;Win;0;3;17
+Rell;Jenikk;Venomous Snakes;Hungry Wolves;Win;0;4;13
+Rell;Džda;Exotic Monitors;Giant Whales;Win;0;2;13
+Renekton;Holub;Loud Parrots;Giant Whales;Loss;0;3;0
+Ryze;Pisslow;Mighty Tigers;Proud Lions;Loss;0;5;3
+Sejuani;Xpepe;Chill Capybara;Hunting Sharks;Win;0;5;9
+Sejuani;Moreal;Swift Cheetahs;Shy Pandas;Loss;0;6;7
+Sejuani;Winn’k;Exotic Monitors;Chill Capybara;Loss;0;5;4
+Sett;Gabe;Shy Pandas;Mighty Tigers;Loss;0;6;2
+Sion;Xpepe;Chill Capybara;Exotic Monitors;Loss;0;8;7
+Sivir;Cler;Loud Parrots;Sneaky Aligators;Loss;0;3;5
+Sivir;Raiiden;Swift Cheetahs;Loud Parrots;Loss;0;3;1
+Sona;Monikas;Chill Capybara;Loud Parrots;Loss;0;7;8
+Soraka;Makima;Loud Parrots;Sneaky Aligators;Loss;0;1;8
+Syndra;Mordecaay;Giant Whales;Sneaky Aligators;Loss;0;7;1
+Syndra;Pilot;Shy Pandas;Mighty Tigers;Loss;0;5;4
 Tahm Kench;Deagles;Fury Bears;Shy Pandas;Win;0;1;18
+Thresh;Jenikk;Venomous Snakes;Calm Iguana;Win;0;5;25
+Thresh;Erko;Proud Lions;Shy Pandas;Win;0;3;14
+Thresh;Erko;Proud Lions;Hungry Wolves;Win;0;0;19
+Trundle;Ladik;Fancy Flamingo;Sneaky Aligators;Loss;0;6;5
+Vayne;Holub;Loud Parrots;Jumpy Kangaroo;Loss;0;5;0
+Vi;Onifus;Calm Iguana;Proud Lions;Win;0;5;15
+Viktor;Amith;Swift Cheetahs;Loud Parrots;Loss;0;6;1
+Viktor;Sajox;Exotic Monitors;Chill Capybara;Win;0;3;13
+Xin Zhao;Skenk;Hunting Sharks;Swift Cheetahs;Loss;0;8;5
+Yone;Panda;Jumpy Kangaroo;Swift Cheetahs;Loss;0;4;3
+Yuumi;Muffi;Shy Pandas;Mighty Tigers;Loss;0;4;8
+Zac;Moreal;Swift Cheetahs;Chill Capybara;Loss;0;5;11
+Zyra;Mia;Hunting Sharks;Sneaky Aligators;Loss;0;9;1
+Gwen;Altein;Exotic Monitors;Hungry Wolves;Loss;0;8;2
+Braum;Džda;Exotic Monitors;Hungry Wolves;Loss;0;5;10
+Ahri;Sajox;Exotic Monitors;Hungry Wolves;Loss;0;4;3
+Ivern;Toofast;Hungry Wolves;Mighty Tigers;Win;0;2;16
 		`.trim();
 
 
