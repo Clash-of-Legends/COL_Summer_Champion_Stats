@@ -235,7 +235,7 @@ function parseMatchData(rows) {
     const rowMap = {};
     header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
     return {
-      champ: rowMap['Champové'] + '.jpg',
+      champ: rowMap['Champové'],
       player: rowMap['Hráč'],
       team: rowMap['Tým'],
       enemy: rowMap['Enemy'],
@@ -270,14 +270,13 @@ function renderGrid(sortBy) {
       <div class="champ-info">Wins: ${champ['Wins']} | Loses: ${champ['Loses']}</div>
       <div class="champ-info">Banrate: ${champ['Banrate']}</div>
     `;
-    card.addEventListener('click', () => openModal(`${champName}.jpg`));
+    card.addEventListener('click', () => openModal(champName));
 
     grid.appendChild(card);
   }
 }
 
-function openModal(champImageFile) {
-  const champName = champImageFile.replace('.jpg', '');
+function openModal(champName) {
   const modal = document.getElementById('modal');
   const title = document.getElementById('modal-title');
   const tbody = document.getElementById('modal-table').querySelector('tbody');
@@ -285,7 +284,7 @@ function openModal(champImageFile) {
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const filtered = matchRows.filter(m => m.champ === champImageFile);
+  const filtered = matchRows.filter(m => m.champ === champName);
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
