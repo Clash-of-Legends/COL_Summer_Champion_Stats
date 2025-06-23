@@ -303,10 +303,34 @@ function openModal(champName) {
   const title = document.getElementById('modal-title');
   const tbody = document.getElementById('modal-table').querySelector('tbody');
 
+  // Reverzní náhrada názvů pro mapování na 'Stats.xlsx'
+  const reverseFixes = {
+    "Jarvan IV": "JarvanIV",
+    "Kai'Sa": "Kaisa",
+    "Cho'Gath": "Chogath",
+    "Vel'Koz": "Velkoz",
+    "Bel'Veth": "Belveth",
+    "Kha'Zix": "Khazix",
+    "LeBlanc": "Leblanc",
+    "Wukong": "MonkeyKing",
+    "Nunu & Willump": "Nunu",
+    "Nunu and Willump": "Nunu",
+    "Dr. Mundo": "DrMundo",
+    "Master Yi": "MasterYi",
+    "Miss Fortune": "MissFortune",
+    "Twisted Fate": "TwistedFate",
+    "Aurelion Sol": "AurelionSol",
+    "K'Sante": "KSante",
+    "Tahm Kench": "TahmKench"
+  };
+
+  // Použij mapovaný název, pokud existuje
+  const matchChampName = reverseFixes[champName] || champName.replaceAll(" ", "").replaceAll("'", "");
+
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const filtered = matchRows.filter(m => m.champ.trim() === champName.trim());
+  const filtered = matchRows.filter(m => m.champ && m.champ.trim().toLowerCase() === matchChampName.toLowerCase());
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
@@ -329,6 +353,7 @@ function openModal(champName) {
 
   modal.style.display = 'block';
 }
+
 
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
