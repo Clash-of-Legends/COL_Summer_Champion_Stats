@@ -156,7 +156,7 @@
   </div>
 
   <script>
- window.onload = async function () {
+window.onload = async function () {
   const pickBanData = await loadXlsx('League_stats.xlsx', 'Pick-Ban');
   const matchData = await loadXlsx('Stats.xlsx', 'Sheet1');
 
@@ -192,6 +192,12 @@ function toStr(val) {
   return (val === undefined || val === null) ? '' : String(val).trim();
 }
 
+const imageFixes = {
+  'Renata Glasc': 'Renata',
+  'Tahm Kench': 'TahmKench',
+  'Nunu & Willump': 'Nunu'
+};
+
 function parseChampStats(rows) {
   const gamesLine = rows[0];
   const totalGames = toStr(gamesLine[1]) || '?';
@@ -206,28 +212,27 @@ function parseChampStats(rows) {
   for (const row of dataRows) {
     const cols = row.slice(1);
     if (!cols[0]) continue;
-    const champ = Object.fromEntries(headers.map((h, i) => [h, toStr(cols[i])]));
+    const champ = Object.fromEntries(headers.map((h, i) => [h, toStr(cols[i])]))
 
     const champName = champ['Champ'];
     const picks = parseInt(champ['Picks'] || '0');
     const bans = parseInt(champ['Bans'] || '0');
 
-    // filtrujeme undefined jména a i šampiony bez picků a banů
     if (!champName || champName.toLowerCase() === 'undefined' || (picks === 0 && bans === 0)) continue;
 
-    champ['Wins'] = champ['Wins'] === 'undefined' ? '0' : champ['Wins'];
-    champ['Loses'] = champ['Loses'] === 'undefined' ? '0' : champ['Loses'];
-    champ['Winrate'] = formatPercent(champ['Winrate']);
-    champ['Banrate'] = formatPercent(champ['Banrate']);
+    champ['Wins'] = champ['Wins'] === 'undefined' || champ['Wins'] === '' ? '0' : champ['Wins'];
+    champ['Loses'] = champ['Loses'] === 'undefined' || champ['Loses'] === '' ? '0' : champ['Loses'];
+    champ['Winrate'] = formatPercent100(champ['Winrate']);
+    champ['Banrate'] = formatPercent100(champ['Banrate']);
 
     champs.push(champ);
   }
 }
 
-function formatPercent(val) {
-  if (!val || val.includes('undefined')) return '0.00%';
+function formatPercent100(val) {
+  if (!val || val.includes('undefined')) return '0%';
   const num = parseFloat(val.toString().replace('%', '').replace(',', '.')) || 0;
-  return num.toFixed(2) + '%';
+  return Math.round(num * 100) + '%';
 }
 
 function parseMatchData(rows) {
@@ -259,16 +264,15 @@ function renderGrid(sortBy) {
     const champName = champ['Champ'];
     if (!champName || champName.toLowerCase() === 'undefined') continue;
 
-    const imageUrl = `images/${champName}.jpg`;
+    const fixedName = imageFixes[champName] || champName.replace(/[^a-zA-Z0-9]/g, '');
+    const imageUrl = `images/${fixedName}.jpg`;
 
     const card = document.createElement('div');
     card.className = 'champ-card';
     card.innerHTML = `
       <img src="${imageUrl}" alt="${champName}" class="champ-img">
-      <strong>${champName}</strong>
-      <small class="highlight">Winrate: ${champ['Winrate']}</small>
-      <small>Picks: ${champ['Picks']}</small>
-      <small>Bans: ${champ['Bans']}</small>
+      <strong>${champName} <span class="highlight">Winrate: ${champ['Winrate']}</span></strong>
+      <small>Picks: ${champ['Picks']} Bans: ${champ['Bans']}</small>
       <small>Wins: ${champ['Wins']}, Loses: ${champ['Loses']}</small>
       <small>Banrate: ${champ['Banrate']}</small>
     `;
@@ -313,7 +317,6 @@ function openModal(champName) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
-
 
   </script>
 </body>
