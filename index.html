@@ -192,25 +192,25 @@ function toStr(val) {
   return (val === undefined || val === null) ? '' : String(val).trim();
 }
 
-const imageFixes = {
-  'Renata Glasc': 'Renata',
-  'Tahm Kench': 'TahmKench',
-  'Nunu & Willump': 'Nunu',
-  "Jarvan IV": "Jarvan IV",
-  "Kai'Sa": "Kai'Sa",
-  "Cho'Gath": "Cho'Gath",
-  "Vel'Koz": "Vel'Koz",
-  "Bel'Veth": "Bel'Veth",
-  "Kha'Zix": "Kha'Zix",
-  "LeBlanc": "LeBlanc",
-  "Wukong": "Wukong",
+const champNameFixes = {
+  "Jarvan IV": "JarvanIV",
+  "Kai'Sa": "Kaisa",
+  "Cho'Gath": "Chogath",
+  "Vel'Koz": "Velkoz",
+  "Bel'Veth": "Belveth",
+  "Kha'Zix": "Khazix",
+  "LeBlanc": "Leblanc",
+  "Wukong": "MonkeyKing",
   "Nunu and Willump": "Nunu",
-  "Dr. Mundo": "Dr. Mundo",
-  "Master Yi": "Master Yi",
-  "Miss Fortune": "Miss Fortune",
-  "Twisted Fate": "Twisted Fate",
-  "Aurelion Sol": "Aurelion Sol",
-  "K'Sante": "K'Sante"
+  "Nunu & Willump": "Nunu",
+  "Dr. Mundo": "DrMundo",
+  "Master Yi": "MasterYi",
+  "Miss Fortune": "MissFortune",
+  "Twisted Fate": "TwistedFate",
+  "Aurelion Sol": "AurelionSol",
+  "K'Sante": "KSante",
+  "Renata Glasc": "Renata",
+  "Tahm Kench": "TahmKench"
 };
 
 function parseChampStats(rows) {
@@ -268,6 +268,10 @@ function parseMatchData(rows) {
   });
 }
 
+function normalizeName(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]/gi, '');
+}
+
 function renderGrid(sortBy) {
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
@@ -279,7 +283,7 @@ function renderGrid(sortBy) {
     const champName = champ['Champ'];
     if (!champName || champName.toLowerCase() === 'undefined') continue;
 
-    const fixedName = imageFixes[champName] || champName;
+    const fixedName = champNameFixes[champName] || champName.replace(/\s+/g, '');
     const imageUrl = `images/${fixedName}.jpg`;
 
     const card = document.createElement('div');
@@ -292,7 +296,7 @@ function renderGrid(sortBy) {
       <div class="champ-info">Wins: ${champ['Wins']} | Loses: ${champ['Loses']}</div>
       <div class="champ-info">Banrate: ${champ['Banrate']}</div>
     `;
-    card.onclick = () => openModal(champName);
+    card.addEventListener('click', () => openModal(champName));
 
     grid.appendChild(card);
   }
@@ -303,34 +307,13 @@ function openModal(champName) {
   const title = document.getElementById('modal-title');
   const tbody = document.getElementById('modal-table').querySelector('tbody');
 
-  // Reverzní náhrada názvů pro mapování na 'Stats.xlsx'
-  const reverseFixes = {
-    "Jarvan IV": "JarvanIV",
-    "Kai'Sa": "Kaisa",
-    "Cho'Gath": "Chogath",
-    "Vel'Koz": "Velkoz",
-    "Bel'Veth": "Belveth",
-    "Kha'Zix": "Khazix",
-    "LeBlanc": "Leblanc",
-    "Wukong": "MonkeyKing",
-    "Nunu & Willump": "Nunu",
-    "Nunu and Willump": "Nunu",
-    "Dr. Mundo": "DrMundo",
-    "Master Yi": "MasterYi",
-    "Miss Fortune": "MissFortune",
-    "Twisted Fate": "TwistedFate",
-    "Aurelion Sol": "AurelionSol",
-    "K'Sante": "KSante",
-    "Tahm Kench": "TahmKench"
-  };
-
-  // Použij mapovaný název, pokud existuje
-  const matchChampName = reverseFixes[champName] || champName.replaceAll(" ", "").replaceAll("'", "");
-
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const filtered = matchRows.filter(m => m.champ && m.champ.trim().toLowerCase() === matchChampName.toLowerCase());
+  const champFixed = champNameFixes[champName] || champName;
+  const filtered = matchRows.filter(m => 
+    champNameFixes[m.champ] === champFixed || m.champ === champFixed
+  );
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
@@ -354,11 +337,9 @@ function openModal(champName) {
   modal.style.display = 'block';
 }
 
-
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
-
   </script>
 </body>
 </html>
