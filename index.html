@@ -235,7 +235,7 @@ function parseMatchData(rows) {
     const rowMap = {};
     header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
     return {
-      champ: normalizeName(rowMap['Champové']),
+      champ: rowMap['Champové'],
       player: rowMap['Hráč'],
       team: rowMap['Tým'],
       enemy: rowMap['Enemy'],
@@ -245,11 +245,6 @@ function parseMatchData(rows) {
       a: rowMap['Assists']
     };
   });
-}
-
-function normalizeName(name) {
-  if (!name) return '';
-  return name.replace(/\s/g, '').toLowerCase();
 }
 
 function renderGrid(sortBy) {
@@ -263,7 +258,7 @@ function renderGrid(sortBy) {
     const champName = champ['Champ'];
     if (!champName || champName.toLowerCase() === 'undefined') continue;
 
-    const imageUrl = `images/${normalizeName(champName)}.jpg`;
+    const imageUrl = `images/${champName}.jpg`;
 
     const card = document.createElement('div');
     card.className = 'champ-card';
@@ -289,8 +284,7 @@ function openModal(champName) {
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const champNorm = normalizeName(champName);
-  const filtered = matchRows.filter(m => normalizeName(m.champ) === champNorm);
+  const filtered = matchRows.filter(m => m.champ === champName);
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
