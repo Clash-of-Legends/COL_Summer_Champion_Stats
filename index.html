@@ -179,7 +179,7 @@ function loadXlsx(filename, sheetName) {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
       const worksheet = workbook.Sheets[sheetName];
-      const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      const json = XLSX.utils.sheet_to_json(worksheet); // <--- bez `header: 1`
       resolve(json);
     };
     fetch(filename)
@@ -187,6 +187,7 @@ function loadXlsx(filename, sheetName) {
       .then(blob => reader.readAsArrayBuffer(blob));
   });
 }
+
 
 function toStr(val) {
   return (val === undefined || val === null) ? '' : String(val).trim();
@@ -232,28 +233,24 @@ function formatPercent100(val) {
 function parseMatchData(rows) {
   if (!rows || rows.length === 0) return;
 
-  const headerRaw = rows[0].map(toStr);
-  const champKey = headerRaw.find(h => h.toLowerCase().includes('champ'));
+  const champKey = Object.keys(rows[0]).find(k => k.toLowerCase().includes('champ'));
   if (!champKey) {
     console.error("Nenašel jsem sloupec se jmény šampionů!");
     return;
   }
 
-  matchRows = rows.slice(1).map(row => {
-    const rowMap = {};
-    headerRaw.forEach((key, i) => rowMap[key] = toStr(row[i]));
-    return {
-      champ: rowMap[champKey],
-      player: rowMap['Hráč'],
-      team: rowMap['Tým'],
-      enemy: rowMap['Enemy'],
-      result: rowMap['Win/Loss'],
-      k: rowMap['Kills'],
-      d: rowMap['Deaths'],
-      a: rowMap['Assists']
-    };
-  });
+  matchRows = rows.map(row => ({
+    champ: toStr(row[champKey]),
+    player: toStr(row['Hráč']),
+    team: toStr(row['Tým']),
+    enemy: toStr(row['Enemy']),
+    result: toStr(row['Win/Loss']),
+    k: toStr(row['Kills']),
+    d: toStr(row['Deaths']),
+    a: toStr(row['Assists'])
+  }));
 }
+
 
 function renderGrid(sortBy) {
   const grid = document.getElementById('grid');
