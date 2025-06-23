@@ -248,8 +248,9 @@ function parseMatchData(rows) {
 }
 
 function normalizeName(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]/gi, '');
+  return name.replace(/[^a-zA-Z0-9]/g, '');
 }
+
 
 function renderGrid(sortBy) {
   const grid = document.getElementById('grid');
