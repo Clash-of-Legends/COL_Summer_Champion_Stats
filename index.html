@@ -248,7 +248,8 @@ function parseMatchData(rows) {
 }
 
 function normalizeName(name) {
-  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/[^a-z0-9]/gi, '');
+  if (!name) return '';
+  return name.replace(/\s/g, '').toLowerCase();
 }
 
 function renderGrid(sortBy) {
@@ -289,7 +290,7 @@ function openModal(champName) {
   tbody.innerHTML = '';
 
   const champNorm = normalizeName(champName);
-  const filtered = matchRows.filter(m => m.champ === champNorm);
+  const filtered = matchRows.filter(m => normalizeName(m.champ) === champNorm);
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
@@ -316,7 +317,6 @@ function openModal(champName) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
-
   </script>
 </body>
 </html>
