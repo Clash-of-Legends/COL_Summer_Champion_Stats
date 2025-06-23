@@ -248,11 +248,8 @@ function parseMatchData(rows) {
 }
 
 function normalizeName(name) {
-  if (!name) return '';
   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase().replace(/[^a-z0-9]/gi, '');
 }
-
-
 
 function renderGrid(sortBy) {
   const grid = document.getElementById('grid');
