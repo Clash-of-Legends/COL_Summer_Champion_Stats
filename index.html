@@ -230,12 +230,20 @@ function formatPercent100(val) {
 }
 
 function parseMatchData(rows) {
-  const header = rows[0];
+  const headerRaw = rows[0].map(toStr);
+
+  // Najdi skutečný název sloupce pro champy
+  const champKey = headerRaw.find(h => h.toLowerCase().includes('champ'));
+  if (!champKey) {
+    console.error("Nenašel jsem sloupec se jmény šampionů!");
+    return;
+  }
+
   matchRows = rows.slice(1).map(row => {
     const rowMap = {};
-    header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
+    headerRaw.forEach((key, i) => rowMap[key] = toStr(row[i]));
     return {
-      champ: toStr(rowMap['Champové']),
+      champ: rowMap[champKey],
       player: rowMap['Hráč'],
       team: rowMap['Tým'],
       enemy: rowMap['Enemy'],
@@ -246,6 +254,7 @@ function parseMatchData(rows) {
     };
   });
 }
+
 
 function renderGrid(sortBy) {
   const grid = document.getElementById('grid');
