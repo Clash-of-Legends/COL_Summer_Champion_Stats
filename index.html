@@ -235,7 +235,7 @@ function parseMatchData(rows) {
     const rowMap = {};
     header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
     return {
-      champ: toStr(rowMap['Champové']).trim(),
+      champ: toStr(rowMap['Champové']),
       player: rowMap['Hráč'],
       team: rowMap['Tým'],
       enemy: rowMap['Enemy'],
@@ -284,7 +284,10 @@ function openModal(champName) {
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const filtered = matchRows.filter(m => m.champ.trim().toLowerCase() === champName.trim().toLowerCase());
+  console.log('Porovnávám champName:', champName);
+  matchRows.forEach(r => console.log('Záznam champ:', r.champ));
+
+  const filtered = matchRows.filter(m => toStr(m.champ) === toStr(champName));
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
@@ -311,7 +314,6 @@ function openModal(champName) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
-
   </script>
 </body>
 </html>
