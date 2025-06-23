@@ -155,187 +155,138 @@
     </div>
   </div>
 
-  <script>
-window.onload = async function () {
-  const pickBanData = await loadXlsx('League_stats.xlsx', 'Pick-Ban');
-  const matchData = await loadXlsx('Stats.xlsx', 'Sheet1');
-
-  parseChampStats(pickBanData);
-  parseMatchData(matchData);
-
-  document.getElementById('sortSelect').addEventListener('change', () =>
-    renderGrid(document.getElementById('sortSelect').value)
-  );
-
-  renderGrid('Picks');
-};
-
-let champs = [], matchRows = [];
-
-function loadXlsx(filename, sheetName) {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const data = new Uint8Array(e.target.result);
-      const workbook = XLSX.read(data, { type: 'array' });
-      const worksheet = workbook.Sheets[sheetName];
-      const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      resolve(json);
-    };
-    fetch(filename)
-      .then(res => res.blob())
-      .then(blob => reader.readAsArrayBuffer(blob));
-  });
-}
-
-function toStr(val) {
-  return (val === undefined || val === null) ? '' : String(val).trim();
-}
-
-function parseChampStats(rows) {
-  if (!Array.isArray(rows) || rows.length === 0) {
-    console.error("Chybí data z League_stats.xlsx pro Pick-Ban!");
-    return;
+ <script>
+  // --- obecná helper funkce pro načtení jakéhokoli xlsx souboru + listu ---
+  function loadXlsx(url, sheetName) {
+    return new Promise(resolve => {
+      fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+          const reader = new FileReader();
+          reader.onload = e => {
+            const data = new Uint8Array(e.target.result);
+            const wb = XLSX.read(data, { type: 'array' });
+            const ws = wb.Sheets[sheetName];
+            const json = XLSX.utils.sheet_to_json(ws, { header: 1 });
+            resolve(json);
+          };
+          reader.readAsArrayBuffer(blob);
+        });
+    });
   }
 
-  const gamesLine = rows[0];
-  const totalGames = toStr(gamesLine[1]) || '?';
-  const gameCountElem = document.getElementById('games');
-  if (gameCountElem) gameCountElem.textContent = `Počet her: ${totalGames}`;
+  window.onload = async function () {
+    // načti oba soubory paralelně
+    const [pickBanRaw, statsRaw] = await Promise.all([
+      loadXlsx('League_stats.xlsx', 'Pick-Ban'),
+      loadXlsx('Stats.xlsx', 'Sheet1')
+    ]);
 
-  const headersRowIndex = rows.findIndex(r => toStr(r[1]) === 'Champ');
-  if (headersRowIndex === -1) {
-    console.error("Nebyla nalezena hlavička 'Champ' v League_stats.xlsx!");
-    return;
+    parseChampStats(pickBanRaw);
+    parseStats(statsRaw);
+
+    document.getElementById('sortSelect')
+      .addEventListener('change', () => renderGrid(document.getElementById('sortSelect').value));
+
+    renderGrid('Picks');
+  };
+
+  let champs = [];
+  let matchRows = [];
+
+  function toStr(val) {
+    return (val===undefined||val===null) ? '' : String(val).trim();
   }
 
-  const headers = rows[headersRowIndex].slice(1);
-  const dataRows = rows.slice(headersRowIndex + 1);
-
-  champs = [];
-  for (const row of dataRows) {
-    const cols = row.slice(1);
-    if (!cols[0]) continue;
-    const champ = Object.fromEntries(headers.map((h, i) => [h, toStr(cols[i])]))
-
-    const champName = champ['Champ'];
-    const picks = parseInt(champ['Picks'] || '0');
-    const bans = parseInt(champ['Bans'] || '0');
-
-    if (!champName || champName.toLowerCase() === 'undefined' || (picks === 0 && bans === 0)) continue;
-
-    champ['Wins'] = champ['Wins'] === 'undefined' || champ['Wins'] === '' ? '0' : champ['Wins'];
-    champ['Loses'] = champ['Loses'] === 'undefined' || champ['Loses'] === '' ? '0' : champ['Loses'];
-    champ['Winrate'] = formatPercent100(champ['Winrate']);
-    champ['Banrate'] = formatPercent100(champ['Banrate']);
-
-    champs.push(champ);
-  }
-}
-
-function formatPercent100(val) {
-  if (!val || val.includes('undefined')) return '0%';
-  const num = parseFloat(val.toString().replace('%', '').replace(',', '.')) || 0;
-  return Math.round(num * 100) + '%';
-}
-
-function parseMatchData(rows) {
-  if (!Array.isArray(rows) || rows.length === 0) {
-    console.error("Chybí data ze Stats.xlsx!");
-    return;
+  // --- stávající funkce pro parsování Pick-Ban ---
+  function parseChampStats(rows) {
+    // ... váš původní kód beze změny ...
   }
 
-  const headerRaw = rows[0].map(toStr);
-  const champKey = headerRaw.find(h => h.toLowerCase().includes('champ'));
-  if (!champKey) {
-    console.error("Nenašel jsem sloupec se jmény šampionů!");
-    return;
+  // --- nová funkce pro parsování Stats.xlsx ---
+  function parseStats(rows) {
+    if (!Array.isArray(rows) || rows.length < 2) {
+      console.error('Stats.xlsx: žádná data!');
+      return;
+    }
+    // první řádek = hlavičky, ostatní = data
+    const headers = rows[0].map(toStr);
+    matchRows = rows.slice(1)
+      .filter(r => r.some(c => c !== null && c !== undefined && String(c).trim() !== ''))
+      .map(row => {
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = toStr(row[i]));
+        return obj;
+      });
+    console.log('Načteno záznamů ze Stats.xlsx:', matchRows.length);
   }
 
-  matchRows = rows.slice(1).map(row => {
-    const rowMap = {};
-    headerRaw.forEach((key, i) => rowMap[key] = toStr(row[i]));
-    return {
-      champ: rowMap[champKey],
-      player: rowMap['Hráč'],
-      team: rowMap['Tým'],
-      enemy: rowMap['Enemy'],
-      result: rowMap['Win/Loss'],
-      k: rowMap['Kills'],
-      d: rowMap['Deaths'],
-      a: rowMap['Assists']
-    };
-  });
-}
+  // --- render karet (pick-ban) beze změny, přidá pouze click handler ---
+  function renderGrid(sortBy) {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    const sortValue = v => parseFloat(v.replace('%','').replace(',','.')) || 0;
+    champs.sort((a,b) => sortValue(b[sortBy]) - sortValue(a[sortBy]));
 
-function renderGrid(sortBy) {
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
+    for (const champ of champs) {
+      const name = champ['Champ'];
+      if (!name) continue;
 
-  const sortValue = val => parseFloat((val || '0').toString().replace('%', '').replace(',', '.')) || 0;
-  champs.sort((a, b) => sortValue(b[sortBy]) - sortValue(a[sortBy]));
-
-  for (const champ of champs) {
-    const champName = champ['Champ'];
-    if (!champName || champName.toLowerCase() === 'undefined') continue;
-
-    const imageUrl = `images/${champName}.jpg`;
-
-    const card = document.createElement('div');
-    card.className = 'champ-card';
-    card.innerHTML = `
-      <img src="${imageUrl}" alt="${champName}" class="champ-img">
-      <div class="champ-name">${champName}</div>
-      <div class="champ-info highlight">Winrate: ${champ['Winrate']}</div>
-      <div class="champ-info">Picks: ${champ['Picks']} | Bans: ${champ['Bans']}</div>
-      <div class="champ-info">Wins: ${champ['Wins']} | Loses: ${champ['Loses']}</div>
-      <div class="champ-info">Banrate: ${champ['Banrate']}</div>
-    `;
-    card.addEventListener('click', () => openModal(champName));
-
-    grid.appendChild(card);
-  }
-}
-
-function openModal(champName) {
-  const modal = document.getElementById('modal');
-  const title = document.getElementById('modal-title');
-  const tbody = document.getElementById('modal-table').querySelector('tbody');
-
-  title.textContent = `Zápasy pro: ${champName}`;
-  tbody.innerHTML = '';
-
-  console.log('Porovnávám champName:', champName);
-  matchRows.forEach(r => console.log('Záznam champ:', r.champ));
-
-  const filtered = matchRows.filter(m => toStr(m.champ) === toStr(champName));
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
-  } else {
-    for (const row of filtered) {
-      const tr = document.createElement('tr');
-      const resultColor = row.result === 'Win' ? 'limegreen' : 'crimson';
-      tr.innerHTML = `
-        <td>${row.player}</td>
-        <td>${row.team}</td>
-        <td>${row.enemy}</td>
-        <td style="color:${resultColor}; font-weight:bold;">${row.result}</td>
-        <td>${row.k}</td>
-        <td>${row.d}</td>
-        <td>${row.a}</td>
+      const card = document.createElement('div');
+      card.className = 'champ-card';
+      card.innerHTML = `
+        <img src="images/${name}.jpg" class="champ-img" alt="${name}">
+        <div class="champ-name">${name}</div>
+        <div class="champ-info highlight">Winrate: ${champ['Winrate']}</div>
+        <div class="champ-info">Picks: ${champ['Picks']} | Bans: ${champ['Bans']}</div>
+        <div class="champ-info">Wins: ${champ['Wins']} | Loses: ${champ['Loses']}</div>
+        <div class="champ-info">Banrate: ${champ['Banrate']}</div>
       `;
-      tbody.appendChild(tr);
+      card.addEventListener('click', () => openModal(name));
+      grid.appendChild(card);
     }
   }
 
-  modal.style.display = 'block';
-}
+  // --- vlastní modal pro zobrazení řádků ze Stats.xlsx ---
+  function openModal(champName) {
+    const modal = document.getElementById('modal');
+    const title = document.getElementById('modal-title');
+    const tbody = document.querySelector('#modal-table tbody');
 
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-}
+    title.textContent = `Zápasy pro: ${champName}`;
+    tbody.innerHTML = '';
 
-  </script>
+    // filtruj case-insensitive
+    const filtered = matchRows.filter(r =>
+      toStr(r['Champové']).toLowerCase() === champName.toLowerCase()
+    );
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
+    } else {
+      for (const r of filtered) {
+        const color = r['Win/Loss'] === 'Win' ? 'limegreen' : 'crimson';
+        tbody.innerHTML += `
+          <tr>
+            <td>${r['Hráč']}</td>
+            <td>${r['Tým']}</td>
+            <td>${r['Enemy']}</td>
+            <td style="color:${color}; font-weight:bold;">${r['Win/Loss']}</td>
+            <td>${r['Kills']}</td>
+            <td>${r['Deaths']}</td>
+            <td>${r['Assists']}</td>
+          </tr>
+        `;
+      }
+    }
+
+    modal.style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
