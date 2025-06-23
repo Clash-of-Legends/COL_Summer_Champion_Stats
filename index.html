@@ -179,7 +179,7 @@ function loadXlsx(filename, sheetName) {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
       const worksheet = workbook.Sheets[sheetName];
-      const json = XLSX.utils.sheet_to_json(worksheet); // <--- bez `header: 1`
+      const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       resolve(json);
     };
     fetch(filename)
@@ -188,18 +188,27 @@ function loadXlsx(filename, sheetName) {
   });
 }
 
-
 function toStr(val) {
   return (val === undefined || val === null) ? '' : String(val).trim();
 }
 
 function parseChampStats(rows) {
+  if (!Array.isArray(rows) || rows.length === 0) {
+    console.error("Chybí data z League_stats.xlsx pro Pick-Ban!");
+    return;
+  }
+
   const gamesLine = rows[0];
   const totalGames = toStr(gamesLine[1]) || '?';
   const gameCountElem = document.getElementById('games');
   if (gameCountElem) gameCountElem.textContent = `Počet her: ${totalGames}`;
 
   const headersRowIndex = rows.findIndex(r => toStr(r[1]) === 'Champ');
+  if (headersRowIndex === -1) {
+    console.error("Nebyla nalezena hlavička 'Champ' v League_stats.xlsx!");
+    return;
+  }
+
   const headers = rows[headersRowIndex].slice(1);
   const dataRows = rows.slice(headersRowIndex + 1);
 
@@ -231,26 +240,33 @@ function formatPercent100(val) {
 }
 
 function parseMatchData(rows) {
-  if (!rows || rows.length === 0) return;
+  if (!Array.isArray(rows) || rows.length === 0) {
+    console.error("Chybí data ze Stats.xlsx!");
+    return;
+  }
 
-  const champKey = Object.keys(rows[0]).find(k => k.toLowerCase().includes('champ'));
+  const headerRaw = rows[0].map(toStr);
+  const champKey = headerRaw.find(h => h.toLowerCase().includes('champ'));
   if (!champKey) {
     console.error("Nenašel jsem sloupec se jmény šampionů!");
     return;
   }
 
-  matchRows = rows.map(row => ({
-    champ: toStr(row[champKey]),
-    player: toStr(row['Hráč']),
-    team: toStr(row['Tým']),
-    enemy: toStr(row['Enemy']),
-    result: toStr(row['Win/Loss']),
-    k: toStr(row['Kills']),
-    d: toStr(row['Deaths']),
-    a: toStr(row['Assists'])
-  }));
+  matchRows = rows.slice(1).map(row => {
+    const rowMap = {};
+    headerRaw.forEach((key, i) => rowMap[key] = toStr(row[i]));
+    return {
+      champ: rowMap[champKey],
+      player: rowMap['Hráč'],
+      team: rowMap['Tým'],
+      enemy: rowMap['Enemy'],
+      result: rowMap['Win/Loss'],
+      k: rowMap['Kills'],
+      d: rowMap['Deaths'],
+      a: rowMap['Assists']
+    };
+  });
 }
-
 
 function renderGrid(sortBy) {
   const grid = document.getElementById('grid');
@@ -319,6 +335,7 @@ function openModal(champName) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
+
   </script>
 </body>
 </html>
