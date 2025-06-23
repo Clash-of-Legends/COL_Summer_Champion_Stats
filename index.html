@@ -192,27 +192,6 @@ function toStr(val) {
   return (val === undefined || val === null) ? '' : String(val).trim();
 }
 
-const champNameFixes = {
-  "Jarvan IV": "JarvanIV",
-  "Kai'Sa": "Kaisa",
-  "Cho'Gath": "Chogath",
-  "Vel'Koz": "Velkoz",
-  "Bel'Veth": "Belveth",
-  "Kha'Zix": "Khazix",
-  "LeBlanc": "Leblanc",
-  "Wukong": "MonkeyKing",
-  "Nunu and Willump": "Nunu",
-  "Nunu & Willump": "Nunu",
-  "Dr. Mundo": "DrMundo",
-  "Master Yi": "MasterYi",
-  "Miss Fortune": "MissFortune",
-  "Twisted Fate": "TwistedFate",
-  "Aurelion Sol": "AurelionSol",
-  "K'Sante": "KSante",
-  "Renata Glasc": "Renata",
-  "Tahm Kench": "TahmKench"
-};
-
 function parseChampStats(rows) {
   const gamesLine = rows[0];
   const totalGames = toStr(gamesLine[1]) || '?';
@@ -256,7 +235,7 @@ function parseMatchData(rows) {
     const rowMap = {};
     header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
     return {
-      champ: rowMap['Champové'],
+      champ: normalizeName(rowMap['Champové']),
       player: rowMap['Hráč'],
       team: rowMap['Tým'],
       enemy: rowMap['Enemy'],
@@ -283,8 +262,7 @@ function renderGrid(sortBy) {
     const champName = champ['Champ'];
     if (!champName || champName.toLowerCase() === 'undefined') continue;
 
-    const fixedName = champNameFixes[champName] || champName.replace(/\s+/g, '');
-    const imageUrl = `images/${fixedName}.jpg`;
+    const imageUrl = `images/${normalizeName(champName)}.jpg`;
 
     const card = document.createElement('div');
     card.className = 'champ-card';
@@ -310,10 +288,8 @@ function openModal(champName) {
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const champFixed = champNameFixes[champName] || champName;
-  const filtered = matchRows.filter(m => 
-    champNameFixes[m.champ] === champFixed || m.champ === champFixed
-  );
+  const champNorm = normalizeName(champName);
+  const filtered = matchRows.filter(m => m.champ === champNorm);
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
@@ -340,6 +316,7 @@ function openModal(champName) {
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
+
   </script>
 </body>
 </html>
