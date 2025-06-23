@@ -196,16 +196,21 @@ const imageFixes = {
   'Renata Glasc': 'Renata',
   'Tahm Kench': 'TahmKench',
   'Nunu & Willump': 'Nunu',
+  "Nunu and Willump": "Nunu",
   "Jarvan IV": "JarvanIV",
-  "Kai'Sa": "Kaisa",
+  "Kai'Sa": "KaiSa",
   "Cho'Gath": "Chogath",
   "Vel'Koz": "Velkoz",
   "Bel'Veth": "Belveth",
   "Kha'Zix": "Khazix",
   "LeBlanc": "Leblanc",
   "Wukong": "MonkeyKing",
-  "Nunu and Willump": "Nunu",
-  "Dr. Mundo": "DrMundo"
+  "Dr. Mundo": "DrMundo",
+  "Miss Fortune": "MissFortune",
+  "Master Yi": "MasterYi",
+  "K'Sante": "KSante",
+  "Twisted Fate": "TwistedFate",
+  "Aurelion Sol": "AurelionSol"
 };
 
 function parseChampStats(rows) {
@@ -242,7 +247,7 @@ function parseChampStats(rows) {
 function formatPercent100(val) {
   if (!val || val.includes('undefined')) return '0%';
   const num = parseFloat(val.toString().replace('%', '').replace(',', '.')) || 0;
-  return Math.round(num) + '%';
+  return Math.round(num * 100) + '%';
 }
 
 function parseMatchData(rows) {
@@ -281,7 +286,8 @@ function renderGrid(sortBy) {
     card.className = 'champ-card';
     card.innerHTML = `
       <img src="${imageUrl}" alt="${champName}" class="champ-img">
-      <div class="champ-name">${champName} <span class="highlight">Winrate: ${champ['Winrate']}</span></div>
+      <div class="champ-name">${champName}</div>
+      <div class="champ-info highlight">Winrate: ${champ['Winrate']}</div>
       <div class="champ-info">Picks: ${champ['Picks']} | Bans: ${champ['Bans']}</div>
       <div class="champ-info">Wins: ${champ['Wins']} | Loses: ${champ['Loses']}</div>
       <div class="champ-info">Banrate: ${champ['Banrate']}</div>
