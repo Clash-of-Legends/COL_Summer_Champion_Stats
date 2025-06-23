@@ -196,21 +196,21 @@ const imageFixes = {
   'Renata Glasc': 'Renata',
   'Tahm Kench': 'TahmKench',
   'Nunu & Willump': 'Nunu',
+  "Jarvan IV": "Jarvan IV",
+  "Kai'Sa": "Kai'Sa",
+  "Cho'Gath": "Cho'Gath",
+  "Vel'Koz": "Vel'Koz",
+  "Bel'Veth": "Bel'Veth",
+  "Kha'Zix": "Kha'Zix",
+  "LeBlanc": "LeBlanc",
+  "Wukong": "Wukong",
   "Nunu and Willump": "Nunu",
-  "Jarvan IV": "JarvanIV",
-  "Kai'Sa": "KaiSa",
-  "Cho'Gath": "Chogath",
-  "Vel'Koz": "Velkoz",
-  "Bel'Veth": "Belveth",
-  "Kha'Zix": "Khazix",
-  "LeBlanc": "Leblanc",
-  "Wukong": "MonkeyKing",
-  "Dr. Mundo": "DrMundo",
-  "Miss Fortune": "MissFortune",
-  "Master Yi": "MasterYi",
-  "K'Sante": "KSante",
-  "Twisted Fate": "TwistedFate",
-  "Aurelion Sol": "AurelionSol"
+  "Dr. Mundo": "Dr. Mundo",
+  "Master Yi": "Master Yi",
+  "Miss Fortune": "Miss Fortune",
+  "Twisted Fate": "Twisted Fate",
+  "Aurelion Sol": "Aurelion Sol",
+  "K'Sante": "K'Sante"
 };
 
 function parseChampStats(rows) {
@@ -279,7 +279,7 @@ function renderGrid(sortBy) {
     const champName = champ['Champ'];
     if (!champName || champName.toLowerCase() === 'undefined') continue;
 
-    const fixedName = imageFixes[champName] || champName.replace(/[^a-zA-Z0-9]/g, '');
+    const fixedName = imageFixes[champName] || champName;
     const imageUrl = `images/${fixedName}.jpg`;
 
     const card = document.createElement('div');
