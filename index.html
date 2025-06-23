@@ -235,7 +235,7 @@ function parseMatchData(rows) {
     const rowMap = {};
     header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
     return {
-      champ: rowMap['Champové'],
+      champ: toStr(rowMap['Champové']).trim(),
       player: rowMap['Hráč'],
       team: rowMap['Tým'],
       enemy: rowMap['Enemy'],
