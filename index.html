@@ -156,132 +156,156 @@
   </div>
 
   <script>
-    let champs = [];
-    let matchRows = [];
+  window.onload = async function () {
+  const pickBanData = await loadXlsx('League_stats.xlsx', 'Pick-Ban');
+  const matchData = await loadXlsx('Stats.xlsx', 'Sheet1');
 
-    const toStr = val => (val != null ? String(val).trim() : '');
+  parseChampStats(pickBanData);
+  parseMatchData(matchData);
 
-    document.getElementById('sortSelect').addEventListener('change', () => {
-      renderGrid(document.getElementById('sortSelect').value);
-    });
+  document.getElementById('sortSelect').addEventListener('change', () =>
+    renderGrid(document.getElementById('sortSelect').value)
+  );
 
-    function renderGrid(sortBy) {
-      const grid = document.getElementById("grid");
-      grid.innerHTML = "";
+  renderGrid('Picks');
+};
 
-      champs.sort((a, b) => {
-        const parse = x => parseFloat((x || '').toString().replace('%', '').replace(',', '.')) || 0;
-        return parse(b[sortBy]) - parse(a[sortBy]);
-      });
+let champs = [], matchRows = [];
 
-      for (const row of champs) {
-        const champName = row['Champ'];
-        const imgPath = `images/${champName}.jpg`;
+function loadXlsx(filename, sheetName) {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const worksheet = workbook.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      resolve(json);
+    };
+    fetch(filename)
+      .then(res => res.blob())
+      .then(blob => reader.readAsArrayBuffer(blob));
+  });
+}
 
-        const card = document.createElement("div");
-        card.className = "champ-card";
-        card.innerHTML = `
-          <img src="${imgPath}" alt="${champName}" class="champ-img">
-          <div class="champ-name">${champName}</div>
-          <div class="champ-info highlight">Winrate: ${(parseFloat(row['Winrate']) || 0).toFixed(2)}%</div>
-          <div class="champ-info">Picks: ${row['Picks']}</div>
-          <div class="champ-info">Bans: ${row['Bans']}</div>
-          <div class="champ-info">Wins: ${row['Wins']}, Loses: ${row['Loses']}</div>
-          <div class="champ-info">Banrate: ${(parseFloat(row['Banrate']) || 0).toFixed(2)}%</div>
-        `;
-        card.onclick = () => openModal(champName);
-        grid.appendChild(card);
-      }
+function toStr(val) {
+  return (val === undefined || val === null) ? '' : String(val).trim();
+}
+
+function parseChampStats(rows) {
+  const gamesLine = rows[0];
+  const totalGames = toStr(gamesLine[1]) || '?';
+  document.getElementById('games').textContent = `Počet her: ${totalGames}`;
+
+  const headersRowIndex = rows.findIndex(r => toStr(r[1]) === 'Champ');
+  const headers = rows[headersRowIndex].slice(1);
+  const dataRows = rows.slice(headersRowIndex + 1);
+
+  champs = [];
+  for (const row of dataRows) {
+    const cols = row.slice(1);
+    if (!cols[0]) continue;
+    const champ = Object.fromEntries(headers.map((h, i) => [h, toStr(cols[i])]));
+
+    if (!champ['Champ'] || champ['Champ'].toLowerCase() === 'undefined') continue;
+
+    champ['Wins'] = champ['Wins'] === 'undefined' ? '0' : champ['Wins'];
+    champ['Loses'] = champ['Loses'] === 'undefined' ? '0' : champ['Loses'];
+    champ['Winrate'] = formatPercent(champ['Winrate']);
+    champ['Banrate'] = formatPercent(champ['Banrate']);
+
+    champs.push(champ);
+  }
+}
+
+function formatPercent(val) {
+  if (!val || val.includes('undefined')) return '0.00%';
+  const num = parseFloat(val.replace('%', '')) || 0;
+  return num.toFixed(2) + '%';
+}
+
+function parseMatchData(rows) {
+  const header = rows[0];
+  matchRows = rows.slice(1).map(row => {
+    const rowMap = {};
+    header.forEach((key, i) => rowMap[toStr(key)] = toStr(row[i]));
+    return {
+      champ: rowMap['Champové'],
+      player: rowMap['Hráč'],
+      team: rowMap['Tým'],
+      enemy: rowMap['Enemy'],
+      result: rowMap['Win/Loss'],
+      k: rowMap['Kills'],
+      d: rowMap['Deaths'],
+      a: rowMap['Assists']
+    };
+  });
+}
+
+function renderGrid(sortBy) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+
+  const sortValue = val => parseFloat((val || '0').replace('%', '')) || 0;
+  champs.sort((a, b) => sortValue(b[sortBy]) - sortValue(a[sortBy]));
+
+  for (const champ of champs) {
+    const champName = champ['Champ'];
+    const imageUrl = `images/${champName}.png`;
+
+    const card = document.createElement('div');
+    card.className = 'champ-card';
+    card.innerHTML = `
+      <img src="${imageUrl}" alt="${champName}" class="champ-img">
+      <strong>${champName}</strong>
+      <small class="highlight">Winrate: ${champ['Winrate']}</small>
+      <small>Picks: ${champ['Picks']}</small>
+      <small>Bans: ${champ['Bans']}</small>
+      <small>Wins: ${champ['Wins']}, Loses: ${champ['Loses']}</small>
+      <small>Banrate: ${champ['Banrate']}</small>
+    `;
+    card.onclick = () => openModal(champName);
+
+    grid.appendChild(card);
+  }
+}
+
+function openModal(champName) {
+  const modal = document.getElementById('modal');
+  const title = document.getElementById('modal-title');
+  const tbody = document.getElementById('modal-table').querySelector('tbody');
+
+  title.textContent = `Zápasy pro: ${champName}`;
+  tbody.innerHTML = '';
+
+  const filtered = matchRows.filter(m => m.champ.trim() === champName.trim());
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
+  } else {
+    for (const row of filtered) {
+      const tr = document.createElement('tr');
+      const resultColor = row.result === 'Win' ? 'limegreen' : 'crimson';
+      tr.innerHTML = `
+        <td>${row.player}</td>
+        <td>${row.team}</td>
+        <td>${row.enemy}</td>
+        <td style="color:${resultColor}; font-weight:bold;">${row.result}</td>
+        <td>${row.k}</td>
+        <td>${row.d}</td>
+        <td>${row.a}</td>
+      `;
+      tbody.appendChild(tr);
     }
+  }
 
-    async function loadChampionStats() {
-      const res = await fetch('League_stats.xlsx');
-      const ab = await res.arrayBuffer();
-      const wb = XLSX.read(ab, { type: 'array' });
-      const sheet = wb.Sheets['Pick-Ban'];
-      const raw = XLSX.utils.sheet_to_json(sheet, { range: 1, header: 1 });
-      const headers = raw[0];
-      const data = raw.slice(1).map(row => {
-        const obj = {};
-        headers.forEach((h, i) => {
-          obj[h] = row[i];
-        });
-        return obj;
-      });
-      champs = data;
-      renderGrid('Picks');
-    }
+  modal.style.display = 'block';
+}
 
-    async function loadMatchStats() {
-      const res = await fetch('Stats.xlsx');
-      const ab = await res.arrayBuffer();
-      const wb = XLSX.read(ab, { type: 'array' });
-      const sheet = wb.Sheets[wb.SheetNames[0]];
-      const raw = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-      const headers = raw[0];
-      const data = raw.slice(1);
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
 
-      const champIdx = headers.findIndex(h => h?.toLowerCase().includes('champ'));
-      const playerIdx = headers.findIndex(h => h?.toLowerCase().includes('hrá'));
-      const teamIdx = headers.findIndex(h => h?.toLowerCase().includes('tým'));
-      const enemyIdx = headers.findIndex(h => h?.toLowerCase().includes('enemy'));
-      const resultIdx = headers.findIndex(h => h?.toLowerCase().includes('win'));
-      const killsIdx = headers.findIndex(h => h?.toLowerCase().includes('kill'));
-      const deathsIdx = headers.findIndex(h => h?.toLowerCase().includes('death'));
-      const assistsIdx = headers.findIndex(h => h?.toLowerCase().includes('assist'));
-
-      matchRows = data.map(row => ({
-        champ: toStr(row[champIdx]),
-        player: toStr(row[playerIdx]),
-        team: toStr(row[teamIdx]),
-        enemy: toStr(row[enemyIdx]),
-        result: toStr(row[resultIdx]),
-        k: row[killsIdx] ?? '',
-        d: row[deathsIdx] ?? '',
-        a: row[assistsIdx] ?? ''
-      }));
-    }
-
-    function openModal(champName) {
-      const modal = document.getElementById('modal');
-      const title = document.getElementById('modal-title');
-      const tbody = document.getElementById('modal-table').querySelector('tbody');
-
-      title.textContent = `Zápasy pro: ${champName}`;
-      tbody.innerHTML = '';
-
-      const filtered = matchRows.filter(m => m.champ === champName);
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
-      } else {
-        for (const row of filtered) {
-          const tr = document.createElement('tr');
-          const resultColor = row.result === 'Win' ? 'limegreen' : 'crimson';
-          tr.innerHTML = `
-            <td>${row.player}</td>
-            <td>${row.team}</td>
-            <td>${row.enemy}</td>
-            <td style="color:${resultColor}; font-weight:bold;">${row.result}</td>
-            <td>${row.k}</td>
-            <td>${row.d}</td>
-            <td>${row.a}</td>
-          `;
-          tbody.appendChild(tr);
-        }
-      }
-
-      modal.style.display = 'block';
-    }
-
-    function closeModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
-
-    (async () => {
-      await loadMatchStats();
-      await loadChampionStats();
-    })();
   </script>
 </body>
 </html>
