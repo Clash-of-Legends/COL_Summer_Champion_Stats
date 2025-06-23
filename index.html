@@ -284,7 +284,7 @@ function openModal(champName) {
   title.textContent = `Zápasy pro: ${champName}`;
   tbody.innerHTML = '';
 
-  const filtered = matchRows.filter(m => m.champ === champName);
+  const filtered = matchRows.filter(m => m.champ.trim().toLowerCase() === champName.trim().toLowerCase());
 
   if (filtered.length === 0) {
     tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Žádná data</td></tr>`;
